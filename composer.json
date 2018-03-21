@@ -1,0 +1,62 @@
+{
+	"name": "Agora/api",
+	"description": "Geo Service Application API",
+	"version": "0.0.1",
+	"license": "BSD-3-Clause",
+	"keywords": [
+		"Agora",
+		"slim-framework",
+		"doctrine",
+		"doctrine-migrations",
+		"migrations"
+	],
+	"authors": [{
+		"name": "Ben van Heerden",
+		"email": "benshez1@gmail.com",
+		"homepage": "https://github.com/benshez/geo-services"
+	}],
+	"autoload": {
+		"psr-4": {
+			"Agora\\": "app/src",
+			"Agora\\ComposerScript\\": "script/composer"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"": "mapping/yaml",
+			"": "mapping/entities",
+			"fixtures\\": "mapping/fixtures"
+		}
+	},
+	"require": {
+		"doctrine/orm": "~2.5",
+		"slim/slim": "^3.5",
+		"slimphp-api/slim-oauth": "^2.0.0",
+		"slimphp-api/slim-acl": "^1.0.0",
+		"slim/http-cache": "^0.3.0",
+		"monolog/monolog": "^1.17",
+		"lcobucci/jwt": "^3.1",
+		"jeremykendall/password-validator": "^3.0.4",
+		"doctrine/doctrine-module": "^2.0",
+		"zendframework/zend-crypt": "^3.2.0",
+		"zendframework/zend-permissions-acl": "^2.6.0",
+		"tuupola/cors-middleware": "^0.5.2",
+		"symfony/config": "^3.3.5",
+		"symfony/options-resolver": "^3.3.9",
+		"phpmailer/phpmailer": "^5.2.24"
+	},
+	"require-dev": {
+		"doctrine/migrations": "^1.4",
+		"phpunit/phpunit": "^5.4",
+		"doctrine/data-fixtures": "^1.2",
+		"squizlabs/php_codesniffer": "^3.1.1",
+		"doctrine/coding-standard": "^1.0.0",
+		"friendsofphp/php-cs-fixer": "^2.8.1"
+	},
+	"scripts": {
+		"generate-service": "Agora\\ComposerScript\\Generator::generateService",
+		"generate-entities": "doctrine-generator.sh",
+		"start": "php -S 0.0.0.0:8000 -t public public/index.php",
+		"test": "phpunit"
+	}
+}

@@ -1,0 +1,20 @@
+# Logs
+*.log
+log/
+
+# ignore configs
+config/environments/development/
+config/environments/test/
+config/environments/production/
+
+# ignore documentation
+docs_generated
+
+#Api Vendors
+vendor/
+
+#Api Cache
+cache/
+
+#Api Settings
+settings.php

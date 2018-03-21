@@ -1,0 +1,85 @@
+Entities:
+    type: entity
+    table: entities
+    indexes:
+        fk_users_industry_id_industries_id_idx:
+            columns:
+                - industry_id
+        entities_name:
+            columns:
+                - name
+        entities_identifier:
+            columns:
+                - identifier
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        identifier:
+            type: string
+            nullable: false
+            length: 15
+            options:
+                fixed: false
+        enabled:
+            type: boolean
+            nullable: false
+        name:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        status:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+        state:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: false
+        postCode:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+            column: post_code
+        expiresAt:
+            type: datetime
+            nullable: false
+            column: expires_at
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: updated_at
+    manyToOne:
+        industry:
+            targetEntity: Industries
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                industry_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

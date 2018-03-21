@@ -1,0 +1,24 @@
+'@include': parameters.doctrine.yaml
+cors:
+  origin: 
+  - 'chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop'
+  - 'http://localhost:5556'
+  methods:
+  - 'GET'
+  - 'POST'
+  - 'PUT'
+  - 'PATCH'
+  - 'DELETE'
+  - 'REQUEST'
+  headers.allow: 
+  - 'X-Requested-With'
+  - 'Content-Type'
+  - 'Accept'
+  - 'Origin'
+  - 'Authorization'
+  headers.expose:
+  -
+  credentials: true
+  cache: 86400
+  error: null
+  logger: null

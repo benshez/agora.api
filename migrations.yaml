@@ -1,0 +1,4 @@
+name: Agora Migrations
+migrations_namespace: AgoraMigrations
+table_name: Agora_migration_versions
+migrations_directory: mapping/migrations/

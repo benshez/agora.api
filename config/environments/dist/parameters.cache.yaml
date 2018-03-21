@@ -1,0 +1,4 @@
+'@include': parameters.cors.yaml
+cache:
+  enabled: true
+  engine: ApcCache
