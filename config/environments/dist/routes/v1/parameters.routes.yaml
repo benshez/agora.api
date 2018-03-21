@@ -3,7 +3,7 @@ routes:
     methods:
     - GET
     actions:
-    - 'GeoService\Bundles\Address\Controller\Controller:fetchOne'
+    - 'Agora\Bundles\Address\Controller\Controller:fetchOne'
     priority: 0
     pattern: '/api/v1/address[/{id}]'
     middleware:
@@ -14,7 +14,7 @@ routes:
     methods:
     - POST
     actions:
-    - 'GeoService\Bundles\Contact\Controller\Controller:authenticateOne'
+    - 'Agora\Bundles\Contact\Controller\Controller:authenticateOne'
     priority: 0
     pattern: 
     - '/api/v1/user/login'
@@ -27,10 +27,10 @@ routes:
     - PUT
     - DELETE
     actions:
-    - 'GeoService\Bundles\Industries\Controller\Controller:autoComplete'
-    - 'GeoService\Bundles\Industries\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Industries\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Industries\Controller\Controller:onDelete'
+    - 'Agora\Bundles\Industries\Controller\Controller:autoComplete'
+    - 'Agora\Bundles\Industries\Controller\Controller:onAdd'
+    - 'Agora\Bundles\Industries\Controller\Controller:onUpdate'
+    - 'Agora\Bundles\Industries\Controller\Controller:onDelete'
     priority: 0
     pattern: 
     - '/api/v1/industries/{description}'
@@ -54,10 +54,10 @@ routes:
     - PUT
     - DELETE    
     actions:
-    - 'GeoService\Bundles\Locations\Controller\Controller:onGet'
-    - 'GeoService\Bundles\Locations\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Locations\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Locations\Controller\Controller:onDelete'    
+    - 'Agora\Bundles\Locations\Controller\Controller:onGet'
+    - 'Agora\Bundles\Locations\Controller\Controller:onAdd'
+    - 'Agora\Bundles\Locations\Controller\Controller:onUpdate'
+    - 'Agora\Bundles\Locations\Controller\Controller:onDelete'    
     priority: 0
     pattern: 
     - '/api/v1/location/{offset}/{industry}'
@@ -81,10 +81,10 @@ routes:
     - PUT
     - DELETE    
     actions:
-    - 'GeoService\Bundles\Roles\Controller\Controller:onGet'
-    - 'GeoService\Bundles\Roles\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Roles\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Roles\Controller\Controller:onDelete'            
+    - 'Agora\Bundles\Roles\Controller\Controller:onGet'
+    - 'Agora\Bundles\Roles\Controller\Controller:onAdd'
+    - 'Agora\Bundles\Roles\Controller\Controller:onUpdate'
+    - 'Agora\Bundles\Roles\Controller\Controller:onDelete'            
     priority: 0
     pattern: 
     - '/api/v1/roles/{offset}[/{id}]'
@@ -108,10 +108,10 @@ routes:
     - PUT
     - DELETE 
     actions:
-    - 'GeoService\Bundles\Contact\Controller\Controller:onGet'
-    - 'GeoService\Bundles\Contact\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Contact\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Contact\Controller\Controller:onDelete'
+    - 'Agora\Bundles\Contact\Controller\Controller:onGet'
+    - 'Agora\Bundles\Contact\Controller\Controller:onAdd'
+    - 'Agora\Bundles\Contact\Controller\Controller:onUpdate'
+    - 'Agora\Bundles\Contact\Controller\Controller:onDelete'
     priority: 0
     pattern: 
     - '/api/v1/admin/users'
@@ -135,10 +135,10 @@ routes:
     - PUT
     - DELETE 
     actions:
-    - 'GeoService\Bundles\Pages\Controller\Controller:onGet'
-    - 'GeoService\Bundles\Pages\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Pages\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Pages\Controller\Controller:onDelete'
+    - 'Agora\Bundles\Pages\Controller\Controller:onGet'
+    - 'Agora\Bundles\Pages\Controller\Controller:onAdd'
+    - 'Agora\Bundles\Pages\Controller\Controller:onUpdate'
+    - 'Agora\Bundles\Pages\Controller\Controller:onDelete'
     priority: 0
     pattern: 
     - '/api/v1/pages'

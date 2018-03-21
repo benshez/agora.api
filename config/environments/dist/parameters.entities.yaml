@@ -1,6 +1,6 @@
 entities:
   contact:
-    name: '\GeoService\Bundles\Contact\Entity\Contact'
+    name: '\Agora\Bundles\Contact\Entity\Contact'
     methods:
       validation:
         authenticate:
@@ -8,13 +8,13 @@ entities:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
             - ['EmailAddress']
-            - ['GeoService', 'GeoService\Modules\Validators\Authentication\AuthenticationValidator', true, ['email', 'password']]
+            - ['Agora', 'Agora\Modules\Validators\Authentication\AuthenticationValidator', true, ['email', 'password']]
           password: 
             - ['NotEmpty']
             - ['StringLength', [min: 6, max: 16], true]
         add:
           id:
-            - ['GeoService', 'GeoService\Modules\Validators\Contact\ContactExistsValidator', true, null]
+            - ['Agora', 'Agora\Modules\Validators\Contact\ContactExistsValidator', true, null]
           role: 
             - ['NotEmpty']
             - ['Digits', [min: 1], true]
@@ -32,7 +32,7 @@ entities:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
           abn:
-            - ['GeoService','GeoService\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
+            - ['Agora','Agora\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
         update:
           id:
             - ['NotEmpty']
@@ -50,7 +50,7 @@ entities:
             - ['NotEmpty']
             - ['StringLength', [min: 7], true]
             - ['EmailAddress']
-            - ['GeoService', 'GeoService\Modules\Validators\Contact\EmailExistsValidator', true, ['id', 'email']]
+            - ['Agora', 'Agora\Modules\Validators\Contact\EmailExistsValidator', true, ['id', 'email']]
           usersurname:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
@@ -67,7 +67,7 @@ entities:
         update: {error: true, message: {UserNotUpdated: 'The user with that id could not be updated.'}} 
         delete: {error: true, message: {UserNotDeleted: 'The user with that id could not be deleted.'}}         
   industries:
-    name: '\GeoService\Bundles\Industries\Entity\Industries'
+    name: '\Agora\Bundles\Industries\Entity\Industries'
     methods:
       validation:
         autocomplete:
@@ -95,7 +95,7 @@ entities:
         update: {error: true, message: {IndustryNotUpdated: 'The industry with that id could not be updated.'}} 
         delete: {error: true, message: {IndustryNotDeleted: 'The industry with that id could not be deleted.'}} 
   locations:
-    name: '\GeoService\Bundles\Locations\Entity\Locations'
+    name: '\Agora\Bundles\Locations\Entity\Locations'
     methods:
       validation:
         locations:
@@ -122,12 +122,12 @@ entities:
       validation:
         locations: {error: true, message: {IndustriesNotFound: 'No industries of the selected type found in your area.'}}        
   roles:
-    name: '\GeoService\Bundles\Roles\Entity\Roles'
+    name: '\Agora\Bundles\Roles\Entity\Roles'
     methods:
       validation:
         get:
           id:
-           - ['GeoService', 'GeoService\Modules\Validators\Key\KeyValidator', true, ['id', 'entity']]
+           - ['Agora', 'Agora\Modules\Validators\Key\KeyValidator', true, ['id', 'entity']]
         add:
           description:
             - ['NotEmpty']
@@ -150,7 +150,7 @@ entities:
         update: {error: true, message: {RoleNotUpdated: 'The role with that id could not be updated.'}} 
         delete: {error: true, message: {RoleNotDeleted: 'The role with that id could not be deleted.'}}
   entities:
-    name: '\GeoService\Bundles\Entities\Entity\Entities'
+    name: '\Agora\Bundles\Entities\Entity\Entities'
     methods:
       validation:
         add:    
