@@ -23,7 +23,7 @@ class AuthenticationValidator extends AbstractValidator
     const REFERENCE = 'contact';
 
     protected $messageTemplates = array(
-        self::USER  => 'Not not a valid user name or password.'
+        self::USER  => 'Not a valid user name or password.'
     );
 
     /**
