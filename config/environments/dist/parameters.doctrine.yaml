@@ -14,7 +14,7 @@ doctrine:
   connection:
     driver: pdo_mysql
     host: localhost
-    dbname: geo_service
+    dbname: agora
     user: BenShez
     port: '3306'
     password: ''
