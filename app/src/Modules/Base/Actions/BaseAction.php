@@ -211,7 +211,7 @@ class BaseAction implements IBaseAction
     /**
      * Validator
      *
-    * @param \ReflectionObject $validatorClass Class.
+     * @param \ReflectionObject $validatorClass Class.
      *
      * @return validator
      */
@@ -245,7 +245,6 @@ class BaseAction implements IBaseAction
      * Base Get Offset AndL imit
      *
      * @param integer $offset Offset.
-     *
      * @param integer $limit  Limit.
      *
      * @return array

@@ -47,16 +47,19 @@ class Get extends Action
     public function authenticate(string $email, string $password)
     {
         $validator = new Validation($this);
+        $valid = $this->getValidator($validator);
 
         if (!$this->formIsValid(
-            $this->getValidator($validator),
+            $valid,
             self::REFERENCE,
             self::AUTHENTICATE,
             [self::EMAIL => $email, self::PASSWORD => $password]
         )) {
-            $message = $this->getValidator($validator)->getMessagesAray();
-
-            return $message;
+            $message = $valid->getMessagesAray();
+            $contact = $this->emptyContact();
+            $contact['error'] = $message['error'];
+            $contact['message'] = $message['message']['user'];
+            return $contact;
         }
 
         $contact = $this->onBaseActionGet()->get(

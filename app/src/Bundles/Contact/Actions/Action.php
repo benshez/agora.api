@@ -126,6 +126,37 @@ class Action extends BaseAction
             'abn' => $args->getEntity()->getIdentifier(),
             'token_char' => $args->getTokenChar(),
             'token_expiry' => $args->getTokenExpiry(),
+            'message' => '',
+            'error' => ''
+        ];
+
+        return $contact;
+    }
+
+    public function emptyContact() {
+        $contact = [
+            'id' => '',
+            'entity' => '',
+            'role' => '',
+            'enabled' => '',
+            'locked' => '',
+            'username' => '',
+            'usersurname' => '',
+            'address' => '',
+            'city' => '',
+            'state' => '',
+            'post_code' => '',
+            'phone' => '',
+            'email' => '',
+            'website' => '',
+            'facebook' => '',
+            'twitter' => '',
+            'logo' => '',
+            'abn' => '',
+            'token_char' => '',
+            'token_expiry' => '',
+            'message' => '',
+            'error' => ''
         ];
 
         return $contact;

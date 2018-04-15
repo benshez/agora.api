@@ -27,7 +27,6 @@ class BaseGet extends BaseAction
      * Base Get Action
      *
      * @param string $entity Entity Class.
-     *
      * @param array  $args   Args Is Arguments To Pass.
      *
      * @return Entity Object

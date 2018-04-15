@@ -1,1 +1,4 @@
-{}
+{
+  //"phpcs.standard": "Agora",
+  //"phpcs.executablePath": "D:\\agora.api\\vendor\\bin\\phpcs.bat"
+}
