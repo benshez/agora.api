@@ -1,8 +1,0 @@
-'@include': parameters.entities.yaml
-mail:
-  host: 'your.host.com'
-  auth: true
-  secure: 'ssl'
-  port: ''
-  username: 'your@email.address'
-  is_html: true

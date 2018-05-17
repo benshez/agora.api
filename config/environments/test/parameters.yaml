@@ -1,0 +1,7 @@
+'@include': parameters.cache.yaml
+determineRouteBeforeAppMiddleware: true
+displayErrorDetails: true
+useSimpleAnnotationReader: false
+mode: test
+time_zone: Australia/Brisbane
+trial_period: 30

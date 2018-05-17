@@ -3,9 +3,9 @@
 log/
 
 # ignore configs
-config/environments/development/
-config/environments/test/
-config/environments/production/
+config/environments/**/*.abr.yaml
+config/environments/**/*.doctrine.yaml
+config/environments/**/*.mail.yaml
 
 # ignore documentation
 docs_generated

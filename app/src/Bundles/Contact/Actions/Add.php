@@ -50,8 +50,10 @@ class Add extends Action
         )
         ) {
             $messages = $this->getValidator($validator)->getMessagesAray();
-
-            return $messages;
+            $contact = $this->emptyContact();
+            $contact['error'] = $messages['error'];
+            $contact['message'] = $messages['message'];
+            return $contact;
         }
 
         $contact = new Contact();
