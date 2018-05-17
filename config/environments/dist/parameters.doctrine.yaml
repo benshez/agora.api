@@ -1,0 +1,20 @@
+'@include': parameters.logger.yaml
+doctrine:
+  dbal:
+    charset: utf8mb4
+    default_table_options:
+      charset: utf8mb4
+      collate: utf8mb4_unicode_ci
+  meta:
+    entity_path:
+    - mapping/entities
+    auto_generate_proxies: true
+    proxy_dir: /../cache/proxies
+    cache: null
+  connection:
+    driver: pdo_mysql
+    host: localhost
+    dbname: agora
+    user: BenShez
+    port: '3306'
+    password: ''
