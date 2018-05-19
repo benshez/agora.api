@@ -18,6 +18,7 @@ use \ReflectionObject;
 use Agora\Modules\Config\Config;
 use Interop\Container\ContainerInterface;
 use Agora\Modules\Base\Interfaces\IBaseAction;
+use JMS\Serializer\SerializerBuilder;
 
 class BaseAction implements IBaseAction
 {
@@ -242,7 +243,7 @@ class BaseAction implements IBaseAction
     }
     
     /**
-     * Base Get Offset AndL imit
+     * Base Get Offset And Limit
      *
      * @param integer $offset Offset.
      * @param integer $limit  Limit.
@@ -257,4 +258,18 @@ class BaseAction implements IBaseAction
         
         return array('offset' => $offset, 'limit' => $limit);
     }
+
+    /**
+     * Base Serliaze
+     *
+     * @param \ReflectionObject $data Class.
+     *
+     * @return array
+     */
+    public function onSerialize($data)
+    {
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        
+        return $serializer->serialize($data, 'json');
+    }    
 }

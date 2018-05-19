@@ -78,7 +78,7 @@ class BaseController implements IBaseController
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        array $args = null,
+        $args = null,
         BaseOptions $options
     ) {
         $data = $this->fetched(
@@ -110,7 +110,7 @@ class BaseController implements IBaseController
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        array $args,
+        $args,
         BaseOptions $options
     ) {
         $data = $this->fetched(
@@ -130,7 +130,7 @@ class BaseController implements IBaseController
      *
      * @param ResponseInterface $response Response.
      *
-     * @param array             $args     Arguments.
+     * @param                    $args     Arguments.
      *
      * @param BaseOptions       $options  Arguments.
      *
@@ -139,7 +139,7 @@ class BaseController implements IBaseController
     public function fetched(
         RequestInterface $request,
         ResponseInterface $response,
-        array $args,
+        $args,
         BaseOptions $options
     ) {
         if ($args) {

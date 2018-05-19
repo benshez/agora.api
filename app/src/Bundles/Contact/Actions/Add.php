@@ -83,6 +83,10 @@ class Add extends Action
             }
         }
 
+        $date = new \DateTime();
+
+        $args['token_expiry'] = $date->modify('+30 days');
+
         $hydrate = new BaseHydrate($this->getContainer());
 
         $contact = $hydrate->hydrate($contact, $args);
@@ -94,10 +98,8 @@ class Add extends Action
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $contact->getId()]
             );
-
-            $contact = $this->contactToArray($contact);
-
-            return $contact;
+            
+            return $this->onSerialize($contact);
         }
 
         return false;

@@ -27,11 +27,11 @@ entities:
             - ['StringLength', [min: 6, max: 16, {messages: {'stringLengthTooShort': ['Hello password']}}], true]
           email:
             - ['NotEmpty']
-            - ['StringLength', [min: 7, {messages: {'stringLengthTooShort': ['Hello email']}}], true]
+            - ['StringLength', [min: 7, {messages: {'stringLengthTooShort': ['Email needs to be atleast 7 characters.']}}], true]
             - ['EmailAddress']    
           usersurname:
             - ['NotEmpty']
-            - ['StringLength', [min: 2, {messages: {'stringLengthTooShort': ['Hello username']}}], true]
+            - ['StringLength', [min: 2, {messages: {'stringLengthTooShort': ['Username needs to be atleast 2 characters.']}}], true]
           abn:
             - ['Agora','Agora\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
         update:

@@ -68,6 +68,12 @@ class Get extends Action
             $range['offset']
         );
 
+        if(!isset($args['sender'])) {
+            $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+            $roles = $serializer->serialize($roles, 'json');
+            return $roles;
+        }
+
         return ($roles);
     }
 }

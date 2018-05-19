@@ -17,6 +17,7 @@ namespace Agora\Bundles\Roles\Actions;
 use Agora\Modules\Config\Config;
 use Agora\Modules\Base\Actions\BaseAction;
 use Agora\Bundles\Contact\Validation\Validation;
+use \Agora\Bundles\Roles\Entity\Roles;
 
 class Action extends BaseAction
 {
@@ -100,12 +101,14 @@ class Action extends BaseAction
      *
      * @return Role
      */
-    public function roleToArray(\Agora\Bundles\Roles\Entity\Roles $args)
+    public function roleToArray(Roles $args)
     {
         return array(
             'id' => $args->getId(),
             'role' => $args->getRole(),
-            'enabled' => $args->getEnabled()
+            'enabled' => $args->getEnabled(),
+            'message' => '',
+            'error' => ''
         );
     }
 }

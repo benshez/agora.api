@@ -96,43 +96,6 @@ class Action extends BaseAction
         return $contact;
     }
 
-    /**
-     * Contact To Array.
-     *
-     * @param Contact $args Contact.
-     *
-     * @return Contact
-     */
-    public function contactToArray(Contact $args)
-    {
-        $contact = [
-            'id' => $args->getId(),
-            'entity' => $args->getEntity()->getId(),
-            'role' => $args->getRole()->getId(),
-            'enabled' => $args->getEnabled(),
-            'locked' => $args->getLocked(),
-            'username' => $args->getUsername(),
-            'usersurname' => $args->getUsersurname(),
-            'address' => $args->getAddress(),
-            'city' => $args->getCity(),
-            'state' => $args->getState(),
-            'post_code' => $args->getPostCode(),
-            'phone' => $args->getPhone(),
-            'email' => $args->getEmail(),
-            'website' => $args->getWebsite(),
-            'facebook' => $args->getFacebook(),
-            'twitter' => $args->getTwitter(),
-            'logo' => $args->getLogo(),
-            'abn' => $args->getEntity()->getIdentifier(),
-            'token_char' => $args->getTokenChar(),
-            'token_expiry' => $args->getTokenExpiry(),
-            'message' => '',
-            'error' => ''
-        ];
-
-        return $contact;
-    }
-
     public function emptyContact() {
         $contact = [
             'id' => '',

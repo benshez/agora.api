@@ -16,20 +16,20 @@ interface IBaseController
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        array $args = null,
+        $args = null,
         BaseOptions $options
     );
     public function fetchOne(
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        array $args,
+        $args,
         BaseOptions $options
     );
     public function fetched(
         RequestInterface $request,
         ResponseInterface $response,
-        array $args,
+        $args,
         BaseOptions $options
     );
 }

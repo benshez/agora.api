@@ -97,7 +97,7 @@ routes:
     - 'TokenAuthentication'
     - 'TokenAuthentication'
     roles:
-    - ['User', 'Admin']
+    - ['Guest', 'User', 'Admin']
     - ['Admin']
     - ['Admin']
     - ['Admin']  

@@ -58,8 +58,8 @@ class Get extends Action
             $message = $valid->getMessagesAray();
             $contact = $this->emptyContact();
             $contact['error'] = $message['error'];
-            $contact['message'] = $message['message']['user'];
-            return $contact;
+            $contact['message'] = $message['message'];
+            return $this->onSerialize($contact);
         }
 
         $contact = $this->onBaseActionGet()->get(
@@ -75,11 +75,9 @@ class Get extends Action
             );
             $contact->setTokenChar($tokenChar);
 
-            $contact = $this->contactToArray(
-                $this->onBaseActionSave()->save($contact)
-            );
+            $contact->setPassword('');
 
-            return $contact;
+            return $this->onSerialize($contact);
         }
 
         return false;
