@@ -81,16 +81,19 @@ $container['bundles'] = function ($c) {
 $container['mailer'] = function ($c) {
     $settings = $c->get('settings');
     
-    $options = new \PHPMailer();
+    $mail = new PHPMailer(true);  
+    $mail->SMTPDebug = 0;                                 
+    $mail->isSMTP();                                     
+    $mail->Host = $settings['mail']['host'];
+    $mail->SMTPAuth = $settings['mail']['auth'];
+    $mail->Username = $settings['mail']['username'];
+    $mail->Password = $settings['mail']['password'];
+    $mail->SMTPSecure = $settings['mail']['secure'];
+    $mail->Port = $settings['mail']['port'];
+    $mail->isHTML($settings['mail']['is_html']);
+    $mail->SMTPOptions = $settings['mail']['smtp_options'];
 
-    $options->Host = $settings['mail']['host'];
-    $options->SMTPAuth = $settings['mail']['auth'];
-    $options->SMTPSecure = $settings['mail']['secure'];
-    $options->Port = $settings['mail']['port'];
-    $options->Username = $settings['mail']['username'];
-    $options->isHTML($settings['mail']['is_html']);
-
-    $mailer = new \Agora\Modules\Mailer\Mailer($c->view, $options);
+    $mailer = new \Agora\Modules\Mailer\Mailer(new \Slim\Views\Twig('app/src/Modules/Mailer/Templates/', []), $mail);
     
     return $mailer;
 };

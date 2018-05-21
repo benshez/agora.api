@@ -36,6 +36,7 @@
     "slimphp-api/slim-oauth": "^2.0.0",
     "slimphp-api/slim-acl": "^1.0.0",
     "slim/http-cache": "^0.3.0",
+    "slim/twig-view": "2.4.0",
     "monolog/monolog": "^1.17",
     "lcobucci/jwt": "^3.1",
     "jeremykendall/password-validator": "^3.0.4",
