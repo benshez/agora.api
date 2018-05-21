@@ -69,20 +69,20 @@ class Get extends Action
         );
 
         if(!isset($args['sender'])) {
-                    $mailer = $this->getContainer()->get('mailer');
+                    // $mailer = $this->getContainer()->get('mailer');
 
-                    $user = ['email' => 'benshez1@gmail.com', 'text' => 'Please verify email to submit enquiry!'];
+                    // $user = ['email' => 'benshez1@gmail.com', 'text' => 'Please verify email to submit enquiry!'];
 
-                    $mailer->send('Master.twig',['user' => $user], function($message) use ($user){
-                        $message->to($user['email']);
-                        $message->from('benshez1@gmail.com');
-                        $message->fromName('Ben van Heerden');
-                        $message->subject('Please verify email to submit enquiry!');
-                    });
+                    // $mailer->send('Master.twig',['user' => $user], function($message) use ($user){
+                    //     $message->to($user['email']);
+                    //     $message->from('benshez1@gmail.com');
+                    //     $message->fromName('Ben van Heerden');
+                    //     $message->subject('Please verify email to submit enquiry!');
+                    // });
         
-            $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
-            $roles = $serializer->serialize($roles, 'json');
-            return $roles;
+            // $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+            // $roles = $serializer->serialize($roles, 'json');
+            return $this->onSerialize($roles);
         }
 
         return ($roles);

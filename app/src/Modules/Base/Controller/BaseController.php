@@ -178,7 +178,7 @@ class BaseController implements IBaseController
         $data = $response->withJSON(
             $this->getAction()->onGet($args)
         );
-        
+
         return $data;
     }
     

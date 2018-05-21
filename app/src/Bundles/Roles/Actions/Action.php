@@ -93,22 +93,4 @@ class Action extends BaseAction
 
         return $role;
     }
-    
-    /**
-     * Role To Array
-     *
-     * @param \Agora\Bundles\Roles\Entity\Roles $args Role.
-     *
-     * @return Role
-     */
-    public function roleToArray(Roles $args)
-    {
-        return array(
-            'id' => $args->getId(),
-            'role' => $args->getRole(),
-            'enabled' => $args->getEnabled(),
-            'message' => '',
-            'error' => ''
-        );
-    }
 }

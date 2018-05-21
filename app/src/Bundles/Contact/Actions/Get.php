@@ -69,10 +69,12 @@ class Get extends Action
 
         if ($contact) {
             $tokenGenerator = new \Doctrine\ORM\Id\UuidGenerator();
+
             $tokenChar = $tokenGenerator->generate(
                 $this->getEntityManager(),
                 $contact
             );
+            
             $contact->setTokenChar($tokenChar);
 
             $contact->setPassword('');
