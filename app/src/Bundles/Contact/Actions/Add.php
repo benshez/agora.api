@@ -6,6 +6,8 @@
  * PHP Version 7.1.9
  *
  * @category Agora
+ *
+ *
  * @package  Agora
  *
  * @author    Ben van Heerden <benshez1@gmail.com>
@@ -24,18 +26,23 @@ use Zend\Crypt\Password\Bcrypt;
 
 class Add extends Action
 {
-    const REFERENCE_OBJECT = 'name';
-    const REFERENCE = 'contact';
-    const KEY = 'id';
-    const PASSWORD = 'password';
     const ABN = 'abn';
+
     const EMAIL = 'email';
+
+    const KEY = 'id';
+
+    const PASSWORD = 'password';
+
+    const REFERENCE = 'contact';
+
+    const REFERENCE_OBJECT = 'name';
 
     /**
      * Save Contact.
      *
-     * @param array $args Contact.
      *
+     * @param  array     $args Contact.
      * @return Contact
      */
     public function onAdd(array $args)
@@ -53,6 +60,7 @@ class Add extends Action
             $contact = $this->emptyContact();
             $contact['error'] = $messages['error'];
             $contact['message'] = $messages['message'];
+
             return $contact;
         }
 
@@ -98,7 +106,18 @@ class Add extends Action
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $contact->getId()]
             );
-            
+
+            $mailer = $this->getContainer()->get('mailer');
+
+            $data = ['email' => $contact->getEmail(), 'text' => 'Please verify email to submit enquiry!'];
+
+            $mailer->send('Master.twig', ['data' => $data], function ($message) use ($data) {
+                $message->to($data['email']);
+                $message->from('benshez1@gmail.com');
+                $message->fromName('Ben van Heerden');
+                $message->subject('Please verify email to submit enquiry!');
+            });
+
             return $this->onSerialize($contact);
         }
 

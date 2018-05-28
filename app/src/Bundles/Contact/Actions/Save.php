@@ -7,9 +7,11 @@
  *
  * @category  Agora
  * @package   Agora
+ *
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ *
  * @link      https://github.com/benshez/agora.api
  */
 
@@ -21,17 +23,21 @@ use Zend\Crypt\Password\Bcrypt;
 
 class Save extends Action
 {
-    const REFERENCE = 'contact';
-    const KEY = 'id';
-    const PASSWORD = 'password';
     const ABN = 'abn';
+
     const EMAIL = 'email';
+
+    const KEY = 'id';
+
+    const PASSWORD = 'password';
+
+    const REFERENCE = 'contact';
 
     /**
      * Save User.
      *
-     * @param array $args User Password.
      *
+     * @param  array  $args User Password.
      * @return User
      */
     public function onUpdate(array $args)

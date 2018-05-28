@@ -7,9 +7,11 @@
  *
  * @category  Agora
  * @package   Agora
+ *
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ *
  * @link      https://github.com/benshez/agora.api
  */
 
@@ -20,32 +22,48 @@ use Agora\Modules\Config\Config;
 
 class Get extends Action
 {
-    const REFERENCE = 'contact';
-    const TOKEN = 'tokenChar';
-    const AUTHENTICATE = 'authenticate';
-    const AUTHENTICATION = 'authentication';
-    const REFERENCE_OBJECT = 'name';
-    const KEY = 'id';
-    const ROLE = 'role';
-    const CONTACT_NAME = 'username';
-    const CONTACT_SURNAME = 'usersurname';
-    const PASSWORD = 'password';
-    const EMAIL = 'email';
-    const LOGO = 'logo';
     const ABN = 'abn';
-    const USER = 'user';
+
+    const AUTHENTICATE = 'authenticate';
+
+    const AUTHENTICATION = 'authentication';
+
+    const CONTACT_NAME = 'username';
+
+    const CONTACT_SURNAME = 'usersurname';
+
+    const EMAIL = 'email';
+
     const HASH = 'hash';
+
+    const KEY = 'id';
+
+    const LOGO = 'logo';
+
+    const PASSWORD = 'password';
+
+    const REFERENCE = 'contact';
+
+    const REFERENCE_OBJECT = 'name';
+
+    const ROLE = 'role';
+
+    const TOKEN = 'tokenChar';
+
+    const USER = 'user';
 
     /**
      * Authenticate User.
      *
-     * @param string $email    User Name.
-     * @param string $password User Password.
      *
+     * @param  string $email    User Name.
+     * @param  string $password User Password.
      * @return User
      */
-    public function authenticate(string $email, string $password)
-    {
+    public function authenticate(
+        string $email,
+        string $password
+    ) {
         $validator = new Validation($this);
         $valid = $this->getValidator($validator);
 
@@ -59,6 +77,10 @@ class Get extends Action
             $contact = $this->emptyContact();
             $contact['error'] = $message['error'];
             $contact['message'] = $message['message'];
+
+            $eventManager = $this->getEntityManager()->getEventManager();
+            $eventManager->dispatchEvent(\Agora\Modules\Mailer\MailerListener::ON_SEND_ACTIVATION, new \Doctrine\Common\Persistence\Event\LifecycleEventArgs($contact, $this->getEntityManager()));
+
             return $this->onSerialize($contact);
         }
 
@@ -74,7 +96,7 @@ class Get extends Action
                 $this->getEntityManager(),
                 $contact
             );
-            
+
             $contact->setTokenChar($tokenChar);
 
             $contact->setPassword('');
@@ -88,9 +110,9 @@ class Get extends Action
     /**
      * Get Active User Role By Token.
      *
-     * @param string $token Token Genrated When User Logs In.
      *
-     * @return User Role
+     * @param  string $token Token Genrated When User Logs In.
+     * @return User   Role
      */
     public function onGetActiveUserRoleByToken(string $token)
     {
@@ -101,7 +123,7 @@ class Get extends Action
 
         if (!$user ||
             $user->getTokenExpiry() > Config::currentDateYearMonthDay()
-            ) {
+        ) {
             return false;
         }
 

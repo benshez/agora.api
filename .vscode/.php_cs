@@ -17,22 +17,31 @@ EOF;
 $config = PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP56Migration' => true,
+        '@PHP70Migration' => true,
         '@PHPUnit60Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        'concat_space' => ['spacing' => 'one'],
+        'class_definition' => ['multiLineExtendsEachSingleLine' => true, 'singleItemSingleLine' => true],
+        'method_argument_space' => ['ensure_fully_multiline' => true],
+        'ordered_class_elements' => ['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'],
+        'single_quote' => true,
         'no_empty_comment' => true,
+        'no_empty_statement' => true,
         'no_empty_phpdoc' => true,
         'no_trailing_whitespace' => true,
-        'space_after_semicolon' => true,
         'no_trailing_whitespace_in_comment' => true,
         'align_multiline_comment' => true,
+        'indentation_type' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'array_indentation' => true,
         'blank_line_before_statement' => true,
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'compact_nullable_typehint' => true,
-        'header_comment' => ['header' => $header, 'commentType' => 'PHPDoc', 'location' => 'after_open'],
+        'header_comment' => ['header' => $header, 'commentType' => 'PHPDoc', 'location' => 'after_open', 'separate' => 'bottom'],
+        'phpdoc_align' => false,
+        'phpdoc_summary' => false,
         'phpdoc_to_comment' => true,
         'phpdoc_separation' => false,
         'heredoc_to_nowdoc' => true,
@@ -55,10 +64,11 @@ $config = PhpCsFixer\Config::create()
         'phpdoc_order' => true,
         'phpdoc_types_order' => true,
         'semicolon_after_instruction' => true,
+        'space_after_semicolon' => true,
         'single_line_comment_style' => true,
         'strict_comparison' => true,
         'strict_param' => true,
-        'yoda_style' => true,
+        'yoda_style' => true
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

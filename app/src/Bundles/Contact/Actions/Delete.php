@@ -7,9 +7,11 @@
  *
  * @category  Agora
  * @package   Agora
+ *
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ *
  * @link      https://github.com/benshez/agora.api
  */
 
@@ -19,15 +21,17 @@ use Agora\Bundles\Contact\Validation\Validation;
 
 class Delete extends Action
 {
-    const REFERENCE = 'contact';
-    const REFERENCE_OBJECT = 'name';
     const KEY = 'id';
+
+    const REFERENCE = 'contact';
+
+    const REFERENCE_OBJECT = 'name';
 
     /**
      * Delete Industries.
      *
-     * @param array $args Industry.
      *
+     * @param  array      $args Industry.
      * @return Industry
      */
     public function onDelete(array $args)
