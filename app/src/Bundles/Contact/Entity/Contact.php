@@ -3,17 +3,20 @@
 namespace Agora\Bundles\Contact\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Agora\Bundles\Entities\Entity\Entities;
 use Agora\Bundles\Roles\Entity\Roles;
-
+use Agora\Modules\Base\Traits\TimestampableTrait;
 /**
  * Contact
  *
  * @ORM\Table(name="contact", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="fk_contact_role_id_roles_id_idx", columns={"role_id"}), @ORM\Index(name="fk_contact_entity_id_entities_id_idx", columns={"entity_id"}), @ORM\Index(name="idx_token_char", columns={"token_char"})})
- * @ORM\Entity
+ * @ORM\Entity @HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Agora\Bundles\Contact\Entity\Repository")
  */
 class Contact
 {
+    use TimestampableTrait;
     /**
     * @var integer
     *
@@ -157,20 +160,6 @@ class Contact
     private $logo;
 
     /**
-    * @var \DateTime
-    *
-    * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-    */
-    private $updatedAt = 'CURRENT_TIMESTAMP';
-
-    /**
-    * @var \DateTime
-    *
-    * @ORM\Column(name="created_at", type="datetime", nullable=false)
-    */
-    private $createdAt = 'CURRENT_TIMESTAMP';
-
-    /**
     * @var \Agora\Bundles\Entities\Entity\Entities
     *
     * @ORM\ManyToOne(targetEntity="\Agora\Bundles\Entities\Entity\Entities")
@@ -189,7 +178,6 @@ class Contact
     * })
     */
     private $role;
-
 
     /**
     * Get id
