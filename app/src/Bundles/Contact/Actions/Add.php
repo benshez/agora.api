@@ -110,17 +110,6 @@ class Add extends Action
                 [self::KEY => $contact->getId()]
             );
 
-            // $mailer = $this->getContainer()->get('mailer');
-
-            // $data = ['email' => $contact->getEmail(), 'text' => 'Please verify email to submit enquiry!'];
-
-            // $mailer->send('Master.twig', ['data' => $data], function ($message) use ($data) {
-            //     $message->to($data['email']);
-            //     $message->from('benshez1@gmail.com');
-            //     $message->fromName('Ben van Heerden');
-            //     $message->subject('Please verify email to submit enquiry!');
-            // });
-
             return $this->onSerialize($contact);
         }
 

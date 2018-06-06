@@ -73,19 +73,22 @@ $container['em'] = function ($c) {
         $settings['useSimpleAnnotationReader']
     );
 
-    $eventManager = new \Doctrine\Common\EventManager();
+    //$eventManager = new \Doctrine\Common\EventManager();
 
-    $listener = new \Agora\Modules\Mailer\MailerListener($c);
-    $eventManager->addEventListener($listener->getSubscribedEvents(), $listener);
+    //$listener = new \Agora\Modules\Mailer\MailerListener($c);
+    //$eventManager->addEventListener($listener->getSubscribedEvents(), $listener);
     //$eventManager->addEventSubscriber(new \Agora\Modules\Base\Events\BaseEventSubscriber());
 
 
+    // $em = \Doctrine\ORM\EntityManager::create(
+    //     $settings['doctrine']['connection'],
+    //     $config,
+    //     $eventManager
+    // );
     $em = \Doctrine\ORM\EntityManager::create(
         $settings['doctrine']['connection'],
-        $config,
-        $eventManager
+        $config
     );
-
     return $em;
 };
 
@@ -111,6 +114,8 @@ $container['mailer'] = function ($c) {
     $mail->Host = $settings['mail']['host'];
     $mail->SMTPAuth = $settings['mail']['auth'];
     $mail->Username = $settings['mail']['username'];
+    $mail->From = $settings['mail']['from'];
+    $mail->FromName = $settings['mail']['fromname'];
     $mail->Password = $settings['mail']['password'];
     $mail->SMTPSecure = $settings['mail']['secure'];
     $mail->Port = $settings['mail']['port'];
