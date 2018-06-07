@@ -121,7 +121,7 @@ trait TimestampableTrait
                 'template'  => 'User'
             ];
     
-            $mailer->send('Master.twig', ['data' => $data], function ($message) use ($data) {
+            $mailer->send('User/Registration.twig', ['data' => $data], function ($message) use ($data) {
                 $message->to($data['email']);
                 $message->from('benshez1@gmail.com');
                 $message->fromName('Ben van Heerden');
