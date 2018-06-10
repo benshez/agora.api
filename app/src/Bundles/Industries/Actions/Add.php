@@ -81,7 +81,7 @@ class Add extends Action
      *
      * @return Industry
      */
-    public function onAddByABRLookup(string $abn, array $business)
+    public function onAddByABRLookup(string $abn, $business)
     {
         $industry = false;
 
@@ -90,7 +90,7 @@ class Add extends Action
                 $this->getReference(self::REFERENCE),
                 array(
                     self::KEY => $abn
-                    )
+                )
             );
 
             if ($industry && $industry->getId()) {

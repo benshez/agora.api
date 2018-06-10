@@ -62,7 +62,7 @@ class Add extends Action
         if ($entity->getId()) {
             $entity = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                array(self::KEY => $industry->getId())
+                array(self::KEY => $entity->getId())
             );
             
             return $entity;
@@ -93,7 +93,7 @@ class Add extends Action
         
         if (!$entity) {
             $abnlookup = new \Agora\Modules\Lookup\ABN\AbnLookup($this->getSettings());
-            $business = $abnlookup->searchByAbn($args['abn']);
+            $business = $abnlookup->searchByAbn($abn);
             $business = $business->ABRPayloadSearchResults
             ->response->businessEntity201408;
 
@@ -124,12 +124,12 @@ class Add extends Action
                     if ($abn != '') {
                         $industry = $industry->onAddByABRLookup(
                             $abn,
-                            $business->entityType->entityTypeCode
+                            $business
                         );
                     } else {
                         $industry = $industry->onAddByABRLookup(
                             '',
-                            $business->entityType->entityTypeCode
+                            $business
                         );
                     }
                 }

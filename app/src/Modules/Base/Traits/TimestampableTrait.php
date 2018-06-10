@@ -109,25 +109,25 @@ trait TimestampableTrait
     /** @ORM\PostPersist */
     public function onPostPersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getObject();
-        $entityManager = $args->getObjectManager();
+        // $entity = $args->getObject();
+        // $entityManager = $args->getObjectManager();
 
-        if ($entity instanceof \Agora\Bundles\Contact\Entity\Contact) {
-            $mailer = $this->getContainer()->get('mailer');
+        // if ($entity instanceof \Agora\Bundles\Contact\Entity\Contact) {
+        //     $mailer = $this->getContainer()->get('mailer');
 
-            $data = [
-                'email' => $entity->getEmail(),
-                'text' => 'Please verify email to submit enquiry!',
-                'template'  => 'User'
-            ];
+        //     $data = [
+        //         'email' => $entity->getEmail(),
+        //         'text' => 'Please verify email to submit enquiry!',
+        //         'template' => 'User'
+        //     ];
     
-            $mailer->send('User/Registration.twig', ['data' => $data], function ($message) use ($data) {
-                $message->to($data['email']);
-                $message->from('benshez1@gmail.com');
-                $message->fromName('Ben van Heerden');
-                $message->subject('Please verify email to submit enquiry!');
-            });
-        }
+        //     $mailer->send('User/Registration.twig', ['data' => $data], function ($message) use ($data) {
+        //         $message->to($data['email']);
+        //         $message->from('benshez1@gmail.com');
+        //         $message->fromName('Ben van Heerden');
+        //         $message->subject('Please verify email to submit enquiry!');
+        //     });
+        // }
     }
 
     /**

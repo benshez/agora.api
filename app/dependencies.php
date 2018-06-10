@@ -73,22 +73,19 @@ $container['em'] = function ($c) {
         $settings['useSimpleAnnotationReader']
     );
 
-    //$eventManager = new \Doctrine\Common\EventManager();
+    $eventManager = new \Doctrine\Common\EventManager();
 
-    //$listener = new \Agora\Modules\Mailer\MailerListener($c);
-    //$eventManager->addEventListener($listener->getSubscribedEvents(), $listener);
+    $listener = new \Agora\Modules\Mailer\MailerListener($c);
+    $eventManager->addEventListener($listener->getSubscribedEvents(), $listener);
     //$eventManager->addEventSubscriber(new \Agora\Modules\Base\Events\BaseEventSubscriber());
 
 
-    // $em = \Doctrine\ORM\EntityManager::create(
-    //     $settings['doctrine']['connection'],
-    //     $config,
-    //     $eventManager
-    // );
     $em = \Doctrine\ORM\EntityManager::create(
         $settings['doctrine']['connection'],
-        $config
+        $config,
+        $eventManager
     );
+
     return $em;
 };
 

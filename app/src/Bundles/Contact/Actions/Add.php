@@ -23,7 +23,8 @@ use Agora\Bundles\Contact\Entity\Contact;
 use Agora\Bundles\Contact\Validation\Validation;
 use Agora\Modules\Base\Actions\BaseHydrate;
 use Zend\Crypt\Password\Bcrypt;
-
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Agora\Modules\Mailer\MailerListener;
 class Add extends Action
 {
     const ABN = 'abn';
@@ -91,6 +92,8 @@ class Add extends Action
             }
         }
 
+        $args['enabled'] = false;
+
         $date = new \DateTime();
 
         $args['token_expiry'] = $date->modify('+30 days');
@@ -99,16 +102,21 @@ class Add extends Action
 
         $contact = $hydrate->hydrate($contact, $args);
 
-        //$contact = $this->onBaseActionSave()->save($contact);
-        $manager = $this->getEntityManager();
-        $manager->persist($contact);
-        $manager->flush($contact);
+        $contact->setEntity($args['entity']);
+        
+        $contact->setRole($args['role']);
+        
+        $contact = $this->onBaseActionSave()->save($contact);
 
         if ($contact->getId()) {
             $contact = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $contact->getId()]
             );
+
+            $em = $this->getEntityManager();
+            $eventManager = $em->getEventManager();
+            $eventManager->dispatchEvent(MailerListener::ON_SEND_ACTIVATION, new LifecycleEventArgs($contact, $em));
 
             return $this->onSerialize($contact);
         }

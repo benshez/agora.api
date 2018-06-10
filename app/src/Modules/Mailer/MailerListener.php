@@ -47,16 +47,22 @@ class MailerListener implements IEventSubscriberInterface
     {
         $entity = $args->getObject();
         $entityManager = $args->getObjectManager();
-        $mailer = $this->_container->get('mailer');
 
-        // $data = ['email' => $contact->getEmail(), 'text' => 'Please verify email to submit enquiry!'];
+        if ($entity instanceof \Agora\Bundles\Contact\Entity\Contact) {
+            $mailer = $this->_container->get('mailer');
 
-        // $mailer->send('Master.twig', ['data' => $data], function ($message) use ($data) {
-        //     $message->to($data['email']);
-        //     $message->from('benshez1@gmail.com');
-        //     $message->fromName('Ben van Heerden');
-        //     $message->subject('Please verify email to submit enquiry!');
-        // });
+            $data = [
+                'email' => $entity->getEmail(),
+                'text' => 'Please verify email to submit enquiry!'
+            ];
+    
+            $mailer->send('User/Registration.twig', ['data' => $data], function ($message) use ($data) {
+                $message->to($data['email']);
+                $message->from('benshez1@gmail.com');
+                $message->fromName('Ben van Heerden');
+                $message->subject('Please verify email to submit enquiry!');
+            });
+        }
     }
 
     public function onSendDeactivationInfo(LifecycleEventArgs $args)
