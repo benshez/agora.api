@@ -1,10 +1,10 @@
 <?php
 /**
- * Repository File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,15 +14,13 @@
 
 namespace Agora\Bundles\Locations\Entity;
 
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
-use Agora\Modules\Base\Entity\BaseEntity;
 use Agora\Bundles\Contact\Entity\Contact;
 use Agora\Bundles\Entities\Entity\Entities;
-use Agora\Bundles\Locations\Entity\Locations;
 use Agora\Bundles\Industries\Entity\Industries;
+use Agora\Modules\Base\Entity\BaseEntity;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 
 class Repository extends BaseEntity
 {
@@ -33,9 +31,9 @@ class Repository extends BaseEntity
      *
      * @param array   $orderBy  Class.
      *
-     * @param integer $limit    Class.
+     * @param int $limit    Class.
      *
-     * @param integer $offset   Class.
+     * @param int $offset   Class.
      *
      * @return One
      */
@@ -45,11 +43,11 @@ class Repository extends BaseEntity
         $limit = null,
         $offset = null
     ) {
-
         $query = $this->getQuery($criteria['industry'], $orderBy, $limit, $offset);
 
         try {
             $locations = $query->getResult(Query::HYDRATE_ARRAY);
+
             return $locations;
         } catch (NoResultException $e) {
             return false;
@@ -62,6 +60,8 @@ class Repository extends BaseEntity
      * @param string $criteria Criteria.
      *
      * @param array  $orderBy  Class.
+     * @param null|mixed $limit
+     * @param null|mixed $offset
      *
      * @return Query
      */
@@ -71,7 +71,6 @@ class Repository extends BaseEntity
         $limit = null,
         $offset = null
     ) {
-    
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select($this->getSelectStatement())
@@ -105,7 +104,7 @@ class Repository extends BaseEntity
         ->setMaxResults($limit);
 
         $query = $qb->getQuery();
-        
+
         return $query;
     }
 
@@ -118,6 +117,7 @@ class Repository extends BaseEntity
     {
         $date = new \DateTime();
         $formatted = $date->format('Y-m-d') . '\'';
+
         return $formatted;
     }
 

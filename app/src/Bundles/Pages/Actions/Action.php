@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,13 +14,10 @@
 
 namespace Agora\Bundles\Pages\Actions;
 
-use Agora\Modules\Config\Config;
 use Agora\Modules\Base\Actions\BaseAction;
-use Agora\Bundles\Pages\Validation\Validation;
 
 class Action extends BaseAction
 {
-
     /**
      * Get Pages
      *
@@ -33,12 +30,12 @@ class Action extends BaseAction
         $get = new \Agora\Bundles\Pages\Actions\Get(
             $this->getContainer()
         );
-        
+
         $pages = $get->onGet($args);
 
         return $pages;
     }
-         
+
     /**
      * Save Pages
      *
@@ -51,12 +48,12 @@ class Action extends BaseAction
         $save = new \Agora\Bundles\Pages\Actions\Save(
             $this->getContainer()
         );
-        
+
         $page = $save->onUpdate($args);
 
         return $page;
     }
-    
+
     /**
      * Add Locations
      *
@@ -69,12 +66,12 @@ class Action extends BaseAction
         $add = new \Agora\Bundles\Pages\Actions\Add(
             $this->getContainer()
         );
-        
+
         $page = $add->onAdd($args);
 
         return $page;
     }
-    
+
     /**
      * Delete Pages
      *
@@ -87,7 +84,7 @@ class Action extends BaseAction
         $delete = new \Agora\Bundles\Pages\Actions\Delete(
             $this->getContainer()
         );
-        
+
         $page = $delete->onDelete($args);
 
         return $page;

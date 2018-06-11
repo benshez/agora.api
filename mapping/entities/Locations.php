@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Locations
  *
- * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_user_id_contact_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_contact_id_contact_id_idx", columns={"contact_id"})})
  * @ORM\Entity
  */
 class Locations
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,70 +22,70 @@ class Locations
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="ip_from", type="string", length=18, nullable=true)
+     * @ORM\Column(name="ip_from", type="string", length=18, nullable=true, options={"fixed"=true})
      */
     private $ipFrom;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="ip_to", type="string", length=18, nullable=true)
+     * @ORM\Column(name="ip_to", type="string", length=18, nullable=true, options={"fixed"=true})
      */
     private $ipTo;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="country_code", type="string", length=2, nullable=true)
+     * @ORM\Column(name="country_code", type="string", length=2, nullable=true, options={"fixed"=true})
      */
     private $countryCode;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="country_name", type="string", length=64, nullable=true)
      */
     private $countryName;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="region_name", type="string", length=128, nullable=true)
      */
     private $regionName;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="city_name", type="string", length=128, nullable=true)
      */
     private $cityName;
 
     /**
-     * @var float
+     * @var float|null
      *
      * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $latitude;
 
     /**
-     * @var float
+     * @var float|null
      *
      * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $longitude;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="zip_code", type="string", length=30, nullable=true)
      */
     private $zipCode;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="time_zone", type="string", length=8, nullable=true)
      */
@@ -94,14 +94,14 @@ class Locations
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
@@ -110,16 +110,16 @@ class Locations
      *
      * @ORM\ManyToOne(targetEntity="Contact")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="contact_id", referencedColumnName="id")
      * })
      */
-    private $user;
+    private $contact;
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -127,13 +127,13 @@ class Locations
     }
 
     /**
-     * Set ipFrom
+     * Set ipFrom.
      *
-     * @param string $ipFrom
+     * @param string|null $ipFrom
      *
      * @return Locations
      */
-    public function setIpFrom($ipFrom)
+    public function setIpFrom($ipFrom = null)
     {
         $this->ipFrom = $ipFrom;
 
@@ -141,9 +141,9 @@ class Locations
     }
 
     /**
-     * Get ipFrom
+     * Get ipFrom.
      *
-     * @return string
+     * @return string|null
      */
     public function getIpFrom()
     {
@@ -151,13 +151,13 @@ class Locations
     }
 
     /**
-     * Set ipTo
+     * Set ipTo.
      *
-     * @param string $ipTo
+     * @param string|null $ipTo
      *
      * @return Locations
      */
-    public function setIpTo($ipTo)
+    public function setIpTo($ipTo = null)
     {
         $this->ipTo = $ipTo;
 
@@ -165,9 +165,9 @@ class Locations
     }
 
     /**
-     * Get ipTo
+     * Get ipTo.
      *
-     * @return string
+     * @return string|null
      */
     public function getIpTo()
     {
@@ -175,13 +175,13 @@ class Locations
     }
 
     /**
-     * Set countryCode
+     * Set countryCode.
      *
-     * @param string $countryCode
+     * @param string|null $countryCode
      *
      * @return Locations
      */
-    public function setCountryCode($countryCode)
+    public function setCountryCode($countryCode = null)
     {
         $this->countryCode = $countryCode;
 
@@ -189,9 +189,9 @@ class Locations
     }
 
     /**
-     * Get countryCode
+     * Get countryCode.
      *
-     * @return string
+     * @return string|null
      */
     public function getCountryCode()
     {
@@ -199,13 +199,13 @@ class Locations
     }
 
     /**
-     * Set countryName
+     * Set countryName.
      *
-     * @param string $countryName
+     * @param string|null $countryName
      *
      * @return Locations
      */
-    public function setCountryName($countryName)
+    public function setCountryName($countryName = null)
     {
         $this->countryName = $countryName;
 
@@ -213,9 +213,9 @@ class Locations
     }
 
     /**
-     * Get countryName
+     * Get countryName.
      *
-     * @return string
+     * @return string|null
      */
     public function getCountryName()
     {
@@ -223,13 +223,13 @@ class Locations
     }
 
     /**
-     * Set regionName
+     * Set regionName.
      *
-     * @param string $regionName
+     * @param string|null $regionName
      *
      * @return Locations
      */
-    public function setRegionName($regionName)
+    public function setRegionName($regionName = null)
     {
         $this->regionName = $regionName;
 
@@ -237,9 +237,9 @@ class Locations
     }
 
     /**
-     * Get regionName
+     * Get regionName.
      *
-     * @return string
+     * @return string|null
      */
     public function getRegionName()
     {
@@ -247,13 +247,13 @@ class Locations
     }
 
     /**
-     * Set cityName
+     * Set cityName.
      *
-     * @param string $cityName
+     * @param string|null $cityName
      *
      * @return Locations
      */
-    public function setCityName($cityName)
+    public function setCityName($cityName = null)
     {
         $this->cityName = $cityName;
 
@@ -261,9 +261,9 @@ class Locations
     }
 
     /**
-     * Get cityName
+     * Get cityName.
      *
-     * @return string
+     * @return string|null
      */
     public function getCityName()
     {
@@ -271,13 +271,13 @@ class Locations
     }
 
     /**
-     * Set latitude
+     * Set latitude.
      *
-     * @param float $latitude
+     * @param float|null $latitude
      *
      * @return Locations
      */
-    public function setLatitude($latitude)
+    public function setLatitude($latitude = null)
     {
         $this->latitude = $latitude;
 
@@ -285,9 +285,9 @@ class Locations
     }
 
     /**
-     * Get latitude
+     * Get latitude.
      *
-     * @return float
+     * @return float|null
      */
     public function getLatitude()
     {
@@ -295,13 +295,13 @@ class Locations
     }
 
     /**
-     * Set longitude
+     * Set longitude.
      *
-     * @param float $longitude
+     * @param float|null $longitude
      *
      * @return Locations
      */
-    public function setLongitude($longitude)
+    public function setLongitude($longitude = null)
     {
         $this->longitude = $longitude;
 
@@ -309,9 +309,9 @@ class Locations
     }
 
     /**
-     * Get longitude
+     * Get longitude.
      *
-     * @return float
+     * @return float|null
      */
     public function getLongitude()
     {
@@ -319,13 +319,13 @@ class Locations
     }
 
     /**
-     * Set zipCode
+     * Set zipCode.
      *
-     * @param string $zipCode
+     * @param string|null $zipCode
      *
      * @return Locations
      */
-    public function setZipCode($zipCode)
+    public function setZipCode($zipCode = null)
     {
         $this->zipCode = $zipCode;
 
@@ -333,9 +333,9 @@ class Locations
     }
 
     /**
-     * Get zipCode
+     * Get zipCode.
      *
-     * @return string
+     * @return string|null
      */
     public function getZipCode()
     {
@@ -343,13 +343,13 @@ class Locations
     }
 
     /**
-     * Set timeZone
+     * Set timeZone.
      *
-     * @param string $timeZone
+     * @param string|null $timeZone
      *
      * @return Locations
      */
-    public function setTimeZone($timeZone)
+    public function setTimeZone($timeZone = null)
     {
         $this->timeZone = $timeZone;
 
@@ -357,9 +357,9 @@ class Locations
     }
 
     /**
-     * Get timeZone
+     * Get timeZone.
      *
-     * @return string
+     * @return string|null
      */
     public function getTimeZone()
     {
@@ -367,7 +367,7 @@ class Locations
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -381,7 +381,7 @@ class Locations
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -391,7 +391,7 @@ class Locations
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -405,7 +405,7 @@ class Locations
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -415,27 +415,26 @@ class Locations
     }
 
     /**
-     * Set user
+     * Set contact.
      *
-     * @param \Contact $user
+     * @param \Contact|null $contact
      *
      * @return Locations
      */
-    public function setUser(\Contact $user = null)
+    public function setContact(\Contact $contact = null)
     {
-        $this->user = $user;
+        $this->contact = $contact;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get contact.
      *
-     * @return \Contact
+     * @return \Contact|null
      */
-    public function getUser()
+    public function getContact()
     {
-        return $this->user;
+        return $this->contact;
     }
 }
-

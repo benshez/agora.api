@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseController File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseController
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,23 +14,21 @@
 
 namespace Agora\Modules\Base\Controller;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Agora\Modules\Base\Options\BaseOptions;
 use Agora\Modules\Base\Interfaces\IBaseAction;
 use Agora\Modules\Base\Interfaces\IBaseController;
+use Agora\Modules\Base\Options\BaseOptions;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class BaseController implements IBaseController
 {
-    private $_parameters = array();
-    private $_action = array();
+    private $_parameters = [];
+    private $_action = [];
 
     /**
      * Base Controller
      *
      * @param IBaseAction $action Action.
-     *
-     * @return void
      */
     public function __construct(IBaseAction $action)
     {
@@ -41,8 +39,6 @@ class BaseController implements IBaseController
      * Set Action
      *
      * @param IBaseAction $action Action.
-     *
-     * @return void
      */
     public function setAction(IBaseAction $action)
     {
@@ -78,7 +74,7 @@ class BaseController implements IBaseController
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        $args = null,
+        $args,
         BaseOptions $options
     ) {
         $data = $this->fetched(
@@ -87,7 +83,7 @@ class BaseController implements IBaseController
             $this->getAction()->get($sender, $args),
             $options
         );
-        
+
         return $data;
     }
 
@@ -119,10 +115,10 @@ class BaseController implements IBaseController
             $this->getAction()->get($sender, $args),
             $options
         );
-        
+
         return $data;
     }
-    
+
     /**
      * Authenticate Contact
      *
@@ -144,9 +140,10 @@ class BaseController implements IBaseController
     ) {
         if ($args) {
             $data = $response->withJSON($args);
+
             return $data;
         }
-        
+
         $data = $response->withStatus(
             404,
             $this->getAction()->getConfig()->getOption(
@@ -155,7 +152,7 @@ class BaseController implements IBaseController
                 $options->getOption('extention')
             )
         );
-        
+
         return $data;
     }
 
@@ -181,7 +178,7 @@ class BaseController implements IBaseController
 
         return $data;
     }
-    
+
     /**
      * Authenticate Contact
      *
@@ -201,7 +198,7 @@ class BaseController implements IBaseController
         $data = $response->withJSON(
             $this->getAction()->onAdd($request->getParsedBody())
         );
-        
+
         return $data;
     }
 
@@ -224,7 +221,7 @@ class BaseController implements IBaseController
         $data = $response->withJSON(
             $this->getAction()->onUpdate($request->getParsedBody())
         );
-        
+
         return $data;
     }
 
@@ -247,7 +244,7 @@ class BaseController implements IBaseController
         $data = $response->withJSON(
             $this->getAction()->onDelete($args)
         );
-        
+
         return $data;
     }
 }

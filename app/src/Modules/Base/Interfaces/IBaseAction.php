@@ -1,10 +1,10 @@
 <?php
 /**
- * IBaseAction File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -22,8 +22,6 @@ interface IBaseAction
      * IBaseAction
      *
      * @param ContainerInterface $container Container.
-     *
-     * @return void
      */
     public function __construct(ContainerInterface $container);
 }

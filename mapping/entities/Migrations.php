@@ -24,13 +24,13 @@ class Migrations
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="apply_time", type="datetime", nullable=false)
+     * @ORM\Column(name="apply_time", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $applyTime = 'CURRENT_TIMESTAMP';
 
 
     /**
-     * Get version
+     * Get version.
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class Migrations
     }
 
     /**
-     * Set applyTime
+     * Set applyTime.
      *
      * @param \DateTime $applyTime
      *
@@ -54,7 +54,7 @@ class Migrations
     }
 
     /**
-     * Get applyTime
+     * Get applyTime.
      *
      * @return \DateTime
      */
@@ -63,4 +63,3 @@ class Migrations
         return $this->applyTime;
     }
 }
-

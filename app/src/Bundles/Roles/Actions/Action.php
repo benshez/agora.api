@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,14 +14,10 @@
 
 namespace Agora\Bundles\Roles\Actions;
 
-use Agora\Modules\Config\Config;
 use Agora\Modules\Base\Actions\BaseAction;
-use Agora\Bundles\Contact\Validation\Validation;
-use \Agora\Bundles\Roles\Entity\Roles;
 
 class Action extends BaseAction
 {
-    
     /**
      * Get Role
      *
@@ -34,12 +30,12 @@ class Action extends BaseAction
         $get = new \Agora\Bundles\Roles\Actions\Get(
             $this->getContainer()
         );
-        
+
         $role = $get->onGet($args);
 
         return $role;
     }
-        
+
     /**
      * Save Role
      *
@@ -52,12 +48,12 @@ class Action extends BaseAction
         $save = new \Agora\Bundles\Roles\Actions\Save(
             $this->getContainer()
         );
-        
+
         $role = $save->onUpdate($args);
 
         return $role;
     }
-    
+
     /**
      * Add Role
      *
@@ -70,12 +66,12 @@ class Action extends BaseAction
         $add = new \Agora\Bundles\Role\Actions\Add(
             $this->getContainer()
         );
-        
+
         $role = $add->onAdd($args);
 
         return $role;
     }
-    
+
     /**
      * Delete Role
      *
@@ -88,7 +84,7 @@ class Action extends BaseAction
         $delete = new \Agora\Bundles\Role\Actions\Delete(
             $this->getContainer()
         );
-        
+
         $role = $delete->onDelete($args);
 
         return $role;

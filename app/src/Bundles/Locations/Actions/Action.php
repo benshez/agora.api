@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,13 +14,10 @@
 
 namespace Agora\Bundles\Locations\Actions;
 
-use Agora\Modules\Config\Config;
 use Agora\Modules\Base\Actions\BaseAction;
-use Agora\Bundles\Locations\Validation\Validation;
 
 class Action extends BaseAction
 {
-
     /**
      * Get Locations
      *
@@ -28,16 +25,16 @@ class Action extends BaseAction
      *
      * @return Locations
      */
-     public function onGet(array $args)
-     {
-         $get = new \Agora\Bundles\Locations\Actions\Get(
+    public function onGet(array $args)
+    {
+        $get = new \Agora\Bundles\Locations\Actions\Get(
              $this->getContainer()
          );
-         
-         $location = $get->onGet($args);
- 
-         return $location;
-     }
+
+        $location = $get->onGet($args);
+
+        return $location;
+    }
 
     /**
      * Save Locations
@@ -51,12 +48,12 @@ class Action extends BaseAction
         $save = new \Agora\Bundles\Locations\Actions\Save(
             $this->getContainer()
         );
-        
+
         $location = $save->onUpdate($args);
 
         return $location;
     }
-    
+
     /**
      * Add Locations
      *
@@ -69,12 +66,12 @@ class Action extends BaseAction
         $add = new \Agora\Bundles\Locations\Actions\Add(
             $this->getContainer()
         );
-        
+
         $location = $add->onAdd($args);
 
         return $location;
     }
-    
+
     /**
      * Delete Locations
      *
@@ -87,7 +84,7 @@ class Action extends BaseAction
         $delete = new \Agora\Bundles\Locations\Actions\Delete(
             $this->getContainer()
         );
-        
+
         $location = $delete->onDelete($args);
 
         return $location;

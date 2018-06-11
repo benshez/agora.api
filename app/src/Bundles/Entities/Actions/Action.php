@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,9 +14,7 @@
 
 namespace Agora\Bundles\Entities\Actions;
 
-use Agora\Modules\Config\Config;
 use Agora\Modules\Base\Actions\BaseAction;
-use Agora\Bundles\Entities\Validation\Validation;
 
 class Action extends BaseAction
 {
@@ -32,12 +30,12 @@ class Action extends BaseAction
         $save = new \Agora\Bundles\Entities\Actions\Save(
             $this->getContainer()
         );
-        
+
         $entity = $save->onUpdate($args);
 
         return $entity;
     }
-    
+
     /**
      * Add Entities
      *
@@ -50,12 +48,12 @@ class Action extends BaseAction
         $add = new \Agora\Bundles\Entities\Actions\Add(
             $this->getContainer()
         );
-        
+
         $entity = $add->onAdd($args);
 
         return $entity;
     }
-    
+
     /**
      * Delete Entities
      *
@@ -68,7 +66,7 @@ class Action extends BaseAction
         $delete = new \Agora\Bundles\Entities\Actions\Delete(
             $this->getContainer()
         );
-        
+
         $entity = $delete->onDelete($args);
 
         return $entity;

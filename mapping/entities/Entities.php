@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Entities
  *
- * @ORM\Table(name="entities", indexes={@ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"}), @ORM\Index(name="entities_name", columns={"name"}), @ORM\Index(name="entities_identifier", columns={"identifier"})})
+ * @ORM\Table(name="entities", indexes={@ORM\Index(name="entities_name", columns={"name"}), @ORM\Index(name="entities_identifier", columns={"identifier"}), @ORM\Index(name="fk_industry_id_industries_id", columns={"industry_id"})})
  * @ORM\Entity
  */
 class Entities
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -27,13 +27,6 @@ class Entities
      * @ORM\Column(name="identifier", type="string", length=15, nullable=false)
      */
     private $identifier;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="enabled", type="boolean", nullable=false)
-     */
-    private $enabled;
 
     /**
      * @var string
@@ -71,16 +64,23 @@ class Entities
     private $expiresAt;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     */
+    private $enabled;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
@@ -96,9 +96,9 @@ class Entities
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -106,7 +106,7 @@ class Entities
     }
 
     /**
-     * Set identifier
+     * Set identifier.
      *
      * @param string $identifier
      *
@@ -120,7 +120,7 @@ class Entities
     }
 
     /**
-     * Get identifier
+     * Get identifier.
      *
      * @return string
      */
@@ -130,31 +130,7 @@ class Entities
     }
 
     /**
-     * Set enabled
-     *
-     * @param boolean $enabled
-     *
-     * @return Entities
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * Get enabled
-     *
-     * @return boolean
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -168,7 +144,7 @@ class Entities
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -178,7 +154,7 @@ class Entities
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
      *
@@ -192,7 +168,7 @@ class Entities
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string
      */
@@ -202,7 +178,7 @@ class Entities
     }
 
     /**
-     * Set state
+     * Set state.
      *
      * @param string $state
      *
@@ -216,7 +192,7 @@ class Entities
     }
 
     /**
-     * Get state
+     * Get state.
      *
      * @return string
      */
@@ -226,7 +202,7 @@ class Entities
     }
 
     /**
-     * Set postCode
+     * Set postCode.
      *
      * @param string $postCode
      *
@@ -240,7 +216,7 @@ class Entities
     }
 
     /**
-     * Get postCode
+     * Get postCode.
      *
      * @return string
      */
@@ -250,7 +226,7 @@ class Entities
     }
 
     /**
-     * Set expiresAt
+     * Set expiresAt.
      *
      * @param \DateTime $expiresAt
      *
@@ -264,7 +240,7 @@ class Entities
     }
 
     /**
-     * Get expiresAt
+     * Get expiresAt.
      *
      * @return \DateTime
      */
@@ -274,7 +250,31 @@ class Entities
     }
 
     /**
-     * Set createdAt
+     * Set enabled.
+     *
+     * @param bool $enabled
+     *
+     * @return Entities
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled.
+     *
+     * @return bool
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -288,7 +288,7 @@ class Entities
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -298,7 +298,7 @@ class Entities
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -312,7 +312,7 @@ class Entities
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -322,9 +322,9 @@ class Entities
     }
 
     /**
-     * Set industry
+     * Set industry.
      *
-     * @param \Industries $industry
+     * @param \Industries|null $industry
      *
      * @return Entities
      */
@@ -336,13 +336,12 @@ class Entities
     }
 
     /**
-     * Get industry
+     * Get industry.
      *
-     * @return \Industries
+     * @return \Industries|null
      */
     public function getIndustry()
     {
         return $this->industry;
     }
 }
-

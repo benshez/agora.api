@@ -1,10 +1,10 @@
 <?php
 /**
- * Save File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,9 +14,9 @@
 
 namespace Agora\Bundles\Industries\Interfaces;
 
+use Agora\Modules\Base\Interfaces\IBaseController;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Agora\Modules\Base\Interfaces\IBaseController;
 
 interface IIndustriesController extends IBaseController
 {

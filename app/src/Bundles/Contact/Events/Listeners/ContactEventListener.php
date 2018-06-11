@@ -21,8 +21,8 @@ class ContactEventListener implements IContactEventListener
     public const ON_SEND_ACTIVATION = 'onSendActivationInfo';
     public const ON_SEND_DEACTIVATION = 'onSendDeactivationInfo';
 
-    private $_container = null;
-    
+    private $_container;
+
     /**
      * Initialise ContactEventListener To Set Container
      *

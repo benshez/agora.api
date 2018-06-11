@@ -5,9 +5,9 @@ Pages:
         idx_title:
             columns:
                 - title
-        fk_pages_users_id_user_id_idx:
+        fk_pages_contact_id_contact_id_idx:
             columns:
-                - user_id
+                - contact_id
     id:
         id:
             type: integer
@@ -27,7 +27,7 @@ Pages:
         content:
             type: text
             nullable: false
-            length: null
+            length: 0
             options:
                 fixed: false
         enabled:
@@ -46,14 +46,14 @@ Pages:
                 default: CURRENT_TIMESTAMP
             column: updated_at
     manyToOne:
-        user:
-            targetEntity: Entities
+        contact:
+            targetEntity: Contact
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                user_id:
+                contact_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

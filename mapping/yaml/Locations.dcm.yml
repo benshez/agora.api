@@ -12,9 +12,9 @@ Locations:
             columns:
                 - ip_from
                 - ip_to
-        fk_locations_user_id_contact_id_idx:
+        fk_locations_contact_id_contact_id_idx:
             columns:
-                - user_id
+                - contact_id
     id:
         id:
             type: integer
@@ -104,14 +104,14 @@ Locations:
                 default: CURRENT_TIMESTAMP
             column: updated_at
     manyToOne:
-        user:
+        contact:
             targetEntity: Contact
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                user_id:
+                contact_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

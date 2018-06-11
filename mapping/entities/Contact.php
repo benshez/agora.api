@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Contact
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -43,128 +43,135 @@ class Contact
     private $password;
 
     /**
-     * @var integer
+     * @var int|null
      *
      * @ORM\Column(name="retries", type="integer", nullable=true)
      */
     private $retries;
 
     /**
-     * @var boolean
+     * @var bool|null
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     private $enabled;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="locked", type="boolean", nullable=false)
      */
     private $locked;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="address", type="text", length=65535, nullable=true)
      */
     private $address;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="city", type="string", length=40, nullable=true)
      */
     private $city;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="state", type="string", length=10, nullable=true)
      */
     private $state;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="post_code", type="string", length=10, nullable=true)
      */
     private $postCode;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="phone", type="string", length=28, nullable=true)
      */
     private $phone;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="email", type="string", length=28, nullable=true)
      */
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
     private $website;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      */
     private $facebook;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
      */
     private $twitter;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="token_char", type="string", length=255, nullable=true)
      */
     private $tokenChar;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(name="token_expiry", type="datetime", nullable=true)
      */
     private $tokenExpiry;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=true)
      */
     private $lastLogin;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="subscriber", type="boolean", nullable=false, options={"default"="1"})
+     */
+    private $subscriber = '1';
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt = 'CURRENT_TIMESTAMP';
 
@@ -190,9 +197,9 @@ class Contact
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -200,7 +207,7 @@ class Contact
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -214,7 +221,7 @@ class Contact
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -224,7 +231,7 @@ class Contact
     }
 
     /**
-     * Set usersurname
+     * Set usersurname.
      *
      * @param string $usersurname
      *
@@ -238,7 +245,7 @@ class Contact
     }
 
     /**
-     * Get usersurname
+     * Get usersurname.
      *
      * @return string
      */
@@ -248,7 +255,7 @@ class Contact
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -262,7 +269,7 @@ class Contact
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -272,13 +279,13 @@ class Contact
     }
 
     /**
-     * Set retries
+     * Set retries.
      *
-     * @param integer $retries
+     * @param int|null $retries
      *
      * @return Contact
      */
-    public function setRetries($retries)
+    public function setRetries($retries = null)
     {
         $this->retries = $retries;
 
@@ -286,9 +293,9 @@ class Contact
     }
 
     /**
-     * Get retries
+     * Get retries.
      *
-     * @return integer
+     * @return int|null
      */
     public function getRetries()
     {
@@ -296,13 +303,13 @@ class Contact
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool|null $enabled
      *
      * @return Contact
      */
-    public function setEnabled($enabled)
+    public function setEnabled($enabled = null)
     {
         $this->enabled = $enabled;
 
@@ -310,9 +317,9 @@ class Contact
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool|null
      */
     public function getEnabled()
     {
@@ -320,9 +327,9 @@ class Contact
     }
 
     /**
-     * Set locked
+     * Set locked.
      *
-     * @param boolean $locked
+     * @param bool $locked
      *
      * @return Contact
      */
@@ -334,9 +341,9 @@ class Contact
     }
 
     /**
-     * Get locked
+     * Get locked.
      *
-     * @return boolean
+     * @return bool
      */
     public function getLocked()
     {
@@ -344,13 +351,13 @@ class Contact
     }
 
     /**
-     * Set address
+     * Set address.
      *
-     * @param string $address
+     * @param string|null $address
      *
      * @return Contact
      */
-    public function setAddress($address)
+    public function setAddress($address = null)
     {
         $this->address = $address;
 
@@ -358,9 +365,9 @@ class Contact
     }
 
     /**
-     * Get address
+     * Get address.
      *
-     * @return string
+     * @return string|null
      */
     public function getAddress()
     {
@@ -368,13 +375,13 @@ class Contact
     }
 
     /**
-     * Set city
+     * Set city.
      *
-     * @param string $city
+     * @param string|null $city
      *
      * @return Contact
      */
-    public function setCity($city)
+    public function setCity($city = null)
     {
         $this->city = $city;
 
@@ -382,9 +389,9 @@ class Contact
     }
 
     /**
-     * Get city
+     * Get city.
      *
-     * @return string
+     * @return string|null
      */
     public function getCity()
     {
@@ -392,13 +399,13 @@ class Contact
     }
 
     /**
-     * Set state
+     * Set state.
      *
-     * @param string $state
+     * @param string|null $state
      *
      * @return Contact
      */
-    public function setState($state)
+    public function setState($state = null)
     {
         $this->state = $state;
 
@@ -406,9 +413,9 @@ class Contact
     }
 
     /**
-     * Get state
+     * Get state.
      *
-     * @return string
+     * @return string|null
      */
     public function getState()
     {
@@ -416,13 +423,13 @@ class Contact
     }
 
     /**
-     * Set postCode
+     * Set postCode.
      *
-     * @param string $postCode
+     * @param string|null $postCode
      *
      * @return Contact
      */
-    public function setPostCode($postCode)
+    public function setPostCode($postCode = null)
     {
         $this->postCode = $postCode;
 
@@ -430,9 +437,9 @@ class Contact
     }
 
     /**
-     * Get postCode
+     * Get postCode.
      *
-     * @return string
+     * @return string|null
      */
     public function getPostCode()
     {
@@ -440,13 +447,13 @@ class Contact
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
-     * @param string $phone
+     * @param string|null $phone
      *
      * @return Contact
      */
-    public function setPhone($phone)
+    public function setPhone($phone = null)
     {
         $this->phone = $phone;
 
@@ -454,9 +461,9 @@ class Contact
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string
+     * @return string|null
      */
     public function getPhone()
     {
@@ -464,13 +471,13 @@ class Contact
     }
 
     /**
-     * Set email
+     * Set email.
      *
-     * @param string $email
+     * @param string|null $email
      *
      * @return Contact
      */
-    public function setEmail($email)
+    public function setEmail($email = null)
     {
         $this->email = $email;
 
@@ -478,9 +485,9 @@ class Contact
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string
+     * @return string|null
      */
     public function getEmail()
     {
@@ -488,13 +495,13 @@ class Contact
     }
 
     /**
-     * Set website
+     * Set website.
      *
-     * @param string $website
+     * @param string|null $website
      *
      * @return Contact
      */
-    public function setWebsite($website)
+    public function setWebsite($website = null)
     {
         $this->website = $website;
 
@@ -502,9 +509,9 @@ class Contact
     }
 
     /**
-     * Get website
+     * Get website.
      *
-     * @return string
+     * @return string|null
      */
     public function getWebsite()
     {
@@ -512,13 +519,13 @@ class Contact
     }
 
     /**
-     * Set facebook
+     * Set facebook.
      *
-     * @param string $facebook
+     * @param string|null $facebook
      *
      * @return Contact
      */
-    public function setFacebook($facebook)
+    public function setFacebook($facebook = null)
     {
         $this->facebook = $facebook;
 
@@ -526,9 +533,9 @@ class Contact
     }
 
     /**
-     * Get facebook
+     * Get facebook.
      *
-     * @return string
+     * @return string|null
      */
     public function getFacebook()
     {
@@ -536,13 +543,13 @@ class Contact
     }
 
     /**
-     * Set twitter
+     * Set twitter.
      *
-     * @param string $twitter
+     * @param string|null $twitter
      *
      * @return Contact
      */
-    public function setTwitter($twitter)
+    public function setTwitter($twitter = null)
     {
         $this->twitter = $twitter;
 
@@ -550,9 +557,9 @@ class Contact
     }
 
     /**
-     * Get twitter
+     * Get twitter.
      *
-     * @return string
+     * @return string|null
      */
     public function getTwitter()
     {
@@ -560,13 +567,13 @@ class Contact
     }
 
     /**
-     * Set tokenChar
+     * Set tokenChar.
      *
-     * @param string $tokenChar
+     * @param string|null $tokenChar
      *
      * @return Contact
      */
-    public function setTokenChar($tokenChar)
+    public function setTokenChar($tokenChar = null)
     {
         $this->tokenChar = $tokenChar;
 
@@ -574,9 +581,9 @@ class Contact
     }
 
     /**
-     * Get tokenChar
+     * Get tokenChar.
      *
-     * @return string
+     * @return string|null
      */
     public function getTokenChar()
     {
@@ -584,13 +591,13 @@ class Contact
     }
 
     /**
-     * Set tokenExpiry
+     * Set tokenExpiry.
      *
-     * @param \DateTime $tokenExpiry
+     * @param \DateTime|null $tokenExpiry
      *
      * @return Contact
      */
-    public function setTokenExpiry($tokenExpiry)
+    public function setTokenExpiry($tokenExpiry = null)
     {
         $this->tokenExpiry = $tokenExpiry;
 
@@ -598,9 +605,9 @@ class Contact
     }
 
     /**
-     * Get tokenExpiry
+     * Get tokenExpiry.
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getTokenExpiry()
     {
@@ -608,13 +615,13 @@ class Contact
     }
 
     /**
-     * Set lastLogin
+     * Set lastLogin.
      *
-     * @param \DateTime $lastLogin
+     * @param \DateTime|null $lastLogin
      *
      * @return Contact
      */
-    public function setLastLogin($lastLogin)
+    public function setLastLogin($lastLogin = null)
     {
         $this->lastLogin = $lastLogin;
 
@@ -622,9 +629,9 @@ class Contact
     }
 
     /**
-     * Get lastLogin
+     * Get lastLogin.
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getLastLogin()
     {
@@ -632,13 +639,13 @@ class Contact
     }
 
     /**
-     * Set logo
+     * Set logo.
      *
-     * @param string $logo
+     * @param string|null $logo
      *
      * @return Contact
      */
-    public function setLogo($logo)
+    public function setLogo($logo = null)
     {
         $this->logo = $logo;
 
@@ -646,9 +653,9 @@ class Contact
     }
 
     /**
-     * Get logo
+     * Get logo.
      *
-     * @return string
+     * @return string|null
      */
     public function getLogo()
     {
@@ -656,7 +663,31 @@ class Contact
     }
 
     /**
-     * Set updatedAt
+     * Set subscriber.
+     *
+     * @param bool $subscriber
+     *
+     * @return Contact
+     */
+    public function setSubscriber($subscriber)
+    {
+        $this->subscriber = $subscriber;
+
+        return $this;
+    }
+
+    /**
+     * Get subscriber.
+     *
+     * @return bool
+     */
+    public function getSubscriber()
+    {
+        return $this->subscriber;
+    }
+
+    /**
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -670,7 +701,7 @@ class Contact
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -680,7 +711,7 @@ class Contact
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -694,7 +725,7 @@ class Contact
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -704,9 +735,9 @@ class Contact
     }
 
     /**
-     * Set entity
+     * Set entity.
      *
-     * @param \Entities $entity
+     * @param \Entities|null $entity
      *
      * @return Contact
      */
@@ -718,9 +749,9 @@ class Contact
     }
 
     /**
-     * Get entity
+     * Get entity.
      *
-     * @return \Entities
+     * @return \Entities|null
      */
     public function getEntity()
     {
@@ -728,9 +759,9 @@ class Contact
     }
 
     /**
-     * Set role
+     * Set role.
      *
-     * @param \Roles $role
+     * @param \Roles|null $role
      *
      * @return Contact
      */
@@ -742,13 +773,12 @@ class Contact
     }
 
     /**
-     * Get role
+     * Get role.
      *
-     * @return \Roles
+     * @return \Roles|null
      */
     public function getRole()
     {
         return $this->role;
     }
 }
-

@@ -1,43 +1,41 @@
 <?php
 /**
- * EmailExistsValidator File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  EmailExistsValidator
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/agora.api
  */
+
 namespace Agora\Modules\Validators\Authentication;
 
-use Zend\Validator\AbstractValidator;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\Validator\AbstractValidator;
 
 class AuthenticationValidator extends AbstractValidator
 {
-
     const USER = 'user';
     const REFERENCE = 'contact';
 
-    protected $messageTemplates = array(
-        self::USER  => 'Not a valid user name or password.'
-    );
+    protected $messageTemplates = [
+        self::USER => 'Not a valid user name or password.',
+    ];
 
     /**
      * Ctor AuthenticationValidator
      *
      * @param array $options Validator options.
-     *
-     * @return void
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
     }
-    
+
     /**
      * IsValid
      *
@@ -48,29 +46,29 @@ class AuthenticationValidator extends AbstractValidator
     public function isValid($value)
     {
         $isValid = true;
-        
+
         $action = $this->getOption('action');
-        
+
         $contact = $action->onBaseActionGet()->get(
             $action->getReference(self::REFERENCE),
             ['email' => $value['email']]
         );
-                
+
         if ($contact) {
             $bcrypt = new Bcrypt();
             $isValid = $bcrypt->verify($value['password'], $contact->getPassword());
         } else {
             $isValid = false;
         }
-        
+
         if (!$isValid) {
             if ($contact && !$contact->getLocked()) {
                 $retries = (null === $contact->getRetries()) ?
                 0 :
                 $contact->getRetries();
-                
-                $retries++;
-            
+
+                ++$retries;
+
                 if ($retries > 3) {
                     $contact->setLocked(true);
                 } else {

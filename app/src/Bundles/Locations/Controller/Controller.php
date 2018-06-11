@@ -1,10 +1,10 @@
 <?php
 /**
- * Save File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,23 +14,22 @@
 
 namespace Agora\Bundles\Locations\Controller;
 
+use Agora\Bundles\Locations\Interfaces\ILocationsController;
+use Agora\Modules\Base\Controller\BaseController;
+use Agora\Modules\Base\Options\BaseOptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Agora\Modules\Base\Options\BaseOptions;
-use Agora\Modules\Base\Controller\BaseController;
-use Agora\Bundles\Locations\Interfaces\ILocationsController;
 
 class Controller extends BaseController implements ILocationsController
 {
     const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'locations';
 
-
-    private $_options = array('part' => 'messages',
+    private $_options = ['part' => 'messages',
         'class' => self::REFERENCE,
-        'extention' => 'validation:locations:message:IndustriesNotFound'
-    );
-    
+        'extention' => 'validation:locations:message:IndustriesNotFound',
+    ];
+
     /**
      * Find Locations By Industry Code
      *
@@ -53,11 +52,11 @@ class Controller extends BaseController implements ILocationsController
             $this->getAction()->onGet($args),
             new BaseOptions($this->_options)
         );
-        
+
         if ($fetched) {
             return $fetched;
         }
-        
+
         return false;
     }
 }

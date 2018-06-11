@@ -11,6 +11,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/agora.api
  */
+
 namespace Agora\Modules\Base\Events;
 
 use Doctrine\Common\EventSubscriber;
@@ -21,9 +22,9 @@ class BaseEventSubscriber implements EventSubscriber
 {
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::postUpdate,
-        );
+        ];
     }
 
     public function postUpdate(LifecycleEventArgs $args)

@@ -1,16 +1,14 @@
 <?php
 /**
- * BaseAction File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseAction
+ * @category  Agora
  * @package   Agora
- *
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
- *
  * @link      https://github.com/benshez/agora.api
  */
 
@@ -19,8 +17,7 @@ namespace Agora\Modules\Base\Actions;
 use Agora\Modules\Base\Interfaces\IBaseAction;
 use Agora\Modules\Config\Config;
 use Interop\Container\ContainerInterface;
-use JMS\Serializer\SerializerBuilder;
-use \ReflectionObject;
+use ReflectionObject;
 
 class BaseAction implements IBaseAction
 {
@@ -32,29 +29,28 @@ class BaseAction implements IBaseAction
 
     const VALIDATORS = 'validators';
 
-    private $_baseDelete = null;
+    private $_baseDelete;
 
-    private $_baseGet = null;
+    private $_baseGet;
 
-    private $_baseReference = null;
+    private $_baseReference;
 
-    private $_baseSave = null;
+    private $_baseSave;
 
-    private $_config = null;
+    private $_config;
 
-    private $_container = null;
+    private $_container;
 
-    private $_manager = null;
+    private $_manager;
 
-    private $_settings = null;
+    private $_settings;
 
-    private $_validator = null;
+    private $_validator;
 
     /**
      * Initialise BaseAction To Set Container
      *
-     * @param  ContainerInterface $container ContainerInterface.
-     * @return void
+     * @param  ContainerInterface $container containerInterface
      */
     public function __construct(ContainerInterface $container)
     {
@@ -64,10 +60,10 @@ class BaseAction implements IBaseAction
     /**
      * Get FormIsValid
      *
-     * @param  ReflectionObject $validator Validator.
-     * @param  string           $class     Class.
-     * @param  string           $extention Class Extention.
-     * @param  array            $args      Args.
+     * @param  ReflectionObject $validator validator
+     * @param  string           $class     class
+     * @param  string           $extention class Extention
+     * @param  array            $args      args
      * @return IsValid
      */
     public function formIsValid(
@@ -76,16 +72,15 @@ class BaseAction implements IBaseAction
         string $extention,
         array $args
     ) {
-
         $fields = $this->getConfig()
             ->getOption(self::VALIDATORS, $class, $extention);
 
-        $values = array();
+        $values = [];
 
         foreach ($fields as $key => $field) {
             foreach ($field as $value) {
                 if (isset($value[3]) && is_array($value[3])) {
-                    $val = array();
+                    $val = [];
                     foreach ($value[3] as $index => $passed) {
                         $val[$passed] = $args[$passed];
                     }
@@ -114,6 +109,7 @@ class BaseAction implements IBaseAction
         $this->_config = (null === $this->_config) ?
         new Config($this->getSettings()) :
         $this->_config;
+
         return $this->_config;
     }
 
@@ -140,8 +136,8 @@ class BaseAction implements IBaseAction
     /**
      * Base Get Offset And Limit
      *
-     * @param  integer $offset Offset.
-     * @param  integer $limit  Limit.
+     * @param  int $offset offset
+     * @param  int $limit  limit
      * @return array
      */
     public function getOffsetAndLimit(
@@ -149,16 +145,16 @@ class BaseAction implements IBaseAction
         int $limit = 10
     ) {
         $offset = ($offset <= 0) ? 1 : $offset;
-        $limit = isset($limit) ? $limit : 10;
+        $limit = $limit ?? 10;
         $offset = ($limit * ($offset - 1));
 
-        return array('offset' => $offset, 'limit' => $limit);
+        return ['offset' => $offset, 'limit' => $limit];
     }
 
     /**
      * Base Get Reference
      *
-     * @param  string          $reference Reference.
+     * @param  string          $reference reference
      * @return BaseReference
      */
     public function getReference(string $reference)
@@ -181,13 +177,14 @@ class BaseAction implements IBaseAction
         $this->_settings = (null === $this->_settings) ?
         $this->getContainer()->get(self::SETTINGS) :
         $this->_settings;
+
         return $this->_settings;
     }
 
     /**
      * Validator
      *
-     * @param  \ReflectionObject $validatorClass Class.
+     * @param  \ReflectionObject $validatorClass class
      * @return validator
      */
     public function getValidator($validatorClass)
@@ -250,7 +247,7 @@ class BaseAction implements IBaseAction
     /**
      * Base Serliaze
      *
-     * @param  \ReflectionObject $data Class.
+     * @param  \ReflectionObject $data class
      * @return array
      */
     public function onSerialize($data)
@@ -263,8 +260,7 @@ class BaseAction implements IBaseAction
     /**
      * Set ContainerInterface
      *
-     * @param  ContainerInterface $container ContainerInterface.
-     * @return void
+     * @param  ContainerInterface $container containerInterface
      */
     public function setContainer(ContainerInterface $container)
     {
@@ -274,8 +270,6 @@ class BaseAction implements IBaseAction
 
     /**
      * Set ContainerInterface
-     *
-     * @return void
      */
     public function setEntityManager()
     {

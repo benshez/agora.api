@@ -1,10 +1,10 @@
 <?php
 /**
- * EmailExistsValidator File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  EmailExistsValidator
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -15,16 +15,15 @@
 namespace Agora\Modules\Validators\Contact;
 
 use Zend\Validator\AbstractValidator;
-use Agora\Modules\Base\Interfaces\IBaseAction;
 
 class ContactExistsValidator extends AbstractValidator
 {
     const REFERENCE = 'contact';
     const CONTACT_EXISTS = 'user';
 
-    protected $messageTemplates = array(
-        self::CONTACT_EXISTS  => 'A user with this id already exists.'
-    );
+    protected $messageTemplates = [
+        self::CONTACT_EXISTS => 'A user with this id already exists.',
+    ];
 
     /**
      * Ctor EmailExistsValidator
@@ -33,7 +32,7 @@ class ContactExistsValidator extends AbstractValidator
      *
      * @return User
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
     }

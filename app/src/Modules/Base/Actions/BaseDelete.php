@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseGet
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,18 +14,12 @@
 
 namespace Agora\Modules\Base\Actions;
 
-use Interop\Container\ContainerInterface;
-use Agora\Modules\Base\Actions\BaseAction;
-use Agora\Modules\Base\Actions\BaseSave;
-
 class BaseDelete extends BaseAction
 {
     /**
      * Base Delete Action
      *
-     * @param Object $entity Entity Class.
-     *
-     * @return void
+     * @param object $entity entity Class
      */
     public function delete($entity)
     {

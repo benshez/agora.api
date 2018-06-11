@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -31,7 +31,6 @@ class Repository extends BaseEntity
         array $criteria,
         array $orderBy = null
     ) {
-    
         $description = strtolower($criteria['description']);
 
         $qb = $this->_em->createQueryBuilder('u');
@@ -43,7 +42,7 @@ class Repository extends BaseEntity
         $query = $qb->getQuery();
 
         $data = $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-        
+
         return $data;
     }
 }

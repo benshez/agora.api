@@ -1,10 +1,10 @@
 <?php
 /**
- * Save File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,17 +14,15 @@
 
 namespace Agora\Bundles\Roles\Actions;
 
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Roles\Actions\Action;
-use Agora\Modules\Base\Actions\BaseHydrate;
 use Agora\Bundles\Roles\Validation\Validation;
+use Agora\Modules\Base\Actions\BaseHydrate;
 
 class Save extends Action
 {
     const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'roles';
     const KEY = 'id';
-    
+
     /**
      * Save Role
      *
@@ -35,7 +33,7 @@ class Save extends Action
     public function onUpdate(array $args)
     {
         $validator = new Validation($this);
-        
+
         if (!$this->formIsValid(
             $this->getValidator($validator),
             self::REFERENCE,
@@ -43,16 +41,17 @@ class Save extends Action
             $args
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
 
         $role = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            array(self::KEY => $args[self::KEY])
+            [self::KEY => $args[self::KEY]]
         );
-        
+
         $hydrate = new BaseHydrate($this->getContainer());
-        
+
         $role = $this->onBaseActionSave()->save(
             $hydrate->hydrate($role, $args)
         );
@@ -64,8 +63,9 @@ class Save extends Action
         if ($role->getId()) {
             $role = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                array(self::KEY => $role->getId())
+                [self::KEY => $role->getId()]
             );
+
             return $role;
         }
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Routes
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,8 +14,8 @@
 
 namespace Agora\Modules\Routes;
 
-use Interop\Container\ContainerInterface;
 use Agora\Modules\Middleware\TokenAuthentication\TokenAuthentication as TokenAuthentication;
+use Interop\Container\ContainerInterface;
 
 class Routes
 {
@@ -32,8 +32,6 @@ class Routes
      * @param \Slim\App $app    App.
      *
      * @param array     $routes App Routes.
-     *
-     * @return void
      */
     public function __construct(\Slim\App $app, array $routes)
     {
@@ -44,8 +42,6 @@ class Routes
 
     /**
      * Create Routes
-     *
-     * @return void
      */
     private function _addRoutes()
     {
@@ -54,15 +50,19 @@ class Routes
                 switch ($method) {
                     case 'GET':
                         $this->_addGetRoutes($route, $index);
+
                         break;
                     case 'POST':
                         $this->_addPostRoutes($route, $index);
+
                         break;
                     case 'PUT':
                         $this->_addPutRoutes($route, $index);
+
                         break;
                     case 'DELETE':
                         $this->_addDeleteRoutes($route, $index);
+
                         break;
                 }
             }
@@ -74,16 +74,14 @@ class Routes
      *
      * @param array   $route App Route.
      *
-     * @param integer $index App Route.
-     *
-     * @return void
+     * @param int $index App Route.
      */
     private function _addGetRoutes(array $route, int $index)
     {
         if ($route[self::MIDDLEWARE][$index]) {
             $container = $this->_app->getContainer();
             $middleware = $this->_addMiddleware($container, $route, $index);
-                
+
             $this->_app->get(
                 $route[self::PATTERN][$index],
                 $route[self::ACTION][$index]
@@ -117,16 +115,14 @@ class Routes
      *
      * @param array   $route App Route.
      *
-     * @param integer $index App Route.
-     *
-     * @return void
+     * @param int $index App Route.
      */
     private function _addPostRoutes(array $route, int $index)
     {
         if ($route[self::MIDDLEWARE][$index]) {
             $container = $this->_app->getContainer();
             $middleware = $this->_addMiddleware($container, $route, $index);
-            
+
             $this->_app->post(
                 $route[self::PATTERN][$index],
                 $route[self::ACTION][$index]
@@ -154,22 +150,20 @@ class Routes
             );
         }
     }
-    
+
     /**
      * Create Put Routes
      *
      * @param array   $route App Route.
      *
-     * @param integer $index App Route.
-     *
-     * @return void
+     * @param int $index App Route.
      */
     private function _addPutRoutes(array $route, int $index)
     {
         if ($route[self::MIDDLEWARE][$index]) {
             $container = $this->_app->getContainer();
             $middleware = $this->_addMiddleware($container, $route, $index);
-            
+
             $this->_app->put(
                 $route[self::PATTERN][$index],
                 $route[self::ACTION][$index]
@@ -197,15 +191,13 @@ class Routes
             );
         }
     }
-    
+
     /**
      * Create Delete Routes
      *
      * @param array   $route App Route.
      *
-     * @param integer $index App Route.
-     *
-     * @return void
+     * @param int $index App Route.
      */
     private function _addDeleteRoutes(array $route, int $index)
     {
@@ -239,7 +231,7 @@ class Routes
             );
         }
     }
-    
+
     /**
      * Create Middleware
      *
@@ -247,7 +239,7 @@ class Routes
      *
      * @param array              $route     App Route.
      *
-     * @param integer            $index     App Route.
+     * @param int            $index     App Route.
      *
      * @return middleware
      */
@@ -258,6 +250,7 @@ class Routes
         switch ($route[self::MIDDLEWARE][$index]) {
             case 'TokenAuthentication':
                 $middleware = [new TokenAuthentication($container, $route, $index), '__invoke'];
+
                 break;
         }
 

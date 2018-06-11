@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseHydrate File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseHydrate
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,11 +14,8 @@
 
 namespace Agora\Modules\Base\Actions;
 
-use \ReflectionObject;
-use Doctrine\Common\Util\Inflector;
-use Interop\Container\ContainerInterface;
-use Agora\Modules\Base\Actions\BaseAction;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Util\Inflector;
 use Doctrine\ORM\EntityRepository;
 
 class BaseHydrate extends BaseAction
@@ -26,7 +23,7 @@ class BaseHydrate extends BaseAction
     const PROP_NAME = 'name';
     const ANNOTATION_NAME = 'Doctrine\ORM\Mapping\Column';
     const SETTER_START = 'set%s';
-    
+
     /**
      * Base Hydrate Entity Action
      *
@@ -41,15 +38,15 @@ class BaseHydrate extends BaseAction
         $refObj = new \ReflectionObject($entity);
         $reader = new AnnotationReader();
         $columns = array_column($refObj->getProperties(), self::PROP_NAME);
-        
+
         foreach ($args as $key => $property) {
             $setter = sprintf(self::SETTER_START, ucfirst(Inflector::camelize($key)));
-            $column = array_search($key, $columns);
+            $column = array_search($key, $columns, true);
             $annotation = $reader->getPropertyAnnotation(
                 $refObj->getProperties()[$column],
                 self::ANNOTATION_NAME
             );
-            
+
             if ($annotation && method_exists($entity, $setter)) {
                 if (isset($args[$key])) {
                     //$entity->$setter($args[Inflector::tableize($annotation->name)]);
@@ -60,7 +57,7 @@ class BaseHydrate extends BaseAction
 
         return $entity;
     }
-    
+
     /**
      * Base Hydrate Entity Action
      *
@@ -76,7 +73,7 @@ class BaseHydrate extends BaseAction
             $this->getEntityManager()
         );
         $entityArray = $hydrator->extract($entity);
-        
+
         return $entityArray;
     }
 }

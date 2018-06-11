@@ -1,10 +1,10 @@
 <?php
 /**
- * Save File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,10 +14,6 @@
 
 namespace Agora\Bundles\Options\Actions;
 
-use Zend\Crypt\Password\Bcrypt;
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Options\Actions\Action;
-use Agora\Modules\Base\Actions\BaseHydrate;
 use Agora\Bundles\Options\Validation\Validation;
 
 class Add extends Action
@@ -42,10 +38,10 @@ class Add extends Action
             $args
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
-        
-        
+
         return false;
     }
 }

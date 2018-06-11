@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseController File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseOptions
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -20,8 +20,6 @@ interface IBaseOptions
      * Ctor Options
      *
      * @param array $options Options.
-     *
-     * @return void
      */
     public function __construct(array $options);
 
@@ -29,8 +27,6 @@ interface IBaseOptions
      * Set Options
      *
      * @param array $options Options.
-     *
-     * @return void
      */
     public function setOptions(array $options);
 

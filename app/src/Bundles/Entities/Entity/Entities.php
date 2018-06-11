@@ -1,119 +1,129 @@
 <?php
+/**
+ * This file is part of the Agora API.
+ *
+ * PHP Version 7.1.9
+ *
+ * @category  Agora
+ * @package   Agora
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 Agora
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/agora.api
+ */
 
 namespace Agora\Bundles\Entities\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Agora\Bundles\Industries\Entity\Industries;
-use Agora\Bundles\Roles\Entity\Roles;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Entities
  *
- * @ORM\Table(name="entities", indexes={@ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"}), @ORM\Index(name="entities_name", columns={"name"}), @ORM\Index(name="entities_identifier", columns={"identifier"})})
+ * @ORM\Table(name="entities", indexes={@ORM\Index(name="entities_name", columns={"name"}), @ORM\Index(name="entities_identifier", columns={"identifier"}), @ORM\Index(name="fk_industry_id_industries_id", columns={"industry_id"})})
  * @ORM\Entity
  */
 class Entities
 {
     /**
-    * @var integer
-    *
-    * @ORM\Column(name="id", type="integer")
-    * @ORM\Id
-    * @ORM\GeneratedValue(strategy="IDENTITY")
-    */
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
 
     /**
-    * @var string
-    *
-    * @ORM\Column(name="identifier", type="string", length=15, nullable=false)
-    */
+     * @var string
+     *
+     * @ORM\Column(name="identifier", type="string", length=15, nullable=false)
+     */
     private $identifier;
 
     /**
-    * @var boolean
-    *
-    * @ORM\Column(name="enabled", type="boolean", nullable=false)
-    */
-    private $enabled;
-
-    /**
-    * @var string
-    *
-    * @ORM\Column(name="name", type="string", length=200, nullable=false)
-    */
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=200, nullable=false)
+     */
     private $name;
 
     /**
-    * @var string
-    *
-    * @ORM\Column(name="status", type="string", length=10, nullable=false)
-    */
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=10, nullable=false)
+     */
     private $status;
 
     /**
-    * @var string
-    *
-    * @ORM\Column(name="state", type="string", length=3, nullable=false)
-    */
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=3, nullable=false)
+     */
     private $state;
 
     /**
-    * @var string
-    *
-    * @ORM\Column(name="post_code", type="string", length=10, nullable=false)
-    */
+     * @var string
+     *
+     * @ORM\Column(name="post_code", type="string", length=10, nullable=false)
+     */
     private $postCode;
 
     /**
-    * @var \DateTime
-    *
-    * @ORM\Column(name="expires_at", type="datetime", nullable=false)
-    */
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expires_at", type="datetime", nullable=false)
+     */
     private $expiresAt;
 
     /**
-    * @var \DateTime
-    *
-    * @ORM\Column(name="created_at", type="datetime", nullable=false)
-    */
+     * @var bool
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     */
+    private $enabled;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     */
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
-    * @var \DateTime
-    *
-    * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-    */
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-    * @var \Agora\Bundles\Industries\Entity\Industries
-    *
-    * @ORM\ManyToOne(targetEntity="\Agora\Bundles\Industries\Entity\Industries")
-    * @ORM\JoinColumns({
-    *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
-    * })
-    */
+     * @var \Industries
+     *
+     * @ORM\ManyToOne(targetEntity="Industries")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
+     * })
+     */
     private $industry;
 
-
     /**
-    * Get id
-    *
-    * @return integer
-    */
+     * Get id.
+     *
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
     /**
-    * Set identifier
-    *
-    * @param string $identifier
-    *
-    * @return Entities
-    */
+     * Set identifier.
+     *
+     * @param string $identifier
+     *
+     * @return Entities
+     */
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
@@ -122,46 +132,22 @@ class Entities
     }
 
     /**
-    * Get identifier
-    *
-    * @return string
-    */
+     * Get identifier.
+     *
+     * @return string
+     */
     public function getIdentifier()
     {
         return $this->identifier;
     }
 
     /**
-    * Set enabled
-    *
-    * @param boolean $enabled
-    *
-    * @return Entities
-    */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    /**
-    * Get enabled
-    *
-    * @return boolean
-    */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
-
-    /**
-    * Set name
-    *
-    * @param string $name
-    *
-    * @return Entities
-    */
+     * Set name.
+     *
+     * @param string $name
+     *
+     * @return Entities
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -170,22 +156,22 @@ class Entities
     }
 
     /**
-    * Get name
-    *
-    * @return string
-    */
+     * Get name.
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
     /**
-    * Set status
-    *
-    * @param string $status
-    *
-    * @return Entities
-    */
+     * Set status.
+     *
+     * @param string $status
+     *
+     * @return Entities
+     */
     public function setStatus($status)
     {
         $this->status = $status;
@@ -194,22 +180,22 @@ class Entities
     }
 
     /**
-    * Get status
-    *
-    * @return string
-    */
+     * Get status.
+     *
+     * @return string
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
     /**
-    * Set state
-    *
-    * @param string $state
-    *
-    * @return Entities
-    */
+     * Set state.
+     *
+     * @param string $state
+     *
+     * @return Entities
+     */
     public function setState($state)
     {
         $this->state = $state;
@@ -218,22 +204,22 @@ class Entities
     }
 
     /**
-    * Get state
-    *
-    * @return string
-    */
+     * Get state.
+     *
+     * @return string
+     */
     public function getState()
     {
         return $this->state;
     }
 
     /**
-    * Set postCode
-    *
-    * @param string $postCode
-    *
-    * @return Entities
-    */
+     * Set postCode.
+     *
+     * @param string $postCode
+     *
+     * @return Entities
+     */
     public function setPostCode($postCode)
     {
         $this->postCode = $postCode;
@@ -242,22 +228,22 @@ class Entities
     }
 
     /**
-    * Get postCode
-    *
-    * @return string
-    */
+     * Get postCode.
+     *
+     * @return string
+     */
     public function getPostCode()
     {
         return $this->postCode;
     }
 
     /**
-    * Set expiresAt
-    *
-    * @param \DateTime $expiresAt
-    *
-    * @return Entities
-    */
+     * Set expiresAt.
+     *
+     * @param \DateTime $expiresAt
+     *
+     * @return Entities
+     */
     public function setExpiresAt($expiresAt)
     {
         $this->expiresAt = $expiresAt;
@@ -266,22 +252,46 @@ class Entities
     }
 
     /**
-    * Get expiresAt
-    *
-    * @return \DateTime
-    */
+     * Get expiresAt.
+     *
+     * @return \DateTime
+     */
     public function getExpiresAt()
     {
         return $this->expiresAt;
     }
 
     /**
-    * Set createdAt
-    *
-    * @param \DateTime $createdAt
-    *
-    * @return Entities
-    */
+     * Set enabled.
+     *
+     * @param bool $enabled
+     *
+     * @return Entities
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled.
+     *
+     * @return bool
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set createdAt.
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Entities
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -290,22 +300,22 @@ class Entities
     }
 
     /**
-    * Get createdAt
-    *
-    * @return \DateTime
-    */
+     * Get createdAt.
+     *
+     * @return \DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
     /**
-    * Set updatedAt
-    *
-    * @param \DateTime $updatedAt
-    *
-    * @return Entities
-    */
+     * Set updatedAt.
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Entities
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
@@ -314,23 +324,23 @@ class Entities
     }
 
     /**
-    * Get updatedAt
-    *
-    * @return \DateTime
-    */
+     * Get updatedAt.
+     *
+     * @return \DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
     /**
-    * Set industry
-    *
-    * @param \Agora\Bundles\Industries\Entity\Industries $industry
-    *
-    * @return Entities
-    */
-    public function setIndustry(Industries $industry = null)
+     * Set industry.
+     *
+     * @param null|\Industries $industry
+     *
+     * @return Entities
+     */
+    public function setIndustry(\Industries $industry = null)
     {
         $this->industry = $industry;
 
@@ -338,10 +348,10 @@ class Entities
     }
 
     /**
-    * Get industry
-    *
-    * @return \Agora\Bundles\Industries\Entity\Industries
-    */
+     * Get industry.
+     *
+     * @return null|\Industries
+     */
     public function getIndustry()
     {
         return $this->industry;

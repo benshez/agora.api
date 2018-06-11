@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,10 +14,7 @@
 
 namespace Agora\Bundles\Industries\Actions;
 
-use Agora\Modules\Config\Config;
 use Agora\Modules\Base\Actions\BaseAction;
-use Agora\Bundles\Industries\Validation\Validation;
-use Agora\Bundles\Industries\Actions\Get;
 
 class Action extends BaseAction
 {
@@ -33,12 +30,12 @@ class Action extends BaseAction
         $industry = new Get(
             $this->getContainer()
         );
-        
+
         $industry = $industry->autoComplete($args);
 
         return $industry;
     }
-        
+
     /**
      * Save Industry
      *
@@ -51,12 +48,12 @@ class Action extends BaseAction
         $save = new \Agora\Bundles\Industries\Actions\Save(
             $this->getContainer()
         );
-        
+
         $industry = $save->onUpdate($args);
 
         return $industry;
     }
-    
+
     /**
      * Add Industry
      *
@@ -69,12 +66,12 @@ class Action extends BaseAction
         $add = new \Agora\Bundles\Industries\Actions\Add(
             $this->getContainer()
         );
-        
+
         $industry = $add->onAdd($args);
 
         return $industry;
     }
-    
+
     /**
      * Delete Industry
      *
@@ -87,7 +84,7 @@ class Action extends BaseAction
         $delete = new \Agora\Bundles\Industries\Actions\Delete(
             $this->getContainer()
         );
-        
+
         $industry = $delete->onDelete($args);
 
         return $industry;

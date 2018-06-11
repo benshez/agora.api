@@ -2,15 +2,15 @@ Entities:
     type: entity
     table: entities
     indexes:
-        fk_users_industry_id_industries_id_idx:
-            columns:
-                - industry_id
         entities_name:
             columns:
                 - name
         entities_identifier:
             columns:
                 - identifier
+        fk_industry_id_industries_id:
+            columns:
+                - industry_id
     id:
         id:
             type: integer
@@ -27,9 +27,6 @@ Entities:
             length: 15
             options:
                 fixed: false
-        enabled:
-            type: boolean
-            nullable: false
         name:
             type: string
             nullable: false
@@ -59,6 +56,9 @@ Entities:
             type: datetime
             nullable: false
             column: expires_at
+        enabled:
+            type: boolean
+            nullable: false
         createdAt:
             type: datetime
             nullable: false

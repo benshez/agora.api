@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,8 +14,6 @@
 
 namespace Agora\Bundles\Locations\Actions;
 
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Locations\Actions\Action;
 use Agora\Bundles\Locations\Validation\Validation;
 
 class Get extends Action
@@ -23,7 +21,7 @@ class Get extends Action
     const REFERENCE = 'locations';
     const REFERENCE_OBJECT = 'name';
     const KEY = 'description';
-    
+
     /**
      * Get Locations
      *
@@ -35,36 +33,37 @@ class Get extends Action
     {
         if (isset($role[self::KEY])) {
             $validator = new Validation($this);
-             
+
             if (!$this->formIsValid(
                 $this->getValidator($validator),
                 self::REFERENCE,
                 'get',
-                array(
+                [
                     self::KEY => $args[self::KEY],
-                    'entity' => 'location'
-                )
+                    'entity' => 'location',
+                ]
             )) {
                 $messages = $this->getValidator($validator)->getMessagesAray();
+
                 return $messages;
             }
         }
-        
+
         $finder = $this->getEntityManager()->getRepository(
             $this->getReference(self::REFERENCE)
         );
-        
+
         $range = $this->getOffsetAndLimit(0, $args['offset']);
-        
+
         $locations = $finder->findBy(
             isset($args['industry']) ?
-            array('industry' => $args['industry']) :
-            array(),
-            array('locations.createdAt'),
+            ['industry' => $args['industry']] :
+            [],
+            ['locations.createdAt'],
             $range['limit'],
             $range['offset']
         );
-        
-        return ($locations);
+
+        return $locations;
     }
 }

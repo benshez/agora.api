@@ -1,10 +1,21 @@
 <?php
+/**
+ * This file is part of the Agora API.
+ *
+ * PHP Version 7.1.9
+ *
+ * @category  Agora
+ * @package   Agora
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 Agora
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/agora.api
+ */
 
 namespace Agora\Modules\Base\Fixtures;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Agora\Bundles\Users\Entity\Users;
+use Doctrine\Common\Persistence\ObjectManager;
 use Zend\Crypt\Password\BcryptSha;
 
 class UserFixtureLoader implements FixtureInterface
@@ -29,6 +40,7 @@ class UserFixtureLoader implements FixtureInterface
     private function getFormattedDate()
     {
         $date = new \DateTime();
+
         return '\'' . $date->format('Y-m-d') . '\'';
     }
 }

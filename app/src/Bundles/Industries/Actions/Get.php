@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,8 +14,6 @@
 
 namespace Agora\Bundles\Industries\Actions;
 
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Industries\Actions\Action;
 use Agora\Bundles\Industries\Validation\Validation;
 
 class Get extends Action
@@ -23,7 +21,7 @@ class Get extends Action
     const REFERENCE = 'industries';
     const REFERENCE_OBJECT = 'name';
     const DESCRIPTION = 'description';
-    
+
     /**
      * Find Industries
      *
@@ -39,32 +37,33 @@ class Get extends Action
             $this->getValidator($validator),
             self::REFERENCE,
             'autocomplete',
-            array(
-                self::DESCRIPTION => $args[self::DESCRIPTION]
-                )
+            [
+                self::DESCRIPTION => $args[self::DESCRIPTION],
+            ]
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
-        
+
         $industry = $this->getEntityManager()
             ->getRepository(
                 $this->getConfig()->getOption(
                     'name',
                     self::REFERENCE
                 ),
-                array(
-                    array(
-                        self::DESCRIPTION => $args[self::DESCRIPTION]
-                        )
-                    )
+                [
+                    [
+                        self::DESCRIPTION => $args[self::DESCRIPTION],
+                    ],
+                ]
             )
             ->findAllByDescription(
-                array(
-                    self::DESCRIPTION => $args[self::DESCRIPTION]
-                    )
+                [
+                    self::DESCRIPTION => $args[self::DESCRIPTION],
+                ]
             );
-        
+
         return $industry;
     }
 }

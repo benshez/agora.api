@@ -1,10 +1,10 @@
 <?php
 /**
- * Delete File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,8 +14,6 @@
 
 namespace Agora\Bundles\Industries\Actions;
 
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Industries\Actions\Action;
 use Agora\Bundles\Industries\Validation\Validation;
 
 class Delete extends Action
@@ -42,16 +40,17 @@ class Delete extends Action
             $args
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
-        
+
         $industry = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            array(
-                self::KEY => $args
-                )
+            [
+                self::KEY => $args,
+            ]
         );
-  
+
         if (!$industry) {
             return false;
         }
@@ -61,7 +60,7 @@ class Delete extends Action
         } else {
             $this->onBaseActionSave()->disable($industry);
         }
-        
+
         return false;
     }
 }

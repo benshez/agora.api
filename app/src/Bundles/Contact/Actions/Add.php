@@ -1,20 +1,15 @@
 <?php
-
 /**
  * This file is part of the Agora API.
  *
  * PHP Version 7.1.9
  *
- * @category Agora
- *
- *
- * @package  Agora
- *
+ * @category  Agora
+ * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
- *
- * @link https://github.com/benshez/agora.api
+ * @link      https://github.com/benshez/agora.api
  */
 
 namespace Agora\Bundles\Contact\Actions;
@@ -22,9 +17,10 @@ namespace Agora\Bundles\Contact\Actions;
 use Agora\Bundles\Contact\Entity\Contact;
 use Agora\Bundles\Contact\Validation\Validation;
 use Agora\Modules\Base\Actions\BaseHydrate;
-use Zend\Crypt\Password\Bcrypt;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Agora\Modules\Mailer\MailerListener;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Zend\Crypt\Password\Bcrypt;
+
 class Add extends Action
 {
     const ABN = 'abn';
@@ -103,9 +99,9 @@ class Add extends Action
         $contact = $hydrate->hydrate($contact, $args);
 
         $contact->setEntity($args['entity']);
-        
+
         $contact->setRole($args['role']);
-        
+
         $contact = $this->onBaseActionSave()->save($contact);
 
         if ($contact->getId()) {

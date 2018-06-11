@@ -14,10 +14,9 @@
 
 namespace Agora\Modules\Base\Traits;
 
+use Agora\Modules\Config\Config;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use Agora\Modules\Config\Config;
-use Slim\Collection;
 use Slim\Container;
 
 trait TimestampableTrait
@@ -120,7 +119,7 @@ trait TimestampableTrait
         //         'text' => 'Please verify email to submit enquiry!',
         //         'template' => 'User'
         //     ];
-    
+
         //     $mailer->send('User/Registration.twig', ['data' => $data], function ($message) use ($data) {
         //         $message->to($data['email']);
         //         $message->from('benshez1@gmail.com');
@@ -138,6 +137,7 @@ trait TimestampableTrait
     private function getTimeZoneDateTime()
     {
         $config = $this->getConfig();
+
         return $config->getDateTimeForZone();
     }
 
@@ -159,6 +159,7 @@ trait TimestampableTrait
     private function setConfig()
     {
         $settings = $this->getContainer()->get('settings');
+
         return new Config($settings);
     }
 
@@ -169,7 +170,7 @@ trait TimestampableTrait
      */
     private function getContainer()
     {
-          return $this->setContainer();
+        return $this->setContainer();
     }
 
     /**
@@ -180,6 +181,7 @@ trait TimestampableTrait
     private function setContainer()
     {
         global $app;
+
         return $app->getContainer();
     }
 }

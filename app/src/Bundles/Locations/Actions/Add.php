@@ -1,10 +1,10 @@
 <?php
 /**
- * Save File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,12 +14,9 @@
 
 namespace Agora\Bundles\Locations\Actions;
 
-use Zend\Crypt\Password\Bcrypt;
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Locations\Actions\Action;
-use Agora\Modules\Base\Actions\BaseHydrate;
 use Agora\Bundles\Locations\Entity\Locations;
 use Agora\Bundles\Locations\Validation\Validation;
+use Agora\Modules\Base\Actions\BaseHydrate;
 
 class Add extends Action
 {
@@ -29,7 +26,7 @@ class Add extends Action
     const PASSWORD = 'password';
     const ABN = 'abn';
     const EMAIL = 'email';
-    
+
     /**
      * Save Location
      *
@@ -48,21 +45,22 @@ class Add extends Action
             $args['location']
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
 
         $location = new Locations();
-        
+
         $hydrate = new BaseHydrate($this->getContainer());
-        
+
         $user = $this->onBaseActionGet()->get(
             $this->getReference('contact'),
-            array('id' => $args['user']['id'])
+            ['id' => $args['user']['id']]
         );
 
         if ($user && $user->getEnabled()) {
             $location->setUser($user);
-            
+
             $location = $this->onBaseActionSave()->save(
                 $hydrate->hydrate($location, $args['location'])
             );
@@ -77,8 +75,9 @@ class Add extends Action
         if ($location->getId()) {
             $location = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                array(self::KEY => $location->getId())
+                [self::KEY => $location->getId()]
             );
+
             return $location;
         }
 

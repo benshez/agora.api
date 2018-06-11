@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,8 +14,6 @@
 
 namespace Agora\Bundles\Roles\Actions;
 
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Roles\Actions\Action;
 use Agora\Bundles\Roles\Validation\Validation;
 
 class Get extends Action
@@ -23,7 +21,7 @@ class Get extends Action
     const REFERENCE = 'roles';
     const REFERENCE_OBJECT = 'name';
     const KEY = 'id';
-    
+
     /**
      * Get Roles
      *
@@ -35,43 +33,44 @@ class Get extends Action
     {
         if (isset($args[self::KEY])) {
             $validator = new Validation($this);
-            
+
             if (!$this->formIsValid(
                 $this->getValidator($validator),
                 self::REFERENCE,
                 'get',
-                array(
+                [
                     self::KEY => $args[self::KEY],
-                    'entity' => 'role'
-                )
+                    'entity' => 'role',
+                ]
             )) {
                 $messages = $this->getValidator($validator)->getMessagesAray();
+
                 return $messages;
             }
         }
-  
+
         $finder = new \Agora\Modules\Base\Entity\BaseEntity(
             $this->getEntityManager(),
             $this->getEntityManager()->getClassMetadata(
                 $this->getReference(self::REFERENCE)
             )
         );
-        
+
         $range = $this->getOffsetAndLimit(0, $args['offset']);
-        
+
         $roles = $finder->findBy(
             isset($args[self::KEY]) ?
-            array(self::KEY => $args[self::KEY]) :
-            array(),
+            [self::KEY => $args[self::KEY]] :
+            [],
             null,
             $range['limit'],
             $range['offset']
         );
 
-        if(!isset($args['sender'])) {
+        if (!isset($args['sender'])) {
             return $this->onSerialize($roles);
         }
 
-        return ($roles);
+        return $roles;
     }
 }

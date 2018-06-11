@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseEntity File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseEntity
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,11 +14,8 @@
 
 namespace Agora\Modules\Base\Interfaces;
 
-use Doctrine\ORM\Mapping;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Agora\Modules\Base\Interfaces\IBaseModel;
-use Agora\Modules\Base\Interfaces\IBaseEntity;
+use Doctrine\ORM\Mapping;
 
 interface IBaseEntity
 {
@@ -28,11 +25,9 @@ interface IBaseEntity
      * @param EntityManager         $manager Manager.
      *
      * @param Mapping\ClassMetadata $class   Class.
-     *
-     * @return void
      */
     public function __construct($manager, Mapping\ClassMetadata $class);
-    
+
     /**
      * Find One By
      *
@@ -43,7 +38,7 @@ interface IBaseEntity
      * @return One
      */
     public function findOneBy(array $criteria, array $orderBy = null);
-    
+
     /**
      * Find One By
      *
@@ -51,9 +46,9 @@ interface IBaseEntity
      *
      * @param array   $orderBy  Class.
      *
-     * @param integer $limit    Class.
+     * @param int $limit    Class.
      *
-     * @param integer $offset   Class.
+     * @param int $offset   Class.
      *
      * @return One
      */

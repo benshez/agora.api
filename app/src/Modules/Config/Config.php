@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Config
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,8 +14,6 @@
 
 namespace Agora\Modules\Config;
 
-use Symfony\Component\Yaml\Yaml as SymfonyYaml;
-use Zend\Config\Factory;
 use Zend\Config\Reader\Yaml as YamlConfig;
 
 class Config
@@ -27,27 +25,25 @@ class Config
     const PARAMETER_ROUTES = 'routes';
     const PARAMETER_VERSION = 'version';
     const PARAMETER_ENVIRONMENT = 'mode';
-    
-    private $_path = __DIR__ .self::PARAMETER_FILE_PATH;
-    private $_settings = null;
-    private $_environment = null;
-    private $_version = null;
-    private $_reader = null;
+
+    private $_path = __DIR__ . self::PARAMETER_FILE_PATH;
+    private $_settings;
+    private $_environment;
+    private $_version;
+    private $_reader;
 
     /**
      * Ctor
      *
      * @param \Slim\Collection $settings Setting.
-     *
-     * @return void
      */
     public function __construct(\Slim\Collection $settings = null)
     {
-        if ($settings != null) {
+        if (null !== $settings) {
             $this->_settings = $settings;
         }
     }
-        
+
     /**
      * Config
      *
@@ -56,96 +52,18 @@ class Config
     public function getConfig()
     {
         $this->_createReader();
-        
+
         $this->_setEnvironment();
 
         $this->_addSettings();
-        
+
         $this->_addVersion();
-        
+
         $this->_addRoutes();
-        
+
         return $this->_settings;
     }
-   
-    /**
-     * Create Yaml Reader
-     *
-     * @return void
-     */
-    private function _createReader()
-    {
-        if (null === $this->_reader) {
-            $this->_reader = new YamlConfig(
-                [\Symfony\Component\Yaml\Yaml::class, 'parse']
-            );
-        }
-    }
-    
-    /**
-     * Add Settings
-     *
-     * @return void
-     */
-    private function _addSettings()
-    {
-        $path = $this->_path;
-        $path .= $this->getEnviroment();
-        $path .= '/';
-        $path .= self::PARAMETER_FILE;
 
-        $this->_settings[self::PARAMETER_SETTINGS] =
-        $this->_reader->fromFile($path);
-    }
-
-    /**
-     * Add Version
-     *
-     * @return void
-     */
-    private function _addVersion()
-    {
-        $this->_settings[self::PARAMETER_SETTINGS][self::PARAMETER_VERSION] =
-        $this->getVersion();
-    }
-    
-    /**
-     * Add Routes
-     *
-     * @return void
-     */
-    private function _addRoutes()
-    {
-        $path = $this->_path;
-        $path .= $this->getEnviroment();
-        $path .= '/';
-        $path .= self::PARAMETER_ROUTES;
-        $path .= '/';
-        $path .= $this->getVersion();
-        $path .= '/';
-        $path .= sprintf(
-            self::PARAMETER_ENVIRONMENT_FILE,
-            self::PARAMETER_ROUTES
-        );
-        
-        $this->_settings[self::PARAMETER_SETTINGS][self::PARAMETER_ROUTES] =
-        $this->_reader->fromFile($path);
-    }
-
-    /**
-     * Set Environment
-     *
-     * @return void
-     */
-    private function _setEnvironment()
-    {
-        $environment = $this->_reader->fromFile(
-            $this->_path.self::PARAMETER_FILE
-        );
-        
-        $this->_environment = $environment;
-    }
-    
     /**
      * Get Version
      *
@@ -154,10 +72,10 @@ class Config
     public function getVersion()
     {
         $verion = $this->_environment;
-        
+
         return $verion[self::PARAMETER_VERSION];
     }
-    
+
     /**
      * Get Enviroment
      *
@@ -166,10 +84,10 @@ class Config
     public function getEnviroment()
     {
         $environment = $this->_environment;
-        
+
         return $environment[self::PARAMETER_ENVIRONMENT];
     }
-    
+
     /**
      * Config Setting
      *
@@ -189,7 +107,7 @@ class Config
 
         return $settings;
     }
-    
+
     /**
      * Options Paths
      *
@@ -197,13 +115,13 @@ class Config
      */
     public function getOptionsPaths()
     {
-        $paths = array(
+        $paths = [
             'name' => 'entities:%s:name',
             'arguments' => 'entities:%s:arguments:',
             'validators' => 'entities:%s:methods:validation:',
-            'messages' => 'entities:%s:messages:'
-        );
-        
+            'messages' => 'entities:%s:messages:',
+        ];
+
         return $paths;
     }
 
@@ -222,9 +140,9 @@ class Config
     {
         $opt = $this->getConfigSetting(
             $this->getSettings(),
-            sprintf($this->getOptionsPaths()[$option], $class).$extention
+            sprintf($this->getOptionsPaths()[$option], $class) . $extention
         );
-        
+
         return $opt;
     }
 
@@ -236,10 +154,10 @@ class Config
     public static function currentDateYearMonthDay()
     {
         $currDate = date('Y-m-d');
-        
+
         return $currDate;
     }
- 
+
     /**
      * Current Time Zone
      *
@@ -253,7 +171,7 @@ class Config
                 $this->_settings['time_zone']
             )
         );
-        
+
         return $timeZone;
     }
 
@@ -267,10 +185,78 @@ class Config
     public function getDateTimeFuture(string $days)
     {
         $future = $this->getDateTimeForZone()->add(
-            new \DateInterval('P'.$days.'D')
+            new \DateInterval('P' . $days . 'D')
         );
-        
+
         return $future;
+    }
+
+    /**
+     * Create Yaml Reader
+     */
+    private function _createReader()
+    {
+        if (null === $this->_reader) {
+            $this->_reader = new YamlConfig(
+                [\Symfony\Component\Yaml\Yaml::class, 'parse']
+            );
+        }
+    }
+
+    /**
+     * Add Settings
+     */
+    private function _addSettings()
+    {
+        $path = $this->_path;
+        $path .= $this->getEnviroment();
+        $path .= '/';
+        $path .= self::PARAMETER_FILE;
+
+        $this->_settings[self::PARAMETER_SETTINGS] =
+        $this->_reader->fromFile($path);
+    }
+
+    /**
+     * Add Version
+     */
+    private function _addVersion()
+    {
+        $this->_settings[self::PARAMETER_SETTINGS][self::PARAMETER_VERSION] =
+        $this->getVersion();
+    }
+
+    /**
+     * Add Routes
+     */
+    private function _addRoutes()
+    {
+        $path = $this->_path;
+        $path .= $this->getEnviroment();
+        $path .= '/';
+        $path .= self::PARAMETER_ROUTES;
+        $path .= '/';
+        $path .= $this->getVersion();
+        $path .= '/';
+        $path .= sprintf(
+            self::PARAMETER_ENVIRONMENT_FILE,
+            self::PARAMETER_ROUTES
+        );
+
+        $this->_settings[self::PARAMETER_SETTINGS][self::PARAMETER_ROUTES] =
+        $this->_reader->fromFile($path);
+    }
+
+    /**
+     * Set Environment
+     */
+    private function _setEnvironment()
+    {
+        $environment = $this->_reader->fromFile(
+            $this->_path . self::PARAMETER_FILE
+        );
+
+        $this->_environment = $environment;
     }
 
     /**
@@ -281,7 +267,7 @@ class Config
     private function getSettings()
     {
         $settings = $this->_settings;
-        
+
         return $settings;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -13,10 +13,6 @@
  */
 
 namespace Agora\Bundles\Entities\Actions;
-
-use Agora\Modules\Config\Config;
-use Agora\Bundles\Entities\Actions\Action;
-use Agora\Bundles\Entities\Validation\Validation;
 
 class Get extends Action
 {

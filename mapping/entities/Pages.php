@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Pages
  *
- * @ORM\Table(name="pages", indexes={@ORM\Index(name="idx_title", columns={"title"}), @ORM\Index(name="fk_pages_users_id_user_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="pages", indexes={@ORM\Index(name="idx_title", columns={"title"}), @ORM\Index(name="fk_pages_contact_id_contact_id_idx", columns={"contact_id"})})
  * @ORM\Entity
  */
 class Pages
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -31,12 +31,12 @@ class Pages
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text", nullable=false)
+     * @ORM\Column(name="content", type="text", length=0, nullable=false)
      */
     private $content;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
@@ -45,32 +45,32 @@ class Pages
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Entities
+     * @var \Contact
      *
-     * @ORM\ManyToOne(targetEntity="Entities")
+     * @ORM\ManyToOne(targetEntity="Contact")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="contact_id", referencedColumnName="id")
      * })
      */
-    private $user;
+    private $contact;
 
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -78,7 +78,7 @@ class Pages
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -92,7 +92,7 @@ class Pages
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -102,7 +102,7 @@ class Pages
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -116,7 +116,7 @@ class Pages
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -126,9 +126,9 @@ class Pages
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return Pages
      */
@@ -140,9 +140,9 @@ class Pages
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -150,7 +150,7 @@ class Pages
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -164,7 +164,7 @@ class Pages
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -174,7 +174,7 @@ class Pages
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -188,7 +188,7 @@ class Pages
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -198,27 +198,26 @@ class Pages
     }
 
     /**
-     * Set user
+     * Set contact.
      *
-     * @param \Entities $user
+     * @param \Contact|null $contact
      *
      * @return Pages
      */
-    public function setUser(\Entities $user = null)
+    public function setContact(\Contact $contact = null)
     {
-        $this->user = $user;
+        $this->contact = $contact;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get contact.
      *
-     * @return \Entities
+     * @return \Contact|null
      */
-    public function getUser()
+    public function getContact()
     {
-        return $this->user;
+        return $this->contact;
     }
 }
-

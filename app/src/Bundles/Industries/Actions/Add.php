@@ -1,10 +1,10 @@
 <?php
 /**
- * Save File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,18 +14,16 @@
 
 namespace Agora\Bundles\Industries\Actions;
 
-use Agora\Modules\Config\Config;
-use Agora\Modules\Base\Actions\BaseHydrate;
-use Agora\Bundles\Industries\Actions\Action;
 use Agora\Bundles\Industries\Entity\Industries;
 use Agora\Bundles\Industries\Validation\Validation;
+use Agora\Modules\Base\Actions\BaseHydrate;
 
 class Add extends Action
 {
     const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'industries';
     const KEY = 'id';
-    
+
     /**
      * Add Industry
      *
@@ -44,13 +42,14 @@ class Add extends Action
             $args
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
 
         $industry = new Industries();
-        
+
         $hydrate = new BaseHydrate($this->getContainer());
-        
+
         $industry = $this->onBaseActionSave()->save(
             $hydrate->hydrate($industry, $args)
         );
@@ -62,16 +61,17 @@ class Add extends Action
         if ($industry->getId()) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                array(
-                    self::KEY => $industry->getId()
-                    )
+                [
+                    self::KEY => $industry->getId(),
+                ]
             );
+
             return $industry;
         }
 
         return false;
     }
-    
+
     /**
      * Add Industry By ABN Or ABR Lookup
      *
@@ -85,42 +85,42 @@ class Add extends Action
     {
         $industry = false;
 
-        if ($abn != '') {
+        if ('' !== $abn) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                array(
-                    self::KEY => $abn
-                )
+                [
+                    self::KEY => $abn,
+                ]
             );
 
             if ($industry && $industry->getId()) {
                 return $industry;
             }
         }
-        
+
         if (!$industry) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                array(
-                    self::KEY => $business->entityType->entityTypeCode
-                    )
+                [
+                    self::KEY => $business->entityType->entityTypeCode,
+                ]
             );
-        
+
             if ($industry && $industry->getId()) {
                 return $industry;
             }
-            
-            $industryArgs = array(
+
+            $industryArgs = [
                 'enabled' => 1,
                 'type' => $business->entityType->entityTypeCode,
                 'description' => $business->entityType->entityDescription,
-            );
-            
+            ];
+
             $industry = $this->onAdd($industryArgs);
 
             return $industry;
         }
-        
+
         return false;
     }
 }

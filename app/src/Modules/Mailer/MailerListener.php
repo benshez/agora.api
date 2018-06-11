@@ -23,8 +23,8 @@ class MailerListener implements IEventSubscriberInterface
     public const ON_SEND_ACTIVATION = 'onSendActivationInfo';
     public const ON_SEND_DEACTIVATION = 'onSendDeactivationInfo';
 
-    private $_container = null;
-    
+    private $_container;
+
     /**
      * Initialise BaseAction To Set Container
      *
@@ -53,9 +53,9 @@ class MailerListener implements IEventSubscriberInterface
 
             $data = [
                 'email' => $entity->getEmail(),
-                'text' => 'Please verify email to submit enquiry!'
+                'text' => 'Please verify email to submit enquiry!',
             ];
-    
+
             $mailer->send('User/Registration.twig', ['data' => $data], function ($message) use ($data) {
                 $message->to($data['email']);
                 $message->from('benshez1@gmail.com');

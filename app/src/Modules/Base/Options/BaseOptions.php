@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -18,26 +18,22 @@ use Agora\Modules\Base\Interfaces\IBaseOptions;
 
 class BaseOptions implements IBaseOptions
 {
-    private $_options = array('part' => '', 'class' => '', 'extention' => '');
+    private $_options = ['part' => '', 'class' => '', 'extention' => ''];
 
     /**
      * Ctor Options
      *
      * @param array $options Options.
-     *
-     * @return void
      */
     public function __construct(array $options)
     {
         $this->setOptions($options);
     }
-    
+
     /**
      * Set Options
      *
      * @param array $options Options.
-     *
-     * @return void
      */
     public function setOptions(array $options)
     {
@@ -48,12 +44,13 @@ class BaseOptions implements IBaseOptions
      * Get Options
      *
      * @return array Options
-	 */		
-     public function getOptions()
-     {
+     */
+    public function getOptions()
+    {
         $options = $this->_options;
+
         return $options;
-     }   
+    }
 
     /**
      * Get Options
@@ -65,6 +62,7 @@ class BaseOptions implements IBaseOptions
     public function getOption(string $option)
     {
         $option = $this->_options[$option];
+
         return $option;
     }
 }

@@ -1,24 +1,35 @@
 <?php
+/**
+ * This file is part of the Agora API.
+ *
+ * PHP Version 7.1.9
+ *
+ * @category  Agora
+ * @package   Agora
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 Agora
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/agora.api
+ */
 
 namespace Agora\Modules\Base\Validation;
 
-use Zend\Validator;
-use Zend\Validator\ValidatorChain;
-use Agora\Modules\Config\Config;
-use Zend\Validator\ValidatorInterface;
 use Agora\Modules\Base\Interfaces\IBaseAction;
 use Agora\Modules\Base\Interfaces\IBaseValidation;
+use Agora\Modules\Config\Config;
+use Zend\Validator\ValidatorChain;
+use Zend\Validator\ValidatorInterface;
 
 class BaseValidation implements
     ValidatorInterface,
     IBaseValidation
 {
-    protected $validator = null;
-    protected $validators = array();
-    protected $error = null;
-    protected $settings = null;
-    protected $config = null;
-    private $_action = null;
+    protected $validator;
+    protected $validators = [];
+    protected $error;
+    protected $settings;
+    protected $config;
+    private $_action;
 
     public function __construct(IBaseAction $action)
     {
@@ -55,8 +66,8 @@ class BaseValidation implements
                 $key
             );
         }
-        
-        $this->error = array('error' => true,  'message' => $error);
+
+        $this->error = ['error' => true,  'message' => $error];
     }
 
     public function isValid($value)
@@ -72,7 +83,7 @@ class BaseValidation implements
 
     public function formIsValid(array $fields, array $values)
     {
-        $this->validators = array();
+        $this->validators = [];
         $this->createValidators($fields, $values);
         $isValid = true;
 
@@ -82,6 +93,7 @@ class BaseValidation implements
 
             if (!$isValid) {
                 $this->setMessagesArray($validator->getMessages());
+
                 return $isValid;
             }
         }
@@ -93,17 +105,17 @@ class BaseValidation implements
     {
         $this->validator = new ValidatorChain();
     }
-    
+
     public function createValidators(array $fields, array $values)
     {
         foreach ($fields as $index => $validators) {
             foreach ($validators as $validator) {
                 $this->create();
 
-                $name = (sizeof($validators) === 1) ? (sizeof($fields[$index]) === 1) ? $validator[0] : $validator : $validator[0];
+                $name = (1 === count($validators)) ? (1 === count($fields[$index])) ? $validator[0] : $validator : $validator[0];
                 $options = [];
 
-                if (sizeof($validators) > 1) {
+                if (count($validators) > 1) {
                     if (isset($validator[1]) && is_array($validator[1])) {
                         foreach ($validator[1] as $opt => $option) {
                             if (isset($option[key($option)])) {
@@ -113,29 +125,33 @@ class BaseValidation implements
                         }
                     }
 
-                    $break = isset($validator[2]) ? $validator[2] : null;
+                    $break = $validator[2] ?? null;
                 }
-                
-                switch (sizeof($validator)) {
+
+                switch (count($validator)) {
                     case 4:
-                        $params = array('action' => $this->getAction());
+                        $params = ['action' => $this->getAction()];
                         $this->validator->attachByName(
                             $validator[1],
                             $params,
                             $validator[2]
                         );
+
                         break;
                     case 3:
                         $this->validator->attachByName($name, $options, $break);
+
                         break;
                     case 2:
                         $this->validator->attachByName($name, $options);
+
                         break;
                     default:
                         $this->validator->attachByName($name);
+
                         break;
                 }
-                
+
                 $this->validators[] = $this->validator;
                 $this->dispose();
             }

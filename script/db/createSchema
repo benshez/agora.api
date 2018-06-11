@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`industries` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 15
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -50,30 +50,30 @@ CREATE TABLE IF NOT EXISTS `agora`.`entities` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `identifier` VARCHAR(15) CHARACTER SET 'utf8' NOT NULL,
   `industry_id` INT(11) NULL DEFAULT NULL,
-  `enabled` TINYINT(1) NOT NULL,
   `name` VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
   `status` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
   `state` VARCHAR(3) CHARACTER SET 'utf8' NOT NULL,
   `post_code` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
   `expires_at` DATETIME NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_users_industry_id_industries_id`
+  CONSTRAINT `fk_industry_id_industries_id`
     FOREIGN KEY (`industry_id`)
     REFERENCES `agora`.`industries` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 20
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
-
-CREATE INDEX `fk_users_industry_id_industries_id_idx` ON `agora`.`entities` (`industry_id` ASC);
 
 CREATE INDEX `entities_name` ON `agora`.`entities` (`name` ASC);
 
 CREATE INDEX `entities_identifier` ON `agora`.`entities` (`identifier` ASC);
+
+CREATE INDEX `fk_industry_id_industries_id` ON `agora`.`entities` (`industry_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`roles` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 24
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`contact` (
   `token_expiry` DATETIME NULL DEFAULT NULL,
   `last_login` DATETIME NULL DEFAULT NULL,
   `logo` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `subscriber` TINYINT(1) NOT NULL DEFAULT '1',
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -138,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`contact` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 23
+AUTO_INCREMENT = 47
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -160,7 +161,7 @@ DROP TABLE IF EXISTS `agora`.`locations` ;
 
 CREATE TABLE IF NOT EXISTS `agora`.`locations` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NULL DEFAULT NULL,
+  `contact_id` INT(11) NULL DEFAULT NULL,
   `ip_from` CHAR(18) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `ip_to` CHAR(18) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `country_code` CHAR(2) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -174,13 +175,12 @@ CREATE TABLE IF NOT EXISTS `agora`.`locations` (
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_locations_user_id_contact_id`
-    FOREIGN KEY (`user_id`)
+  CONSTRAINT `fk_locations_contact_id_contact_id`
+    FOREIGN KEY (`contact_id`)
     REFERENCES `agora`.`contact` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 17
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -190,7 +190,7 @@ CREATE INDEX `idx_ip_to` ON `agora`.`locations` (`ip_to` ASC);
 
 CREATE INDEX `idx_ip_from_to` ON `agora`.`locations` (`ip_from` ASC, `ip_to` ASC);
 
-CREATE INDEX `fk_locations_user_id_contact_id_idx` ON `agora`.`locations` (`user_id` ASC);
+CREATE INDEX `fk_locations_contact_id_contact_id_idx` ON `agora`.`locations` (`contact_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -214,16 +214,16 @@ DROP TABLE IF EXISTS `agora`.`pages` ;
 
 CREATE TABLE IF NOT EXISTS `agora`.`pages` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NULL DEFAULT NULL,
+  `contact_id` INT(11) NULL DEFAULT NULL,
   `title` VARCHAR(255) NOT NULL,
   `content` LONGTEXT NOT NULL,
   `enabled` TINYINT(1) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_pages_users_id_user_id`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `agora`.`entities` (`id`)
+  CONSTRAINT `fk_pages_contact_id_contact_id`
+    FOREIGN KEY (`contact_id`)
+    REFERENCES `agora`.`contact` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -231,33 +231,7 @@ DEFAULT CHARACTER SET = latin1;
 
 CREATE INDEX `idx_title` ON `agora`.`pages` (`title` ASC);
 
-CREATE INDEX `fk_pages_users_id_user_id_idx` ON `agora`.`pages` (`user_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `agora`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `agora`.`users` ;
-
-CREATE TABLE IF NOT EXISTS `agora`.`users` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `full_name` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `password` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `password_reset_token` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `role_id` INT(11) NOT NULL,
-  `created_by` INT(11) NULL DEFAULT NULL,
-  `updated_by` INT(11) NULL DEFAULT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT NULL,
-  `updated_at` TIMESTAMP NULL DEFAULT NULL,
-  `deleted_at` TIMESTAMP NULL DEFAULT NULL,
-  `status` INT(11) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_unicode_ci;
-
-CREATE UNIQUE INDEX `users_email_unique` ON `agora`.`users` (`email` ASC);
+CREATE INDEX `fk_pages_contact_id_contact_id_idx` ON `agora`.`pages` (`contact_id` ASC);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

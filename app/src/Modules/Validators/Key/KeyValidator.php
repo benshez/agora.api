@@ -1,10 +1,10 @@
 <?php
 /**
- * EmailExistsValidator File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  EmailExistsValidator
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,18 +14,17 @@
 
 namespace Agora\Modules\Validators\Key;
 
-use Zend\Validator\Digits;
 use Zend\Validator\AbstractValidator;
-use Agora\Modules\Base\Interfaces\IBaseAction;
+use Zend\Validator\Digits;
 
 class KeyValidator extends AbstractValidator
 {
     const NOT_VALID_KEY = 'key';
 
-    protected $messageTemplates = array(
-        self::NOT_VALID_KEY  => 'Not a valid %value% id supplied.'
-    );
-    
+    protected $messageTemplates = [
+        self::NOT_VALID_KEY => 'Not a valid %value% id supplied.',
+    ];
+
     /**
      * Ctor KeyValidator
      *
@@ -33,12 +32,12 @@ class KeyValidator extends AbstractValidator
      *
      * @return User
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
     }
-    
-     /**
+
+    /**
      * IsValid
      *
      * @param $value Values.
@@ -49,7 +48,7 @@ class KeyValidator extends AbstractValidator
     {
         $isValid = true;
 
-        if ($value['id'] === null) {
+        if (null === $value['id']) {
             $isValid = true;
         } else {
             $validator = new Digits();

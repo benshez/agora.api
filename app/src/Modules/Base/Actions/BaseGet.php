@@ -1,10 +1,10 @@
 <?php
 /**
- * BaseGet File Doc Comment
+ * This file is part of the Agora API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  Agora
  * @package   Agora
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 Agora
@@ -14,52 +14,49 @@
 
 namespace Agora\Modules\Base\Actions;
 
-use Interop\Container\ContainerInterface;
 use Doctrine\Common\Collections\Criteria;
-use Agora\Modules\Base\Actions\BaseAction;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineModule\Paginator\Adapter\Selectable as SelectableAdapter;
 
 class BaseGet extends BaseAction
 {
-
     /**
      * Base Get Action
      *
-     * @param string $entity Entity Class.
-     * @param array  $args   Args Is Arguments To Pass.
+     * @param string $entity entity Class
+     * @param array  $args   args Is Arguments To Pass
      *
      * @return Entity Object
      */
     public function get(string $entity, array $args = null)
     {
-        if ($args === null) {
+        if (null === $args) {
             $objects = $this->getEntityManager()->getRepository($entity)->findAll();
 
             $objects = array_map(
                 function ($object) {
                     return $object;
-                }, $objects
+                },
+                $objects
             );
 
             return $objects;
-        } else {
-            $object = $this->getEntityManager()->getRepository($entity)->findOneBy($args);
-            
-            if ($object) {
-                return $object;
-            }
+        }
+        $object = $this->getEntityManager()->getRepository($entity)->findOneBy($args);
+
+        if ($object) {
+            return $object;
         }
 
         return false;
     }
-    
+
     /**
      * Base Get Paged Action
      *
-     * @param string $entity Entity Class.
+     * @param string $entity entity Class
      *
-     * @param array  $args   Args Is Arguments To Pass.
+     * @param array  $args   args Is Arguments To Pass
      *
      * @return Entity Paged Object
      */
@@ -69,15 +66,15 @@ class BaseGet extends BaseAction
         $args['offset'] : 1;
         $limit = 10;
         $offset = ($limit * ($offset - 1));
-        $key = isset($args['value']) ? $args['value'] : null;
-        
+        $key = $args['value'] ?? null;
+
         $criteria = null;
 
-        if ($key !== null) {
+        if (null !== $key) {
             $criteria = Criteria::create()
             ->where(Criteria::expr()->eq($args['key'], $key));
         }
-        
+
         $adapter = new SelectableAdapter(
             $this->getEntityManager()->getRepository(
                 $entity
@@ -86,9 +83,9 @@ class BaseGet extends BaseAction
         );
 
         $paginator = new ORMPaginator($adapter->getItems($offset, $limit));
-        
+
         $paginator = $paginator->getQuery();
 
-        return ($paginator);
+        return $paginator;
     }
 }

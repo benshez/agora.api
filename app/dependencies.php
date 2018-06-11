@@ -79,7 +79,6 @@ $container['em'] = function ($c) {
     $eventManager->addEventListener($listener->getSubscribedEvents(), $listener);
     //$eventManager->addEventSubscriber(new \Agora\Modules\Base\Events\BaseEventSubscriber());
 
-
     $em = \Doctrine\ORM\EntityManager::create(
         $settings['doctrine']['connection'],
         $config,
