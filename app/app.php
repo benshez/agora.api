@@ -14,6 +14,22 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Set up config
+// $file = __DIR__ .'/../config/environments/development/parameters.xml';
+
+// $objDOM = new DOMDocument();
+
+// //Load xml file into DOMDocument variable
+// $objDOM->load($file);
+// $objDOM->xinclude();
+// //Find Tag element "config" and return the element to variable $node
+// $node = $objDOM->getElementsByTagName("doctrine");
+
+// foreach ($node as $searchNode) {
+//     $dbHost = $searchNode->getAttribute('connection');
+//     $dbUser = $searchNode->getAttribute('userdb');
+//     $dbPass = $searchNode->getAttribute('dbpass');
+//     $dbDatabase = $searchNode->getAttribute('database');
+// }
 
 $config = new \Agora\Modules\Config\Config();
 

@@ -3,17 +3,17 @@
 log/
 
 # ignore configs
-config/environments/development/*.doctrine.yaml
-config/environments/development/*.abr.yaml
-config/environments/development/*.mail.yaml
+config/environments/development/*.doctrine.*
+config/environments/development/*.abr.*
+config/environments/development/*.mail.*
 
-config/environments/test/*.doctrine.yaml
-config/environments/test/*.abr.yaml
-config/environments/test/*.mail.yaml
+config/environments/test/*.doctrine.*
+config/environments/test/*.abr.*
+config/environments/test/*.mail.*
 
-config/environments/production/*.doctrine.yaml
-config/environments/production/*.abr.yaml
-config/environments/production/*.mail.yaml
+config/environments/production/*.doctrine.*
+config/environments/production/*.abr.*
+config/environments/production/*.mail.*
 
 # ignore documentation
 docs_generated

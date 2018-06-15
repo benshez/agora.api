@@ -18,10 +18,14 @@ rm -rf ./mapping
 # Create mapping directory
 mkdir ./mapping
 mkdir ./mapping/yaml
+mkdir ./mapping/xml
 mkdir ./mapping/entities
 
 # Read the ./cli-config.php (by default) and generate mapping yaml files to ./config/yaml directory
 php ./vendor/doctrine/orm/bin/doctrine orm:convert-mapping --namespace="" --force --from-database yml ./mapping/yaml
+
+# Read the ./cli-config.php (by default) and generate mapping yaml files to ./config/yaml directory
+php ./vendor/doctrine/orm/bin/doctrine orm:convert-mapping --namespace="" --force --from-database xml ./mapping/xml
 
 # Generate models to ./src directory
 php ./vendor/doctrine/orm/bin/doctrine orm:generate-entities --generate-annotations=false --update-entities=true --generate-methods=false ./mapping/entities
