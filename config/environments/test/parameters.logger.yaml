@@ -1,4 +1,0 @@
-'@include': parameters.mail.yaml
-logger:
-  name: app
-  path: /../logs/app.log
