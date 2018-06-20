@@ -71,7 +71,7 @@ class Pages
     /**
      * @var \Contact
      *
-     * @ORM\ManyToOne(targetEntity="Contact")
+     * @ORM\ManyToOne(targetEntity="\Agora\Bundles\Contact\Entity\Contact")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="contact_id", referencedColumnName="id")
      * })

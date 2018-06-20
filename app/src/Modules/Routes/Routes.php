@@ -45,8 +45,15 @@ class Routes
      */
     private function _addRoutes()
     {
-        foreach ($this->_routes as $route) {
+        $device = array();
+        //$index = 0;
+        //print_r($this->_routes['routes']);
+        foreach ($this->_routes['routes'] as $route) {
+            //$device[(string)$index] = (string)$method;
+            
             foreach ($route['methods'] as $index => $method) {
+                //$device[(string)$index] = (string)$method;
+                
                 switch ($method) {
                     case 'GET':
                         $this->_addGetRoutes($route, $index);
@@ -67,6 +74,7 @@ class Routes
                 }
             }
         }
+        //print_r($devices);
     }
 
     /**

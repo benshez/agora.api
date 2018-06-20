@@ -100,7 +100,7 @@ class Entities
     /**
      * @var \Industries
      *
-     * @ORM\ManyToOne(targetEntity="Industries")
+     * @ORM\ManyToOne(targetEntity="\Agora\Bundles\Industries\Entity\Industries")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
      * })

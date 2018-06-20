@@ -15,12 +15,15 @@
 namespace Agora\Modules\Config;
 
 use Zend\Config\Reader\Yaml as YamlConfig;
+use Zend\Config\Factory;
+//use Zend\Config\Reader\Xml as XmlConfig;
+//use Zend\Config\Writer\Xml as XmlConfigWriter;
 
 class Config
 {
     const PARAMETER_FILE_PATH = '/../../../../config/environments/';
-    const PARAMETER_FILE = 'parameters.yaml';
-    const PARAMETER_ENVIRONMENT_FILE = 'parameters.%s.yaml';
+    const PARAMETER_FILE = 'parameters.json';
+    const PARAMETER_ENVIRONMENT_FILE = 'parameters.%s.json';
     const PARAMETER_SETTINGS = 'settings';
     const PARAMETER_ROUTES = 'routes';
     const PARAMETER_VERSION = 'version';
@@ -197,9 +200,7 @@ class Config
     private function _createReader()
     {
         if (null === $this->_reader) {
-            $this->_reader = new YamlConfig(
-                [\Symfony\Component\Yaml\Yaml::class, 'parse']
-            );
+            $this->_reader = new Factory;
         }
     }
 
@@ -210,11 +211,9 @@ class Config
     {
         $path = $this->_path;
         $path .= $this->getEnviroment();
-        $path .= '/';
-        $path .= self::PARAMETER_FILE;
+        $path .= '/*.json';
 
-        $this->_settings[self::PARAMETER_SETTINGS] =
-        $this->_reader->fromFile($path);
+        $this->_settings[self::PARAMETER_SETTINGS] = $this->_reader->fromFiles(glob($path));
     }
 
     /**

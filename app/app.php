@@ -31,6 +31,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 //     $dbDatabase = $searchNode->getAttribute('database');
 // }
 
+// $reader = new \Zend\Config\Reader\Xml;
+// $data   = $reader->fromFile(__DIR__ .'/../config/environments/development/parameters.xml');
+
 $config = new \Agora\Modules\Config\Config();
 
 $settings = $config->getConfig();
@@ -43,7 +46,7 @@ require_once 'dependencies.php';
 // Register middleware
 require_once 'middleware.php';
 
-$routes = $settings['settings']['routes']['routes'];
+$routes = $settings['settings']['routes'];
 
 // Register routes
 new \Agora\Modules\Routes\Routes($app, $routes);

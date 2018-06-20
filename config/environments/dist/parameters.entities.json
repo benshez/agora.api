@@ -1,0 +1,346 @@
+{
+  "entities": {
+    "contact": {
+      "name": "\\Agora\\Bundles\\Contact\\Entity\\Contact",
+      "methods": {
+        "validation": {
+          "authenticate": {
+            "email": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 2 }], true],
+              ["EmailAddress"],
+              [
+                "Agora",
+                "Agora\\Modules\\Validators\\Authentication\\AuthenticationValidator",
+                true,
+                ["email", "password"]
+              ]
+            ],
+            "password": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 6 }, { "max": 16 }], true]
+            ]
+          },
+          "add": {
+            "id": [
+              [
+                "Agora",
+                "Agora\\Modules\\Validators\\Contact\\ContactExistsValidator",
+                true,
+                null
+              ]
+            ],
+            "role": [
+              ["NotEmpty", { "messages": { "isEmpty": ["Hello role 1"] } }],
+              [
+                "Digits",
+                [
+                  { "min": 1 },
+                  { "messages": { "digitsStringEmpty": ["Hello role"] } }
+                ],
+                true
+              ]
+            ],
+            "username": [
+              ["NotEmpty"],
+              [
+                "StringLength",
+                [
+                  { "min": 2 },
+                  {
+                    "messages": { "stringLengthTooShort": ["Hello username"] }
+                  }
+                ],
+                true
+              ]
+            ],
+            "password": [
+              ["NotEmpty"],
+              [
+                "StringLength",
+                [
+                  { "min": 6 },
+                  { "max": 16 },
+                  {
+                    "messages": { "stringLengthTooShort": ["Hello password"] }
+                  }
+                ],
+                true
+              ]
+            ],
+            "email": [
+              ["NotEmpty"],
+              [
+                "StringLength",
+                [
+                  { "min": 7 },
+                  {
+                    "messages": {
+                      "stringLengthTooShort": [
+                        "Email needs to be atleast 7 characters."
+                      ]
+                    }
+                  }
+                ],
+                true
+              ],
+              ["EmailAddress"]
+            ],
+            "usersurname": [
+              ["NotEmpty"],
+              [
+                "StringLength",
+                [
+                  { "min": 2 },
+                  {
+                    "messages": {
+                      "stringLengthTooShort": [
+                        "Username needs to be atleast 2 characters."
+                      ]
+                    }
+                  }
+                ],
+                true
+              ]
+            ],
+            "abn": [
+              [
+                "Agora",
+                "Agora\\Modules\\Validators\\ABN\\AbnOrAcnValidator",
+                true,
+                null
+              ]
+            ]
+          },
+          "update": {
+            "id": [["NotEmpty"], ["Digits", [{ "min": 1 }], true]],
+            "role": [["NotEmpty"], ["Digits", [{ "min": 1 }], true]],
+            "username": [["NotEmpty"], ["StringLength", [{ "min": 2 }], true]],
+            "password": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 6 }, { "max": 16 }], true]
+            ],
+            "email": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 7 }], true],
+              ["EmailAddress"],
+              [
+                "Agora",
+                "Agora\\Modules\\Validators\\Contact\\EmailExistsValidator",
+                true,
+                ["id", "email"]
+              ]
+            ],
+            "usersurname": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 2 }], true]
+            ]
+          },
+          "delete": { "id": [["NotEmpty"], ["Digits", [{ "min": 1 }], true]] }
+        }
+      },
+      "messages": {
+        "validation": {
+          "authenticate": {
+            "error": true,
+            "message": { "UserNotFound": "No user found with that id." }
+          },
+          "invalid_credentials": {
+            "error": true,
+            "message": {
+              "UserInvalidCredentials": "Invalid user name or password."
+            }
+          },
+          "invalid_abn": {
+            "error": true,
+            "message": { "ABNInvalidCredentials": "Invalid ABN." }
+          },
+          "add": {
+            "error": true,
+            "message": {
+              "UserNotAdded": "That user could not be added.",
+              "UserExists": "A user with this email address already exists."
+            }
+          },
+          "update": {
+            "error": true,
+            "message": {
+              "UserNotUpdated": "The user with that id could not be updated."
+            }
+          },
+          "delete": {
+            "error": true,
+            "message": {
+              "UserNotDeleted": "The user with that id could not be deleted."
+            }
+          }
+        }
+      }
+    },
+    "industries": {
+      "name": "\\Agora\\Bundles\\Industries\\Entity\\Industries",
+      "methods": {
+        "validation": {
+          "autocomplete": {
+            "description": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 3 }], true]
+            ]
+          },
+          "add": {
+            "description": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 3 }], true]
+            ]
+          },
+          "update": {
+            "id": [["Digits", [{ "min": 1 }], true]],
+            "description": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 3 }], true]
+            ]
+          },
+          "delete": { "id": [["NotEmpty"], ["Digits", [{ "min": 1 }], true]] }
+        }
+      },
+      "messages": {
+        "validation": {
+          "autocomplete": {
+            "error": true,
+            "message": {
+              "IndustriesNotFound": "No industries found with that id."
+            }
+          },
+          "add": {
+            "error": true,
+            "message": {
+              "IndustryNotAdded": "That industry could not be added."
+            }
+          },
+          "update": {
+            "error": true,
+            "message": {
+              "IndustryNotUpdated":
+                "The industry with that id could not be updated."
+            }
+          },
+          "delete": {
+            "error": true,
+            "message": {
+              "IndustryNotDeleted":
+                "The industry with that id could not be deleted."
+            }
+          }
+        }
+      }
+    },
+    "locations": {
+      "name": "\\Agora\\Bundles\\Locations\\Entity\\Locations",
+      "methods": {
+        "validation": {
+          "locations": { "industry": [["NotEmpty"]] },
+          "add": {
+            "latitude": [["NotEmpty"], ["StringLength", [{ "min": 3 }], true]],
+            "longitude": [["NotEmpty"], ["StringLength", [{ "min": 3 }], true]],
+            "country_code": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 2 }], true]
+            ],
+            "country_name": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 2 }], true]
+            ]
+          },
+          "delete": { "id": [["NotEmpty"], ["Digits", [{ "min": 1 }], true]] }
+        }
+      },
+      "messages": {
+        "validation": {
+          "locations": {
+            "error": true,
+            "message": {
+              "IndustriesNotFound":
+                "No industries of the selected type found in your area."
+            }
+          }
+        }
+      }
+    },
+    "roles": {
+      "name": "\\Agora\\Bundles\\Roles\\Entity\\Roles",
+      "methods": {
+        "validation": {
+          "get": {
+            "id": [
+              [
+                "Agora",
+                "Agora\\Modules\\Validators\\Key\\KeyValidator",
+                true,
+                ["id", "entity"]
+              ]
+            ]
+          },
+          "add": {
+            "description": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 3 }], true]
+            ]
+          },
+          "update": {
+            "id": [["Digits", [{ "min": 1 }], true]],
+            "description": [
+              ["NotEmpty"],
+              ["StringLength", [{ "min": 3 }], true]
+            ],
+            "enabled": [["NotEmpty"]]
+          },
+          "delete": { "id": [["Digits", [{ "min": 1 }], true]] }
+        }
+      },
+      "messages": {
+        "validation": {
+          "fetch": {
+            "error": true,
+            "message": { "RolesNotFound": "No roles found." }
+          },
+          "add": {
+            "error": true,
+            "message": { "RoleNotAdded": "That role could not be added." }
+          },
+          "update": {
+            "error": true,
+            "message": {
+              "RoleNotUpdated": "The role with that id could not be updated."
+            }
+          },
+          "delete": {
+            "error": true,
+            "message": {
+              "RoleNotDeleted": "The role with that id could not be deleted."
+            }
+          }
+        }
+      }
+    },
+    "entities": {
+      "name": "\\Agora\\Bundles\\Entities\\Entity\\Entities",
+      "methods": {
+        "validation": {
+          "add": {
+            "name": [["NotEmpty"], ["StringLength", [{ "min": 3 }], true]]
+          }
+        }
+      }
+    },
+    "pages": {
+      "name": "\\Agora\\Bundles\\Pages\\Entity\\Pages",
+      "methods": {
+        "validation": {
+          "add": {
+            "name": [["NotEmpty"], ["StringLength", [{ "min": 3 }], true]]
+          }
+        }
+      }
+    }
+  }
+}

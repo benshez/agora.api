@@ -192,7 +192,7 @@ class Contact
     /**
      * @var \Entities
      *
-     * @ORM\ManyToOne(targetEntity="Entities")
+     * @ORM\ManyToOne(targetEntity="\Agora\Bundles\Entities\Entity\Entities")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
      * })
@@ -202,7 +202,7 @@ class Contact
     /**
      * @var \Roles
      *
-     * @ORM\ManyToOne(targetEntity="Roles")
+     * @ORM\ManyToOne(targetEntity="\Agora\Bundles\Roles\Entity\Roles")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      * })
