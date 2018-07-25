@@ -1,0 +1,23 @@
+{
+  "mail": {
+    "host": "smtp.gmail.com",
+    "auth": true,
+    "secure": "tls",
+    "port": "587",
+    "username": "benshez1@gmail.com",
+    "password": "Und3rTh3D@rk",
+    "from": "benshez1@gmail.com",
+    "fromname": "Ben van Heerden",
+    "is_html": true,
+    "smtp_options": {
+      "ssl": {
+        "verify_peer": false,
+        "verify_peer_name": false,
+        "allow_self_signed": true
+      }
+    },
+    "template_path": "app/src/Modules/Mailer/Templates/",
+    "mailgunDomain": "mg.glenneggleton.com",
+    "emailDomain": "http://admin.local"
+  }
+}

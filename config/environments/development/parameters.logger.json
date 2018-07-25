@@ -1,6 +1,6 @@
 {
   "logger": {
-    "name": "app",
-    "path": "/../logs/app.log"
+    "name": "AgoraApi",
+    "path": "{{__DIR__}}logs/"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "doctrine": {
+    "dbal": {
+      "charset": "utf8mb4",
+      "default_table_options": {
+        "charset": "utf8mb4",
+        "collate": "utf8mb4_unicode_ci"
+      }
+    },
+    "meta": {
+      "entity_path": ["{{__DIR__}}/mapping/entities"],
+      "auto_generate_proxies": true,
+      "proxy_dir": "{{__DIR__}}cache/proxies/",
+      "cache": null
+    },
+    "paths": [
+      "{{__DIR__}}/src/Models/Entities/"
+    ],
+    "useSimpleAnnotationReader": false,
+    "envConfigPath": "{{__DIR__}}/config/doctrine/doctrine.php"
+  }
+}

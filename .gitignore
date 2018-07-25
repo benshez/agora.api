@@ -1,28 +1,4 @@
-# Logs
-*.log
-log/
-
-# ignore configs
-config/environments/development/*.doctrine.*
-config/environments/development/*.abr.*
-config/environments/development/*.mail.*
-
-config/environments/test/*.doctrine.*
-config/environments/test/*.abr.*
-config/environments/test/*.mail.*
-
-config/environments/production/*.doctrine.*
-config/environments/production/*.abr.*
-config/environments/production/*.mail.*
-
-# ignore documentation
-docs_generated
-
-#Api Vendors
+.env
 vendor/
-
-#Api Cache
-cache/
-
-#Api Settings
-settings.php
+.vagrant/
+.phplint-cache

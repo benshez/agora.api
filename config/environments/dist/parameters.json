@@ -1,9 +1,0 @@
-{
-  "determineRouteBeforeAppMiddleware": true,
-  "displayErrorDetails": true,
-  "useSimpleAnnotationReader": false,
-  "mode": "development",
-  "time_zone": "Australia/Brisbane",
-  "trial_period": 30,
-  "version": "v1"
-}

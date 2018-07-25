@@ -1,0 +1,21 @@
+AgoraApi\Application\Entities\Migrations:
+    type: entity
+    table: migrations
+    id:
+        version:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        applyTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: apply_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,59 @@
+AgoraApi\Application\Entities\Pages:
+    type: entity
+    table: pages
+    indexes:
+        idx_title:
+            columns:
+                - title
+        fk_pages_contact_id_contact_id_idx:
+            columns:
+                - contact_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        content:
+            type: text
+            nullable: false
+            length: 0
+            options:
+                fixed: false
+        enabled:
+            type: boolean
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: updated_at
+    manyToOne:
+        contact:
+            targetEntity: AgoraApi\Application\Entities\Contact
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                contact_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

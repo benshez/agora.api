@@ -1,66 +1,58 @@
 {
-  "name": "Agora/api",
+  "name": "agora/agora.api",
   "description": "Agora API",
-  "version": "0.0.1",
-  "license": "BSD-3-Clause",
-  "keywords": [
-    "Agora",
-    "slim-framework",
-    "doctrine",
-    "doctrine-migrations",
-    "migrations"
-  ],
+  "type": "project",
+  "keywords": [],
+  "license": "MIT",
   "authors": [
     {
       "name": "Ben van Heerden",
       "email": "benshez1@gmail.com",
-      "homepage": "https://github.com/benshez/agora.api"
+      "role": "Developer"
     }
   ],
+  "homepage": "https://github.com/benshez/agora.api",
+  "config": {
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.1",
+    "php-di/slim-bridge": "^1.0",
+    "crell/api-problem": "^2.0",
+    "gofabian/negotiation-middleware": "^0.1.2",
+    "league/fractal": "^0.13.0",
+    "league/tactician": "^1.0",
+    "lstrojny/functional-php": "^1.6",
+    "micheh/psr7-cache": "^0.5.0",
+    "monolog/monolog": "^1.17",
+    "robmorgan/phinx": "^0.9.2",
+    "slim/slim": "^3.9",
+    "tuupola/base62": "^0.10.0",
+    "tuupola/cors-middleware": "^0.7.0",
+    "tuupola/slim-basic-auth": "^3.0",
+    "tuupola/slim-jwt-auth": "^3.0",
+    "vlucas/phpdotenv": "^2.0",
+    "zendframework/zend-config": "^3.2.0",
+    "doctrine/orm": "^2.6.2",
+    "jms/serializer": "1.11.0",
+    "respect/validation": "^1.1",
+    "doctrine/doctrine-module": "^2.1.3"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.2",
+    "phpunit/phpunit": "^5.7",
+    "overtrue/phplint": "^1.0",
+    "friendsofphp/php-cs-fixer": "^2.12.2"
+  },
   "autoload": {
     "psr-4": {
-      "Agora\\": "app/src",
-      "Agora\\ComposerScript\\": "script/composer"
+      "AgoraApi\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "": "mapping/yaml",
-      "": "mapping/entities",
-      "fixtures\\": "mapping/fixtures"
+      "AgoraApi\\Tests\\": "tests/AgoraApi/"
     }
   },
-  "require": {
-    "doctrine/orm": "~2.5",
-    "slim/slim": "^3.5",
-    "slimphp-api/slim-oauth": "^2.0.0",
-    "slimphp-api/slim-acl": "^1.0.0",
-    "slim/http-cache": "^0.3.0",
-    "slim/twig-view": "2.4.0",
-    "monolog/monolog": "^1.17",
-    "lcobucci/jwt": "^3.1",
-    "jeremykendall/password-validator": "^3.0.4",
-    "doctrine/doctrine-module": "^2.0",
-    "zendframework/zend-crypt": "^3.2.0",
-    "zendframework/zend-permissions-acl": "^2.6.0",
-    "tuupola/cors-middleware": "^0.5.2",
-    "symfony/config": "^3.3.5",
-    "symfony/options-resolver": "^3.3.9",
-    "phpmailer/phpmailer": "^5.2.24",
-    "jms/serializer": "1.11.0"
-  },
-  "require-dev": {
-    "doctrine/migrations": "^1.4",
-    "phpunit/phpunit": "^5.4",
-    "doctrine/data-fixtures": "^1.2",
-    "squizlabs/php_codesniffer": "^3.1.1",
-    "doctrine/coding-standard": "^1.0.0",
-    "friendsofphp/php-cs-fixer": "^2.8.1"
-  },
-  "scripts": {
-    "generate-service": "Agora\\ComposerScript\\Generator::generateService",
-    "generate-entities": "doctrine-generator.sh",
-    "start": "php -S 0.0.0.0:8000 -t public public/index.php",
-    "test": "phpunit"
-  }
+  "bin": []
 }

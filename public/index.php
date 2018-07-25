@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * This file is part of the Agora API.
  *
  * PHP Version 7.1.9
@@ -11,8 +12,13 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/agora.api
  */
-if (PHP_SAPI === 'cli-server' && __FILE__ !== $_SERVER['SCRIPT_FILENAME']) {
-    return false;
-}
 
-require_once __DIR__ . '/../app/app.php';
+declare(strict_types=1);
+
+ini_set('date.timezone', 'Australia/Brisbane');
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use AgoraApi\Application\App;
+
+$application = new App();

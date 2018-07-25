@@ -1,6 +1,0 @@
-{
-  "cache": {
-    "enabled": true,
-    "engine": "ApcCache"
-  }
-}

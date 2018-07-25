@@ -1,9 +1,8 @@
 {
-  "determineRouteBeforeAppMiddleware": true,
-  "displayErrorDetails": true,
-  "useSimpleAnnotationReader": false,
-  "mode": "development",
-  "time_zone": "Australia/Brisbane",
-  "trial_period": 30,
-  "version": "v1"
+    "determineRouteBeforeAppMiddleware": true,
+    "displayErrorDetails": true,
+   
+    "app_name": "AgoraApi",
+    "time_zone": "Australia/Brisbane",
+    "trial_period": 30
 }

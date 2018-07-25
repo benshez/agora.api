@@ -1,0 +1,19 @@
+{
+  "validation": {
+    "showValidationRules": true,
+    "defaultMessages": {
+      "recordKey": {
+        "name": "key",
+        "template": "The {{name}} you entered is not valid."
+      },
+      "pagingOffset": {
+        "name": "offset value",
+        "template": "The {{name}} you entered is not valid."
+      },
+      "pagingLimit": {
+        "name": "limit value",
+        "template": "The {{name}} you entered is not valid."
+      }
+    }
+  }
+}
