@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `agora`.`industries` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -65,7 +64,6 @@ CREATE TABLE IF NOT EXISTS `agora`.`entities` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -89,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`roles` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -139,7 +137,6 @@ CREATE TABLE IF NOT EXISTS `agora`.`contact` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 47
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -194,17 +191,34 @@ CREATE INDEX `fk_locations_contact_id_contact_id_idx` ON `agora`.`locations` (`c
 
 
 -- -----------------------------------------------------
--- Table `agora`.`migrations`
+-- Table `agora`.`notes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `agora`.`migrations` ;
+DROP TABLE IF EXISTS `agora`.`notes` ;
 
-CREATE TABLE IF NOT EXISTS `agora`.`migrations` (
-  `version` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `apply_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`version`))
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `agora`.`notes` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `contact_id` INT(11) NULL DEFAULT NULL,
+  `added_by_contact_id` INT(11) NULL DEFAULT NULL,
+  `note` BLOB NOT NULL,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_added_by_contact_id_contact_id_idx`
+    FOREIGN KEY (`added_by_contact_id`)
+    REFERENCES `agora`.`contact` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contact_id_contact_id_idx`
+    FOREIGN KEY (`contact_id`)
+    REFERENCES `agora`.`contact` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+CREATE INDEX `fk_contact_id_contact_id_idx_idx` ON `agora`.`notes` (`contact_id` ASC);
+
+CREATE INDEX `fk_added_by_contact_id_contact_id_idx_idx` ON `agora`.`notes` (`added_by_contact_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -232,6 +246,63 @@ DEFAULT CHARACTER SET = latin1;
 CREATE INDEX `idx_title` ON `agora`.`pages` (`title` ASC);
 
 CREATE INDEX `fk_pages_contact_id_contact_id_idx` ON `agora`.`pages` (`contact_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `agora`.`roles_routes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `agora`.`roles_routes` ;
+
+CREATE TABLE IF NOT EXISTS `agora`.`roles_routes` (
+  `id` INT(11) NOT NULL,
+  `roles_id` INT(11) NOT NULL,
+  `route` VARCHAR(45) NOT NULL,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_roles_routes_role_id_roles_id`
+    FOREIGN KEY (`roles_id`)
+    REFERENCES `agora`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+CREATE INDEX `fk_role_routes_role_id_roles_id_idx` ON `agora`.`roles_routes` (`roles_id` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `agora`.`tasks`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `agora`.`tasks` ;
+
+CREATE TABLE IF NOT EXISTS `agora`.`tasks` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `contact_id` INT(11) NULL DEFAULT NULL,
+  `assigned_contact_id` INT(11) NULL DEFAULT NULL,
+  `status_id` INT(11) NOT NULL,
+  `description` TINYTEXT NOT NULL,
+  `date_due` DATETIME NULL DEFAULT NULL,
+  `date_completed` DATETIME NULL DEFAULT NULL,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_assigned_contact_id_contact_id_idx_idx`
+    FOREIGN KEY (`assigned_contact_id`)
+    REFERENCES `agora`.`contact` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contact_id_contact_id_idx_idx`
+    FOREIGN KEY (`contact_id`)
+    REFERENCES `agora`.`contact` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+CREATE INDEX `fk_contact_id_contact_id_idx_idx_idx` ON `agora`.`tasks` (`contact_id` ASC);
+
+CREATE INDEX `fk_assigned_contact_id_contact_id_idx_idx_idx` ON `agora`.`tasks` (`assigned_contact_id` ASC);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

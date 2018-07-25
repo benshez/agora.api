@@ -27,13 +27,13 @@ declare(strict_types=1);
  *
  * @see      https://github.com/benshez/agora.api
  */
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 
-$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/../../config');
 $dotenv->load();
 
 $config = new \AgoraApi\Infrastructure\Configuration\AgoraApiConfiguration();
@@ -51,7 +51,7 @@ $dbParameters = [
 ];
 
 $config = Setup::createYAMLMetadataConfiguration(
-    [__DIR__ . '/../mapping/yaml'],
+    [__DIR__ . '/../../mapping/yaml'],
     $isDevMode
 );
 
