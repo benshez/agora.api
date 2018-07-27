@@ -38,10 +38,7 @@ return [
             'error' => function ($response, $arguments) {
                 return new UnauthorizedResponse($arguments['message'], 401);
             },
-            'authenticator' => new AuthenticationService($container->get('AgoraApiContactController')),
-            // 'users' => [
-            //     'test' => 'test',
-            // ],
+            'authenticator' => new AuthenticationService($container->get('AgoraApiAuthenticationController')),
         ]);
     },
     AgoraApiToken::class => function (ContainerInterface $container) {
@@ -55,13 +52,13 @@ return [
             'ignore' => ['/api/' . $config->getRoutVersion() . '/token', '/info'],
             'secret' => getenv('JWT_SECRET'),
             'logger' => $container->get('AgoraApiErrorLogger'),
-            'attribute' => false,
+            'attribute' => 'token',
             'secure' => false,
             //'relaxed' => ['agora.api:8000', '127.0.0.1', 'localhost'],
             'error' => function ($response, $arguments) {
                 return new UnauthorizedResponse($arguments['message'], 401);
             },
-            'before' => function ($request, $response, $arguments) use ($container) {
+            'before' => function ($request, $arguments) use ($container) {
                 $container->get(AgoraApiToken::class)->populate($arguments['decoded']);
             },
         ]);

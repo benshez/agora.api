@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`roles` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -137,6 +137,7 @@ CREATE TABLE IF NOT EXISTS `agora`.`contact` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -249,26 +250,27 @@ CREATE INDEX `fk_pages_contact_id_contact_id_idx` ON `agora`.`pages` (`contact_i
 
 
 -- -----------------------------------------------------
--- Table `agora`.`roles_routes`
+-- Table `agora`.`role_routes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `agora`.`roles_routes` ;
+DROP TABLE IF EXISTS `agora`.`role_routes` ;
 
-CREATE TABLE IF NOT EXISTS `agora`.`roles_routes` (
-  `id` INT(11) NOT NULL,
-  `roles_id` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `agora`.`role_routes` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `role_id` INT(11) NOT NULL,
   `route` VARCHAR(45) NOT NULL,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_roles_routes_role_id_roles_id`
-    FOREIGN KEY (`roles_id`)
+    FOREIGN KEY (`role_id`)
     REFERENCES `agora`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = latin1;
 
-CREATE INDEX `fk_role_routes_role_id_roles_id_idx` ON `agora`.`roles_routes` (`roles_id` ASC);
+CREATE INDEX `fk_role_routes_role_id_roles_id_idx` ON `agora`.`role_routes` (`role_id` ASC);
 
 
 -- -----------------------------------------------------

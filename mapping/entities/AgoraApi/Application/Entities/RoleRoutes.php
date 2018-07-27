@@ -5,12 +5,12 @@ namespace AgoraApi\Application\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RolesRoutes
+ * RoleRoutes
  *
- * @ORM\Table(name="roles_routes", indexes={@ORM\Index(name="fk_role_routes_role_id_roles_id_idx", columns={"roles_id"})})
+ * @ORM\Table(name="role_routes", indexes={@ORM\Index(name="fk_role_routes_role_id_roles_id_idx", columns={"role_id"})})
  * @ORM\Entity
  */
-class RolesRoutes
+class RoleRoutes
 {
     /**
      * @var int
@@ -47,10 +47,10 @@ class RolesRoutes
      *
      * @ORM\ManyToOne(targetEntity="AgoraApi\Application\Entities\Roles")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="roles_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      * })
      */
-    private $roles;
+    private $role;
 
 
     /**
@@ -68,7 +68,7 @@ class RolesRoutes
      *
      * @param string $route
      *
-     * @return RolesRoutes
+     * @return RoleRoutes
      */
     public function setRoute($route)
     {
@@ -92,7 +92,7 @@ class RolesRoutes
      *
      * @param \DateTime $updatedAt
      *
-     * @return RolesRoutes
+     * @return RoleRoutes
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -116,7 +116,7 @@ class RolesRoutes
      *
      * @param \DateTime $createdAt
      *
-     * @return RolesRoutes
+     * @return RoleRoutes
      */
     public function setCreatedAt($createdAt)
     {
@@ -136,26 +136,26 @@ class RolesRoutes
     }
 
     /**
-     * Set roles.
+     * Set role.
      *
-     * @param \AgoraApi\Application\Entities\Roles|null $roles
+     * @param \AgoraApi\Application\Entities\Roles|null $role
      *
-     * @return RolesRoutes
+     * @return RoleRoutes
      */
-    public function setRoles(\AgoraApi\Application\Entities\Roles $roles = null)
+    public function setRole(\AgoraApi\Application\Entities\Roles $role = null)
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
 
     /**
-     * Get roles.
+     * Get role.
      *
      * @return \AgoraApi\Application\Entities\Roles|null
      */
-    public function getRoles()
+    public function getRole()
     {
-        return $this->roles;
+        return $this->role;
     }
 }

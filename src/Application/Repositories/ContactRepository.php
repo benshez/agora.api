@@ -19,8 +19,10 @@ namespace AgoraApi\Application\Repositories;
 
 use AgoraApi\Application\Core\Interfaces\IRepository;
 use AgoraApi\Application\Entities\Contact;
+use AgoraApi\Application\Entities\RoleRoutes;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 
 class ContactRepository implements IRepository
 {
@@ -50,6 +52,12 @@ class ContactRepository implements IRepository
 
         $this->_queryBuilder->select('Contact')
             ->from(Contact::class, 'Contact')
+            ->innerJoin(
+                RoleRoutes::class,
+                'RoleRoutes',
+                Join::WITH,
+                '(Contact.roleId = RoleRoutes.id)'
+            )
             ->where('Contact.username = :id')
             ->orWhere('Contact.email = :id')
             ->andWhere('Contact.password = :password')
@@ -64,12 +72,21 @@ class ContactRepository implements IRepository
     {
         $this->_queryBuilder = $this->_entityManager->createQueryBuilder();
 
-        $this->_queryBuilder->select('Contact')
-            ->from(Contact::class, 'Contact')
-            ->orWhere('Contact.email = :id')
-            ->andWhere('Contact.locked = 0')
-            ->setParameter('id', $email);
+        $this->_queryBuilder->select($this->getSelectStatement())
+            ->from(Contact::class, 'contact')
+            ->innerJoin(
+                RoleRoutes::class,
+                'roleroutes',
+                Join::WITH,
+                '(contact.role = roleroutes.role)'
+            )
+            ->where('contact.email = :id')
+            ->andWhere('contact.locked = 0')
+            ->setParameters([
+                'id' => $email,
+            ]);
 
+        //return $this->_queryBuilder->getQuery();
         return $query = $this->_queryBuilder->getQuery()->getResult(Query::HYDRATE_OBJECT);
     }
 
@@ -98,5 +115,23 @@ class ContactRepository implements IRepository
             ->setFirstResult($offset);
 
         return $query = $this->_queryBuilder->getQuery()->getResult(Query::HYDRATE_OBJECT);
+    }
+
+    /**
+     * Generate Select Statement.
+     *
+     * @return string
+     */
+    private function getSelectStatement()
+    {
+        $statement = '';
+        //$statement = 'locations.id, entities.name, ';
+        //$statement .= 'locations.latitude, locations.longitude, ';
+        $statement .= 'contact.username, contact.phone, ';
+        $statement .= 'contact.logo, contact.email, contact.website, ';
+        $statement .= 'contact.facebook, contact.twitter, contact.password, ';
+        $statement .= 'roleroutes.route';
+
+        return $statement;
     }
 }

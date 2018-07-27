@@ -22,8 +22,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Contact.
  *
- * @ORM\Entity
  * @ORM\Table(name="contact", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="fk_contact_role_id_roles_id_idx", columns={"role_id"}), @ORM\Index(name="fk_contact_entity_id_entities_id_idx", columns={"entity_id"}), @ORM\Index(name="idx_token_char", columns={"token_char"})})
+ * @ORM\Entity
  * @ORM\Entity(repositoryClass="AgoraApi\Application\Repositories\ContactRepository")
  */
 class Contact
@@ -192,9 +192,9 @@ class Contact
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var Entities
+     * @var \AgoraApi\Application\Entities\Entities
      *
-     * @ORM\ManyToOne(targetEntity="Entities")
+     * @ORM\ManyToOne(targetEntity="AgoraApi\Application\Entities\Entities")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
      * })
@@ -202,14 +202,15 @@ class Contact
     private $entity;
 
     /**
-     * @var Roles
+     * @var \AgoraApi\Application\Entities\Roles
      *
-     * @ORM\ManyToOne(targetEntity="Roles")
+     * @ORM\ManyToOne(targetEntity="AgoraApi\Application\Entities\Roles")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      * })
      */
     private $role;
+
 
     /**
      * Get id.
@@ -752,11 +753,11 @@ class Contact
     /**
      * Set entity.
      *
-     * @param Entities|null $entity
+     * @param \AgoraApi\Application\Entities\Entities|null $entity
      *
      * @return Contact
      */
-    public function setEntity(Entities $entity = null)
+    public function setEntity(\AgoraApi\Application\Entities\Entities $entity = null)
     {
         $this->entity = $entity;
 
@@ -766,7 +767,7 @@ class Contact
     /**
      * Get entity.
      *
-     * @return Entities|null
+     * @return \AgoraApi\Application\Entities\Entities|null
      */
     public function getEntity()
     {
@@ -776,11 +777,11 @@ class Contact
     /**
      * Set role.
      *
-     * @param Roles|null $role
+     * @param \AgoraApi\Application\Entities\Roles|null $role
      *
      * @return Contact
      */
-    public function setRole(Roles $role = null)
+    public function setRole(\AgoraApi\Application\Entities\Roles $role = null)
     {
         $this->role = $role;
 
@@ -790,7 +791,7 @@ class Contact
     /**
      * Get role.
      *
-     * @return Roles|null
+     * @return \AgoraApi\Application\Entities\Roles|null
      */
     public function getRole()
     {

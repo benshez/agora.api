@@ -17,14 +17,14 @@ declare(strict_types=1);
 
 namespace AgoraApi\Application\Services;
 
-use AgoraApi\Application\Controllers\ContactController;
+use AgoraApi\Application\Controllers\AuthenticationController;
 
 class AuthenticationService
 {
     protected $_controller;
 
     public function __construct(
-        ContactController $controller
+        AuthenticationController $controller
     ) {
         $this->_controller = $controller;
     }
@@ -36,6 +36,6 @@ class AuthenticationService
     public function __invoke(
         array $options = null
     ) {
-        return $this->_controller->login($options);
+        //return $this->_controller->login($options);
     }
 }

@@ -1,10 +1,10 @@
-AgoraApi\Application\Entities\RolesRoutes:
+AgoraApi\Application\Entities\RoleRoutes:
     type: entity
-    table: roles_routes
+    table: role_routes
     indexes:
         fk_role_routes_role_id_roles_id_idx:
             columns:
-                - roles_id
+                - role_id
     id:
         id:
             type: integer
@@ -34,14 +34,14 @@ AgoraApi\Application\Entities\RolesRoutes:
                 default: CURRENT_TIMESTAMP
             column: created_at
     manyToOne:
-        roles:
+        role:
             targetEntity: AgoraApi\Application\Entities\Roles
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                roles_id:
+                role_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

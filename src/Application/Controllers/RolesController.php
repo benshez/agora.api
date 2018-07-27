@@ -106,6 +106,16 @@ class RolesController implements IController
 
         try {
             if (null === $offset) {
+                $scope = new \AgoraApi\Domain\Token();
+                $scope->decoded = $this->_request->getAttribute('token');
+
+                if (!$scope->hasScope(['roles.get'])) {
+                    return $this->_errorHandler->OnCreateExceptionsResponse(
+                        $this->_request,
+                        $this->_response,
+                        new \Exception('Error Processing Request', 500)
+                    );
+                }
                 $this->getById($id);
             }
 
@@ -116,7 +126,7 @@ class RolesController implements IController
             if (!$this->_validatorsIsValid) {
                 return $this->_validatorsMessage;
             }
-            
+
             return $this->OnSerialize();
         } catch (\Exception $e) {
             return $this->_errorHandler->OnCreateExceptionsResponse(
