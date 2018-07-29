@@ -88,7 +88,7 @@ class AuthenticationController implements IController
         $this->_parameters = $parameters;
     }
 
-    public function login(
+    public function authenticate(
         Request $request,
         Response $response,
         $arguments = null
@@ -104,6 +104,9 @@ class AuthenticationController implements IController
         $this->_user = $this
         ->_contactRepository
         ->findOneByEmail($this->_passedParameters['user']);
+
+        $cc = $this
+        ->_contactRepository->findById($this->_user[0]['id']);
 
         $this->OnValidate();
 
@@ -169,7 +172,7 @@ class AuthenticationController implements IController
         });
 
         $now = new \DateTime();
-        $future = new \DateTime('now +2 hours');
+        $future = new \DateTime($this->_parameters->getSetting('tokenTimeot'));
         $server = $this->_request->getServerParams();
 
         $jti = (new Base62())->encode(random_bytes(16));

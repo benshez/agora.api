@@ -33,7 +33,7 @@ return [
             true
         );
 
-        $rotating = new RotatingFileHandler($config->getSetting('logger.path') . DIRECTORY_SEPARATOR . $config->getSetting('app_name') . '_Log', 0, Logger::DEBUG);
+        $rotating = new RotatingFileHandler($config->getSetting('logger.path') . DIRECTORY_SEPARATOR . $config->getSetting('appName') . '_Log', 0, Logger::DEBUG);
         $rotating->setFormatter($formatter);
         $logger->pushHandler($rotating);
 

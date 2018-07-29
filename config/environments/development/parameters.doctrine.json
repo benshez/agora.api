@@ -8,7 +8,7 @@
       }
     },
     "meta": {
-      "entity_path": ["{{__DIR__}}/mapping/entities"],
+      "entity_path": ["{{__DIR__}}mapping/entities"],
       "auto_generate_proxies": true,
       "proxy_dir": "{{__DIR__}}cache/proxies/",
       "cache": null
@@ -17,6 +17,6 @@
       "{{__DIR__}}/src/Models/Entities/"
     ],
     "useSimpleAnnotationReader": false,
-    "envConfigPath": "{{__DIR__}}/config/doctrine/doctrine.php"
+    "envConfigPath": "{{__DIR__}}config/doctrine/doctrine.php"
   }
 }

@@ -41,21 +41,9 @@ return [
         $config->setQueryCacheImpl($cache);
         $config->setAutoGenerateProxyClasses(true);
 
-
-        // $file = $config->getConfigRoot() . DIRECTORY_SEPARATOR . 'doctrine' . DIRECTORY_SEPARATOR . 'doctrine.php';
-        // $dbConfig = include $file;
-
-        $dbConfig = [
-            'driver' => 'pdo_mysql',
-            'user' => $_ENV['DOCTRINE_USERNAME'],
-            'password' => $_ENV['DOCTRINE_PASSWORD'],
-            'dbname' => $_ENV['DOCTRINE_DATABASE'],
-            'host' => $_ENV['DOCTRINE_HOST'],
-            'charset' => 'utf8',
-            'port' => $_ENV['DOCTRINE_PORT'],
-        ];
-
+        $dbConfig = include $parameters->getSetting('doctrine.envConfigPath');
         $entityManager = EntityManager::create($dbConfig, $config);
+
         $platform = $entityManager->getConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
 

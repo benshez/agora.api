@@ -15,8 +15,6 @@
 
 declare(strict_types=1);
 
-ini_set('date.timezone', 'Australia/Brisbane');
-
 require __DIR__ . '/../vendor/autoload.php';
 
 use AgoraApi\Application\App;

@@ -2,7 +2,8 @@
     "determineRouteBeforeAppMiddleware": true,
     "displayErrorDetails": true,
    
-    "app_name": "AgoraApi",
-    "time_zone": "Australia/Brisbane",
-    "trial_period": 30
+    "appName": "AgoraApi",
+    "timeZone": "Australia/Brisbane",
+    "tokenTimeot": "now +2 hours",
+    "trialPeriod": 30
 }

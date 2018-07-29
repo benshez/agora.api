@@ -88,6 +88,8 @@ class App extends \DI\Bridge\Slim\App
             $this->_config = new AgoraApiConfiguration();
             $this->_dotenv = new \Dotenv\Dotenv($this->getConfig()->getAppRoot() . 'config');
         }
+
+        ini_set('date.timezone', $this->getConfig()->getSetting('timeZone'));
     }
 
     private function setMiddleware(): void

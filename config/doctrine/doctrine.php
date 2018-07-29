@@ -14,7 +14,8 @@
  */
 
 declare(strict_types=1);
-\Doctrine\DBAL\Types\Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
+
+//\Doctrine\DBAL\Types\Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
 
 return [
     'driver' => 'pdo_mysql',

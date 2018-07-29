@@ -110,12 +110,9 @@ class RolesController implements IController
                 $scope->decoded = $this->_request->getAttribute('token');
 
                 if (!$scope->hasScope(['roles.get'])) {
-                    return $this->_errorHandler->OnCreateExceptionsResponse(
-                        $this->_request,
-                        $this->_response,
-                        new \Exception('Error Processing Request', 500)
-                    );
+                    return new \AgoraApi\Application\Response\UnauthorizedResponse('Error Processing Request', 401);
                 }
+
                 $this->getById($id);
             }
 

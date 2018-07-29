@@ -41,7 +41,6 @@ class Validator implements IValidator
         AgoraApiConfiguration $parameters
     ) {
         $this->_parameters = $parameters;
-        //$this->_parameters->getSetting('validation.showValidationRules');
         $this->_parameters->getSetting('validation.defaultMessages');
     }
 

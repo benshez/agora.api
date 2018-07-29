@@ -13,6 +13,10 @@
       "pagingLimit": {
         "name": "limit value",
         "template": "The {{name}} you entered is not valid."
+      },
+      "authentication": {
+        "name": "username and password",
+        "template": "Invalid user name or password."
       }
     }
   }

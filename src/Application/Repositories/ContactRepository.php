@@ -127,7 +127,7 @@ class ContactRepository implements IRepository
         $statement = '';
         //$statement = 'locations.id, entities.name, ';
         //$statement .= 'locations.latitude, locations.longitude, ';
-        $statement .= 'contact.username, contact.phone, ';
+        $statement .= 'contact.id, contact.username, contact.phone, ';
         $statement .= 'contact.logo, contact.email, contact.website, ';
         $statement .= 'contact.facebook, contact.twitter, contact.password, ';
         $statement .= 'roleroutes.route';
