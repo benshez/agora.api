@@ -46,6 +46,7 @@ return [
 
         $platform = $entityManager->getConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
+        $platform->registerDoctrineTypeMapping('CustomType', 'uuid');
 
         return $entityManager;
     },
