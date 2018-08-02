@@ -46,29 +46,7 @@ class ContactRepository implements IRepository
         $this->_entityManager = $entityManager;
     }
 
-    public function autenticate(int $id, $password)
-    {
-        $this->_queryBuilder = $this->_entityManager->createQueryBuilder();
-
-        $this->_queryBuilder->select('Contact')
-            ->from(Contact::class, 'Contact')
-            ->innerJoin(
-                RoleRoutes::class,
-                'RoleRoutes',
-                Join::WITH,
-                '(Contact.roleId = RoleRoutes.id)'
-            )
-            ->where('Contact.username = :id')
-            ->orWhere('Contact.email = :id')
-            ->andWhere('Contact.password = :password')
-            ->andWhere('Contact.locked = 0')
-            ->setParameter('id', $id)
-            ->setParameter('password', $password);
-
-        return $query = $this->_queryBuilder->getQuery()->getResult(Query::HYDRATE_OBJECT);
-    }
-
-    public function findOneByEmail($email)
+    public function autenticate(string $id, string $password)
     {
         $this->_queryBuilder = $this->_entityManager->createQueryBuilder();
 
@@ -80,6 +58,20 @@ class ContactRepository implements IRepository
                 Join::WITH,
                 '(contact.role = roleroutes.role)'
             )
+            ->where('contact.username = :id')
+            ->orWhere('contact.email = :id')
+            ->andWhere('contact.locked = 0')
+            ->setParameter('id', $id);
+
+        return $query = $this->_queryBuilder->getQuery()->getResult(Query::HYDRATE_OBJECT);
+    }
+
+    public function findOneByEmail($email)
+    {
+        $this->_queryBuilder = $this->_entityManager->createQueryBuilder();
+
+        $this->_queryBuilder->select($this->getSelectStatement())
+            ->from(Contact::class, 'contact')
             ->where('contact.email = :id')
             ->andWhere('contact.locked = 0')
             ->setParameters([
@@ -129,6 +121,7 @@ class ContactRepository implements IRepository
         //$statement .= 'locations.latitude, locations.longitude, ';
         $statement .= 'contact.id, contact.username, contact.phone, ';
         $statement .= 'contact.logo, contact.email, contact.website, ';
+        //$statement .= 'contact.facebook, contact.twitter, contact.password ';
         $statement .= 'contact.facebook, contact.twitter, contact.password, ';
         $statement .= 'roleroutes.route';
 

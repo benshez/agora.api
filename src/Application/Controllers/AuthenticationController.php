@@ -103,7 +103,7 @@ class AuthenticationController implements IController
 
         $this->_user = $this
         ->_contactRepository
-        ->findOneByEmail($this->_passedParameters['user']);
+        ->autenticate($this->_passedParameters['user'], $this->OnGenerateEncryptedPassword());
 
         $cc = $this
         ->_contactRepository->findById($this->_user[0]['id']);
@@ -143,7 +143,6 @@ class AuthenticationController implements IController
         $passedPassword = $this->_passedParameters['password'];
 
         $bcrypt = new Bcrypt();
-        $encrypt = $bcrypt->create($passedPassword);
 
         $passwordHash = $this->_user[0]['password'];
         $this->_isValidUser = $bcrypt->verify($passedPassword, $passwordHash);
@@ -190,5 +189,13 @@ class AuthenticationController implements IController
 
         $this->_data['token'] = $token;
         $this->_data['expires'] = $future->getTimeStamp();
+    }
+
+    private function OnGenerateEncryptedPassword()
+    {
+        $passedPassword = $this->_passedParameters['password'];
+
+        $bcrypt = new Bcrypt();
+        return $bcrypt->create($passedPassword);
     }
 }

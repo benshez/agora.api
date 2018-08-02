@@ -15,11 +15,6 @@
 
 declare(strict_types=1);
 
-if (!\Doctrine\DBAL\Types\Type::hasType('uuid')) {
-    \Doctrine\DBAL\Types\Type::addType('uuid', 'Ramsey\Uuid\Doctrine\UuidType');
-}
-
-
 return [
     'driver' => 'pdo_mysql',
     'user' => $_ENV['DOCTRINE_USERNAME'],
