@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace AgoraApi\Application\Controllers;
 
+use AgoraApi\Application\Core\Adapters\MailGunAdapter;
 use AgoraApi\Application\Core\Interfaces\IController;
 use AgoraApi\Application\Core\Validation\Validator;
 use AgoraApi\Application\Repositories\RolesRepository;
@@ -83,13 +84,16 @@ class RolesController implements IController
         EntityManager $entityManager,
         RolesRepository $rolesRepository,
         Validator $validator,
-        AgoraApiConfiguration $parameters
+        AgoraApiConfiguration $parameters,
+        MailGunAdapter $mailer
     ) {
         $this->_errorHandler = $errorHandler;
         $this->_entityManager = $entityManager;
         $this->_rolesRepository = $rolesRepository;
         $this->_validator = $validator;
         $this->_parameters = $parameters;
+
+        $mailer->sendHtml($to = 'benshez1@gmail.com', $from = 'sandbox6ba7f0d99fb64af597710ae5a14206b7.mailgun.org', $subject = 'hello', $html = 'world');
     }
 
     public function get(

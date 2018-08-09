@@ -27,7 +27,8 @@ return [
             $container->get('AgoraApiEntityManager'),
             $container->get('AgoraApiRolesRepository'),
             $container->get('AgoraApiValidator'),
-            $container->get('AgoraApiParameters')
+            $container->get('AgoraApiParameters'),
+            $container->get('AgoraApiMailService')
         );
     },
 

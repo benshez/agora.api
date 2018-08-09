@@ -18,28 +18,27 @@ declare(strict_types=1);
 namespace AgoraApi\Application\Core\Adapters;
 
 use AgoraApi\Application\Services\MailService;
-use Mailgun\Mailgun;
 
 class MailGunAdapter implements MailService
 {
     /**
-     * @var Mailgun
+     * @var PHPMailer
      */
-    private $mailgun;
+    private $_mailgun;
     /**
      * @var string
      */
-    private $domain;
+    private $_domain;
 
-    public function __construct($domain, Mailgun $mailgun)
+    public function __construct($domain, PHPMailer $mailgun)
     {
-        $this->mailgun = $mailgun;
-        $this->domain = $domain;
+        $this->_mailgun = $mailgun;
+        $this->_domain = $domain;
     }
 
     public function sendHtml($to = '', $from = '', $subject = '', $html = '')
     {
-        $this->mailgun->messages()->send($this->domain, [
+        $this->_mailgun->messages()->send($this->_domain, [
             'from' => $from,
             'to' => $to,
             'subject' => $subject,
@@ -49,7 +48,7 @@ class MailGunAdapter implements MailService
 
     public function sendText($to = '', $from = '', $subject = '', $text = '')
     {
-        $this->mailgun->messages()->send($this->domain, [
+        $this->_mailgun->messages()->send($this->_domain, [
             'from' => $from,
             'to' => $to,
             'subject' => $subject,
@@ -62,6 +61,6 @@ class MailGunAdapter implements MailService
      */
     public function getDomain()
     {
-        return $this->domain;
+        return $this->_domain;
     }
 }

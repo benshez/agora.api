@@ -17,7 +17,7 @@
       }
     },
     "template_path": "app/src/Modules/Mailer/Templates/",
-    "mailgunDomain": "mg.glenneggleton.com",
+    "mailgunDomain": "https://api.mailgun.net/v3/sandbox6ba7f0d99fb64af597710ae5a14206b7.mailgun.org",
     "emailDomain": "http://admin.local"
   }
 }

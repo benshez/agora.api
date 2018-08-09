@@ -26,8 +26,8 @@ return [
 
         $entityManager = null;
 
-        $cache = ('' === $parameters->getSetting('doctrine.meta.cache')) ? new ArrayCache() : ('' === $parameters->getSetting('doctrine.meta.cache'));
-        //$cache = new ArrayCache();
+        $cache = ('' === $parameters->getSetting('doctrine.meta.cache')) ? new ArrayCache() : $parameters->getSetting('doctrine.meta.cache');
+
         $config = Setup::createAnnotationMetadataConfiguration(
             $parameters->getSetting('doctrine.paths'),
             false,
@@ -35,18 +35,35 @@ return [
             $cache,
             $parameters->getSetting('doctrine.useSimpleAnnotationReader')
         );
-
-
         $config->setMetadataCacheImpl($cache);
         $config->setQueryCacheImpl($cache);
         $config->setAutoGenerateProxyClasses(true);
 
         $dbConfig = include $parameters->getSetting('doctrine.envConfigPath');
-        $entityManager = EntityManager::create($dbConfig, $config);
+
+        $entityManager = EntityManager::create(
+            $dbConfig,
+            $config,
+            $container->get(AgoraApiEventManager::class)
+        );
 
         $platform = $entityManager->getConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
 
         return $entityManager;
+    },
+
+    AgoraApiEventManager::class => function (ContainerInterface $container) {
+        $eventManager = new \Doctrine\Common\EventManager();
+
+        $listener = new \AgoraApi\Infrastructure\Listeners\MailListener(
+            $container->get('errorHandler'),
+            $container->get('AgoraApiParameters'),
+            $container->get('AgoraApiMailService')
+        );
+
+        $eventManager->addEventListener($listener->getSubscribedEvents(), $listener);
+        //$eventManager->addEventSubscriber(new \Agora\Modules\Base\Events\BaseEventSubscriber());
+        return $eventManager;
     },
 ];
